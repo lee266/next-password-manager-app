@@ -1,7 +1,12 @@
-/** @type {import('next').NextConfig} */
+/**
+ *  @type {import('next').NextConfig} 
+*/
+
+const { i18n } = require("./next-i18next.config");
 
 const nextConfig = {
   reactStrictMode: true,
+  i18n,
   // hot reload 
   webpackDevMiddleware: config => {
     config.watchOptions = {
@@ -11,6 +16,6 @@ const nextConfig = {
     }
     return config
   },
-}
+};
 
 module.exports = nextConfig

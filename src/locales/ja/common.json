@@ -1,0 +1,18 @@
+
+{
+  "localLabel": "日本語",
+  "general": {
+    "auth": {
+      "email": "メールアドレス",
+      "password": "パスワード"
+    },
+    "nav": {
+      "password": "パスワード",
+      "againPassword": "パスワード再入力",
+      "chat": "チャット"
+    },
+    "common": {
+      "password": "パスワード"
+    }
+  }
+}

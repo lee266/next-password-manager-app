@@ -1,18 +1,34 @@
-import Head from 'next/head'
-import Image from 'next/image'
+import { GetStaticProps } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Inter } from '@next/font/google'
-import styles from '../styles/Home.module.scss'
-import { Footer } from '../components/organisms/Footer/Footer'
-
+import MainLayout from '../components/layouts/MainLayout';
 const inter = Inter({ subsets: ['latin'] })
 
+
 export default function Home() {
+  const { t } = useTranslation();
+
   return (
     <>
-      <main className={styles.main}>
-        <p>hello </p>
-        <Footer></Footer>
-      </main>
+      <MainLayout title='index'>
+        <p>{t("general.nav.password")}</p>
+      </MainLayout>
     </>
-  )
+  );
 }
+
+// export const GetStaticProps: GetStaticProps<{Locales: IndexProps}> = async(
+//   context
+// ) => {
+
+// }
+
+export async function getStaticProps({ locale }: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    }
+  }
+}
+
