@@ -5,7 +5,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import styles from '../../styles/Home.module.scss';
 import { Header } from '../organisms/Header/Header';
 import { SideNavigation } from '../organisms/Navbar/SideNavigation';
-import { MainContent } from '../molecules/MainContent';
+// import { MainContent } from '../molecules/MainContent';
+import { MainContent } from '../molecules/MainContent2';
+
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -29,7 +31,7 @@ export default function MainLayout(props: LayoutProps) {
         <CssBaseline />
         <Header title={props.title} open={open} handleDrawerOpen={handleDrawerOpen}></Header>
         <SideNavigation open={open} handleDrawerClose={handleDrawerClose}></SideNavigation>
-        <MainContent open={open}>
+        <MainContent  open={open}>
           { props.children }
         </MainContent>
       </Box>

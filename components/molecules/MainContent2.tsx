@@ -1,17 +1,20 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
+import styles from '../../styles/Home.module.scss';
+import { makeStyles, Theme } from '@mui/material';
 
 const drawerWidth = 240;
 
-interface MainContentProps {
-  children: React.ReactNode;
+interface MainContentProps{
   open: boolean;
+  children: React.ReactNode;
 }
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
-  open?: boolean;
-}>(({ theme, open }) => ({
-  flexGrow: 1,
+
+const Main = styled('main', { 
+  shouldForwardProp: (prop) => prop !== 'open'
+})<{open?: boolean}>(({ theme, open }) => ({
+
   transition: theme.transitions.create('margin', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -24,14 +27,17 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     }),
     marginLeft: 0,
   }),
+
 }));
 
 
 export function MainContent(props:MainContentProps) {
+  const theme = useTheme()
   return(
     <>
-      <Main open={props.open}>
-        { props.children}
+      <Main className={styles.content} open={props.open}>
+        <div style={theme.mixins.toolbar}></div>
+        {props.children}
       </Main>
     </>
   )

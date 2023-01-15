@@ -10,25 +10,32 @@ import MailIcon from '@mui/icons-material/Mail';
 
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import Link from 'next/link';
 
 export function SideMenu() {
   const router = useRouter();
 
   const { t } = useTranslation("");
-  const listName = ['password', 'chat', 'other', 'index']
+  // const listName = ['password', 'chat', 'other', 'index']
+  const listItem = [
+    ['password', 'password-manage'],
+    ['chat', 'chat']
+  ]
 
   return (
     <>
       <List>
-          {listName.map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={t("general.nav."+text)} />
-              </ListItemButton>
-            </ListItem>
+          {listItem.map((text, index) => (
+            <Link href={`${text[1]}`} >
+              <ListItem key={text[0]} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={t("general.nav."+text[0])} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
           ))}
         </List>
     </>
