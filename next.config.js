@@ -10,12 +10,13 @@ const nextConfig = {
   // hot reload 
   webpackDevMiddleware: config => {
     config.watchOptions = {
-      poll: 800,
+      poll: 5000,
       aggregateTimeout: 300,
       ignored : ['node_modules']
     }
     return config
   },
+  
 };
 
 module.exports = nextConfig

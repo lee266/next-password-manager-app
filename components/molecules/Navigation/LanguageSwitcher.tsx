@@ -17,7 +17,7 @@ export default function LanguageSwitcher() {
           return (
             <span key={"locale-" + locale}>
               <Link href={{ pathname, query }} as={asPath} locale={locale}>
-                {locale === "en" ? "English" : null}
+                {locale === "en" ? "English" : locale === "ja" ? "japanese" : null}
               </Link>
             </span>
           );

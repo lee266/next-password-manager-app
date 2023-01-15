@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Inter } from '@next/font/google'
 import MainLayout from '../components/layouts/MainLayout';
+import CheckLogin from '../components/molecules/Auth/checkLogin';
 const inter = Inter({ subsets: ['latin'] })
 
 
@@ -11,9 +12,11 @@ export default function Home() {
 
   return (
     <>
-      <MainLayout title='index'>
-        <p>{t("general.nav.password")}</p>
-      </MainLayout>
+      <CheckLogin>
+        <MainLayout title='index'>
+          <p>{t("general.nav.password")}</p>
+        </MainLayout>
+      </CheckLogin>
     </>
   );
 }

@@ -4,7 +4,12 @@
   "general": {
     "auth": {
       "email": "メールアドレス",
-      "password": "パスワード"
+      "password": "パスワード",
+      "signIn": "サインイン",
+      "signUp": "サインアップ",
+      "forgotPassword": "パスワードを忘れましたか",
+      "noAccount": "アカウントを持っていないですか",
+      "pleaseSignUp": "サインアップしてください"
     },
     "nav": {
       "password": "パスワード",
