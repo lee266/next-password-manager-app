@@ -1,0 +1,9 @@
+// if you want to use css module, please name [name].module.scss
+.main {
+  display: flex;
+}
+
+.content {
+  min-height: 100vh;
+  flex-grow: 1;
+}

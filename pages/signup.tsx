@@ -15,10 +15,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styles from '../styles/Home.module.scss';
 import Copyright from '../components/molecules/Copyright';
 
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const theme = createTheme();
 
 export default function SignUp() {
+  const { t } = useTranslation();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -46,7 +49,7 @@ export default function SignUp() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign up
+              {t("general.auth.signIn")}
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
               <Grid container spacing={2}>
@@ -88,7 +91,7 @@ export default function SignUp() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign Up
+                {t("general.auth.signIn")}
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>
@@ -106,70 +109,10 @@ export default function SignUp() {
   );
 }
 
-
-
-
-
-
-
-// import {Controller, SubmitHandler, useForm } from "react-hook-form";
-// import { useTranslation } from 'next-i18next';
-// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-// import { Stack, TextField, Button } from "@mui/material";
-
-// type Inputs = {
-//   email: string,
-//   password: string,
-//   againPassword: string,
-// }
- 
-// export default function SignUp() {
-//   const { t } = useTranslation();
-
-//   const {
-//     control,
-//     handleSubmit,
-//   } = useForm<Inputs>({
-//   })
-
-//   const validationRules = {
-//     email: {
-//       required: '名前を入力してください。'
-//     }
-//   }
-
-//   const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
-//     console.log(`submit: ${data.email}`);
-//   }
-
-//   return(
-//     <>
-//       <Stack component="form"
-//         onSubmit={handleSubmit(onSubmit)}
-//         spacing={2} sx={{ m: 2 ,width: '25ch'}}>
-//         <Controller
-//           name="email"
-//           control={control}
-//           rules={validationRules.email}
-//           render={({ field, fieldState}) => (
-//             <TextField
-//               {...field}
-//               type="email"
-//               label="email"
-//             />
-//           )}/>
-//           <Button variant="contained" type="submit">
-//             send
-//           </Button>
-//       </Stack>
-//     </>
-//   )
-// }
-
-// export async function getStaticProps({ locale }: any) {
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(locale, ["common"])),
-//     }
-//   }
-// }
+export async function getStaticProps({ locale }: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    }
+  }
+}
