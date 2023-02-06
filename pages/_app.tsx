@@ -1,5 +1,4 @@
 import '../styles/globals.scss';
-import { appWithTranslation } from 'next-i18next';
 import type { AppProps } from 'next/app';
 import * as React from 'react';
 // import PropTypes from 'prop-types';
@@ -9,6 +8,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
+
+import { appWithTranslation } from 'next-i18next';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();

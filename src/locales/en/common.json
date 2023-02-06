@@ -2,6 +2,16 @@
 {
   "localeLabel": "English",
   "general": {
+    "auth": {
+      "email": "email",
+      "username": "username",
+      "password": "password",
+      "signIn": "sign in",
+      "signUp": "sign up",
+      "forgotPassword": "you forget password",
+      "noAccount": "you don't have account",
+      "pleaseSignUp": "please sing up"
+    },
     "nav": {
       "password": "password",
       "chat": "chat"

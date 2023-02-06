@@ -22,6 +22,12 @@ import Cookie from 'universal-cookie';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+type loginType = {
+  email: string
+  username: string
+  password: string
+}
+
 const cookie = new Cookie();
 const theme = createTheme();
 
@@ -45,12 +51,17 @@ export default function SignIn() {
         }
       ).then((res) => {
         if (res.status === 400) {
+          console.log("create jwt error 400");
           throw "authentication failed"
         }else if (res.ok) {
+          console.log("correct create jwt");
           return res.json();
+        }else {
+          console.log("jwt create error");
         }
       }).then((data) => {
         const options = {path: "/"};
+        console.log(data.access);
         cookie.set("access_token", data.access, options);
       });
       getUser();
@@ -72,14 +83,19 @@ export default function SignIn() {
         }
       ).then((res) => {
         if (res.status === 400) {
+          console.log("can't get user data 400");
           throw "authentication failed"
         }else if (res.ok) {
+          console.log("can get user data");
           return res.json();
+        }else {
+          console.log("can't get user");
         }
       }).then((data) => {
+        console.log(data);
         const options = {path: "/"}
         cookie.set("id", data.id, options);
-        router.push("/");
+        // router.push("/");
       })
     }catch (error) {
       alert(error);
@@ -119,6 +135,7 @@ export default function SignIn() {
                 required
                 fullWidth
                 id="email"
+                inputProps={{required:true,}}
                 label={t("general.auth.email")}
                 name="email"
                 autoComplete="email"
