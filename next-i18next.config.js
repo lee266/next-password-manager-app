@@ -7,6 +7,6 @@ module.exports = {
     locales: ["ja", "en"],
     // localeDetection: false,
     // please set path of  locales folder
-    localePath: path.resolve("./src/locales"),
+    // localePath: path.resolve("./src/locales"),
   }
 }
