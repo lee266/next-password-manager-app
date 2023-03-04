@@ -1,0 +1,35 @@
+
+{
+  "localLabel": "日本語",
+  "general": {
+    "auth": {
+      "email": "メールアドレス",
+      "username": "ユーザー名",
+      "password": "パスワード",
+      "signIn": "サインイン",
+      "signUp": "サインアップ",
+      "forgotPassword": "パスワードを忘れましたか",
+      "noAccount": "アカウントを持っていないですか",
+      "pleaseSignUp": "サインアップしてください"
+    },
+    "error": {
+      "require": "必須です",
+      "email": "正しいメールアドレスを入力してください"
+    },
+    "nav": {
+      "password": "パスワード",
+      "againPassword": "パスワード再入力",
+      "chat": "チャット"
+    },
+    "common": {
+      "password": "パスワード"
+    },
+    "yup": {
+      "string": "この項目は文字を入れてください",
+      "boolean": "この項目はbool値です",
+      "required": "この項目は必須です",
+      "number": "この項目は数値を入れてください",
+      "email": "正しいメールアドレスを入力してください"
+    }
+  }
+}
