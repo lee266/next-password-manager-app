@@ -8,6 +8,7 @@
       "password": "パスワード",
       "signIn": "サインイン",
       "signUp": "サインアップ",
+      "login": "ログイン",
       "forgotPassword": "パスワードを忘れましたか",
       "noAccount": "アカウントを持っていないですか",
       "pleaseSignUp": "サインアップしてください"
@@ -30,6 +31,11 @@
       "required": "この項目は必須です",
       "number": "この項目は数値を入れてください",
       "email": "正しいメールアドレスを入力してください"
+    }
+  },
+  "component": {
+    "button": {
+      "login": "ログイン"
     }
   }
 }

@@ -121,14 +121,14 @@ const calendar: NextPage<calendarType> = ( props ) => {
         setAlertOpen={setAlertOpen}
         severity={severity}
       /> 
-      <AddFormDialog
+      {/* <AddFormDialog
         dialogOpen={addDialogOpen}
         setDialogOpen={setAddDialogOpen}
         mutate={mutate}
         url={baseUrl}
         defaultStart={defaultStart}
         defaultEnd={defaultEnd}
-      />
+      /> */}
       {/* <SelectDataDialogs
         dialogOpen={selectDialogOpen}
         setDialogOpen={setSelectDialogOpen}

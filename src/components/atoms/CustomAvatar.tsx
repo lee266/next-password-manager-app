@@ -7,9 +7,14 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Logout from '@mui/icons-material/Logout';
 import Settings from '@mui/icons-material/Settings';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import { useDispatch } from 'react-redux';
+import { useRouter } from "next/router";
+import { clearUser } from 'redux/users/reducer';
 
 export const CustomAvatar = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const dispatch = useDispatch();
+  const router = useRouter();
   const avatarOpen = Boolean(anchorEl);
 
   const handleClick = useCallback((
@@ -23,6 +28,11 @@ export const CustomAvatar = () => {
       setAnchorEl(null);
     }, []
   );
+
+  const handleLogin = async() => {
+    dispatch(clearUser());
+    router.push("/login2");
+  }
 
   return(
     <div>
@@ -76,7 +86,7 @@ export const CustomAvatar = () => {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleLogin}>
           <ListItemIcon>
             <Logout/>
           </ListItemIcon>

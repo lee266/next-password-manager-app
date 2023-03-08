@@ -85,14 +85,14 @@ function PasswordManage() {
           <TableBody>
             {posts.map((post, i) => (
               <TableRow
-              key={post.id}
+              key={post}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell align="right">{post.id}</TableCell>
-                <TableCell align="right">{post.title}</TableCell>
-                <TableCell align="right">{post.password}</TableCell>
-                <TableCell align="right">{post.email}</TableCell>
-                <TableCell align="right">{post.created_at}</TableCell>
+                <TableCell align="right">{post}</TableCell>
+                <TableCell align="right">{post}</TableCell>
+                <TableCell align="right">{post}</TableCell>
+                <TableCell align="right">{post}</TableCell>
+                <TableCell align="right">{post}</TableCell>
               </TableRow>
             ))}
           </TableBody>
