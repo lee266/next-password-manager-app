@@ -15,7 +15,7 @@ import Alerts from "components/molecules/Feedback/Alerts";
 // Redux
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { clearUser, fetchUserDataRequest } from "redux/users/reducer";
+import { fetchUserDataRequest } from "redux/users/reducer";
 // MUI 
 import Box from "@mui/material/Box";
 import Container from '@mui/material/Container';
@@ -78,7 +78,6 @@ const login2: NextPage<loginType> = ( props ) => {
       const accessKey:string = token.data.access
       dispatch(fetchUserDataRequest({token: accessKey}))
       console.log("user",user);
-      // dispatch(clearUser());
       // console.log("delete user", user);
       router.push("/");
     }else{

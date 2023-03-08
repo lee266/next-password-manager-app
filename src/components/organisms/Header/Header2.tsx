@@ -16,7 +16,7 @@ import { Drawer } from '@mui/material';
 import Link from 'next/link';
 
 const navItems = [
-  ['index', 'index'],
+  ['index', ''],
   ['password', 'password-manage'],
   ['calendar', 'calendar'],
   ['navTest', 'navigation-test']
@@ -48,6 +48,7 @@ export const Header2 = () => {
             <CustomAvatar/>
           </Toolbar>
         </AppBar>
+        {/* side bar  */}
         <Box>
           <Drawer
             variant="temporary"

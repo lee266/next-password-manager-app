@@ -7,7 +7,12 @@ export function getToken(): string | undefined {
 }
 
 export function saveToken(token: string): void {
-  Cookies.set(TOKEN_KEY, token, { expires: 7 });
+  Cookies.set(TOKEN_KEY, token, {
+    expires: 7,
+    path: '/',
+    secure: true,
+    sameSite: 'strict' 
+  });
 }
 
 export function removeToken(): void {
@@ -15,7 +20,12 @@ export function removeToken(): void {
 }
 
 export function saveCookie(value:string): void {
-  Cookies.set('user', value, {expires: 7});
+  Cookies.set('user', value, {
+    expires: 7,
+    path: '/',
+    secure: true,
+    sameSite: 'strict' 
+  });
 }
 
 export function logoutCookies(): void {

@@ -1,7 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { getUser } from "api/users/crud";
 import { call, put, takeLatest } from "redux-saga/effects";
-import { removeToken, saveCookie } from "utils/auth";
+import { logoutCookies, saveCookie } from "utils/auth";
 import { clearUser, fetchUserDataRequest, loginError, loginSuccess } from "./reducer";
 import { User } from "./types";
 
@@ -28,7 +28,7 @@ function* loginUserSaga(action: PayloadAction<User>):Generator<any, any, any> {
 }
 
 function* logoutSaga() {
-  removeToken();
+  logoutCookies();
 }
 
 export function* userSaga() {
