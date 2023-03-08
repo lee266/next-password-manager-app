@@ -16,5 +16,10 @@
       "password": "password",
       "chat": "chat"
     }
+  },
+  "component": {
+    "button": {
+      "login": "login"
+    }
   }
 }
