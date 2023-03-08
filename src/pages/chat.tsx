@@ -42,12 +42,12 @@ export default function Chat() {
         <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
           {messages.map((message, i) => (
             <div key={i}>
-              <ListItem alignItems="flex-start" key={message.id}>
+              <ListItem alignItems="flex-start" key={message}>
                 <ListItemAvatar>
-                  <Avatar>{message.user}</Avatar>
+                  <Avatar>{message}</Avatar>
                 </ListItemAvatar>
                 <ListItemText
-                  primary={message.user}
+                  primary={message}
                   secondary={
                     <React.Fragment>
                       <Typography
@@ -56,7 +56,7 @@ export default function Chat() {
                         variant="body2"
                         color="text.primary"
                       >
-                        {message.Message}
+                        {message}
                       </Typography>
                     </React.Fragment>
                   }
