@@ -24,27 +24,38 @@ const Alerts2 = () => {
     dispatch(removeAlert(message));
   }, [dispatch]);
 
-  const handleCloseSnackbar = useCallback(() => {
-    dispatch(closeSnackbar());
-  }, [dispatch])
+  const handleCloseSnackbar =  useCallback(async (message: string) => {
+    console.log("Active handleCloseSnackbar");
+    await dispatch(removeAlert(message));
+    console.log(alerts.length);
+    
+    if (alerts.length === 0) {
+      dispatch(closeSnackbar());
+    }
+  }, [dispatch, alerts])
   
-  useEffect(() => {
-    alerts.forEach((alert: AlertType) => {
-      setTimeout(() => {
-        handleClose(alert.message);
-      }, 5000)
-    })
-  }, [alerts, handleClose]);
+  // useEffect(() => {
+  //   alerts.forEach((alert: AlertType) => {
+  //     setTimeout(() => {
+  //       handleClose(alert.message);
+  //     }, 5000)
+  //   })
+  // }, [alerts, handleClose]);
+
+  if (alerts.length === 0) {
+    return null; // don't render anything if there are no alerts
+  }
 
   return(
-    <div>
+    <div className="alerts">
       {alerts.map((alert, index) => (
         <Snackbar 
           key={index}
           autoHideDuration={5000} 
           open={open} 
-          onClose={handleCloseSnackbar} 
+          onClose={() => handleCloseSnackbar(alert.message)} 
           TransitionComponent={TransitionRight}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
           <Alert
             severity={alert.severity} 
