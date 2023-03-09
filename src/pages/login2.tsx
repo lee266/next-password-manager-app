@@ -31,6 +31,7 @@ import { AlertColor } from "@mui/material";
 import { saveToken } from "utils/auth";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/rootReducer";
+import Alerts2 from "components/molecules/Feedback/Alerts2";
 
 
 type loginType = {
@@ -96,6 +97,7 @@ const login2: NextPage<loginType> = ( props ) => {
           setAlertOpen={setAlertOpen}
           severity={severity}
         />
+        <Alerts2/>
         <Box
           sx={{
             marginTop: 8,
@@ -150,7 +152,7 @@ const login2: NextPage<loginType> = ( props ) => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/signup" variant="body2">
+                <Link href="/sign-up" variant="body2">
                   {t("general.auth.noAccount") + "?" + t("general.auth.pleaseSignUp")}
                 </Link>
               </Grid>

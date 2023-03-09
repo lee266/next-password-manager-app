@@ -6,6 +6,7 @@
       "email": "メールアドレス",
       "username": "ユーザー名",
       "password": "パスワード",
+      "confirmPassword": "パスワード確認",
       "signIn": "サインイン",
       "signUp": "サインアップ",
       "login": "ログイン",
