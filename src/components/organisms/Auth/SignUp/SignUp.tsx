@@ -3,6 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import CustomLink from 'components/atoms/CustomLink';
 import SignUpForm from 'components/molecules/Form/SignUpForm';
 import Copyright from 'components/molecules/Copyright';
 
@@ -26,6 +27,9 @@ const SignUp = () => {
           {t("general.auth.signUp")}
         </Typography>
         <SignUpForm/>
+        <CustomLink href="/login2">
+          すでにサインアップしてますか？
+        </CustomLink>
       </Box>
       <Copyright sx={{ mt: 3 }} />
     </div>

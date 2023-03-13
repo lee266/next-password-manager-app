@@ -1,29 +1,29 @@
-import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useTranslation } from "next-i18next";
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
-// MUI 
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import CircularProgress from "@mui/material/CircularProgress";
-import { saveUser } from "api/users/crud";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addAlert } from "redux/Feedback/reducer";
 import { Alert } from "redux/Feedback/types";
-import { useState } from "react";
+// MUI 
+import Button from '@mui/material/Button';
+import CircularProgress from "@mui/material/CircularProgress";
+import TextField from '@mui/material/TextField';
+import { saveUser } from "api/users/crud";
 
 type SignUpFormData = {
   username: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  re_password: string;
 }
 
 const SignUpForm = () => {
   const { t } = useTranslation();
-  const router = useRouter();
   const dispatch = useDispatch();
+  const router = useRouter();
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   // Define yup Error Messages
@@ -31,7 +31,6 @@ const SignUpForm = () => {
   const requiredEmail = t("general.yup.email");
   const passwordMatchError = t("general.yup.passwordsMatch");
   const minError = t("general.yup.minChars");
-
   const schema = yup.object().shape({
     username: yup.string()
       .trim()
@@ -43,7 +42,7 @@ const SignUpForm = () => {
     password: yup.string()
       .required(requiredError)
       .min(8, minError),
-    confirmPassword: yup.string()
+    re_password: yup.string()
       .oneOf([yup.ref('password')], passwordMatchError)
       .required(requiredError),
   });
@@ -56,9 +55,9 @@ const SignUpForm = () => {
     resolver: yupResolver(schema)
   });
 
-  const onSubmit = async(data: SignUpFormData) => {
-    setIsSubmitting(true);
+  const onSubmit: SubmitHandler<SignUpFormData> = async(data) => {
     try {
+      setIsSubmitting(true);
       await saveUser(data);
       setAlertMessage("sign up success")
       const alert: Alert = {
@@ -84,8 +83,8 @@ const SignUpForm = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="sing-up-form">
+      <form>
         <TextField
           id="username"
           label={t("general.auth.username")}
@@ -119,25 +118,26 @@ const SignUpForm = () => {
           helperText={errors.password?.message}
         />
         <TextField
-          id="confirmPassword"
+          id="re_password"
           label={t("general.auth.confirmPassword")}
           margin="normal"
           fullWidth
           type="password"
           autoComplete="confirmPassword"
-          {...register('confirmPassword')}
-          error={!!errors.confirmPassword}
-          helperText={errors.confirmPassword?.message}
+          {...register('re_password')}
+          error={!!errors.re_password}
+          helperText={errors.re_password?.message}
         />
         <Button
           type="submit"
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
+          onClick={handleSubmit(onSubmit)}
           disabled={isSubmitting}
         >
           {isSubmitting ? 
-            <CircularProgress size={24} color="primary" /> : t("general.auth.signIn")
+            <CircularProgress size={24} color="primary" /> : t("general.auth.signUp")
           }
         </Button>
       </form>
