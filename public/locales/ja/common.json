@@ -10,6 +10,7 @@
       "signIn": "サインイン",
       "signUp": "サインアップ",
       "login": "ログイン",
+      "resetPassword": "パスワード変更",
       "forgotPassword": "パスワードを忘れましたか",
       "noAccount": "アカウントを持っていないですか",
       "pleaseSignUp": "サインアップしてください"
@@ -31,12 +32,15 @@
       "boolean": "この項目はbool値です",
       "required": "この項目は必須です",
       "number": "この項目は数値を入れてください",
-      "email": "正しいメールアドレスを入力してください"
+      "email": "正しいメールアドレスを入力してください",
+      "passwordsMatch": "同じパスワードを入力してください",
+      "minChars": "文字数が少ないです"
     }
   },
   "component": {
     "button": {
-      "login": "ログイン"
+      "login": "ログイン",
+      "resetPassword": "パスワード変更"
     }
   }
 }

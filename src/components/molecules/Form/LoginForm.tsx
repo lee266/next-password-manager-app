@@ -1,26 +1,28 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
+// translation
 import { useTranslation } from "next-i18next";
+// validation rule
 import * as yup from 'yup';
-import { yupResolver } from "@hookform/resolvers/yup";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from "react-redux";
 import { addAlert } from "redux/Feedback/reducer";
 import { Alert } from "redux/Feedback/types";
-// MUI 
+import { fetchUserDataRequest } from "redux/users/reducer";
+// MUI
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 import TextField from '@mui/material/TextField';
-import { saveUser } from "api/users/crud";
+import { createJwt } from "api/auth/jwt";
+import { saveToken } from "utils/auth";
 
-type SignUpFormData = {
-  username: string;
-  email: string;
-  password: string;
-  re_password: string;
+type LoginFromData = {
+  email: string
+  password: string
 }
 
-const SignUpForm = () => {
+const LoginForm = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -29,43 +31,39 @@ const SignUpForm = () => {
   // Define yup Error Messages
   const requiredError = t("general.yup.required");
   const requiredEmail = t("general.yup.email");
-  const passwordMatchError = t("general.yup.passwordsMatch");
-  const minError = t("general.yup.minChars");
+  // validation rule 
   const schema = yup.object().shape({
-    username: yup.string()
-      .trim()
-      .required(requiredError),
     email: yup.string()
       .trim()
       .email(requiredEmail)
       .required(requiredError),
     password: yup.string()
       .required(requiredError)
-      .min(8, minError),
-    re_password: yup.string()
-      .oneOf([yup.ref('password')], passwordMatchError)
-      .required(requiredError),
   });
 
-  const {
-    register,
-    handleSubmit,
+  const { 
+    register, 
+    handleSubmit, 
     formState: { errors } 
-  } = useForm<SignUpFormData>({
+  } = useForm<LoginFromData>({
     resolver: yupResolver(schema)
   });
 
-  const onSubmit: SubmitHandler<SignUpFormData> = async(data) => {
+  const onSubmit: SubmitHandler<LoginFromData> = async(data) => {
     try {
       setIsSubmitting(true);
-      await saveUser(data);
-      setAlertMessage("sign up success")
+      const token = await createJwt(data);
+      const accessKey:string = token.data.access;
+      // Save token in cookie 
+      saveToken(accessKey);
+      dispatch(fetchUserDataRequest({token: accessKey}));
+      setAlertMessage("create jwt");
       const alert: Alert = {
         message: alertMessage,
         severity: "success",
       }
-      dispatch(addAlert(alert))
-      await router.push('/login2');
+      dispatch(addAlert(alert));
+      await router.push("/");
     } catch (error) {
       if (error instanceof Error) {
         setAlertMessage(error.message)
@@ -82,23 +80,14 @@ const SignUpForm = () => {
     }
   }
 
-  return (
-    <div className="sing-up-form">
+  return(
+    <div className="login-form">
       <form>
-        <TextField
-          id="username"
-          label={t("general.auth.username")}
-          margin="normal"
-          fullWidth
-          autoComplete="username"
-          {...register('username')}
-          error={!!errors.username}
-          helperText={errors.username?.message}
-        />
         <TextField
           id="email"
           label={t("general.auth.email")}
           margin="normal"
+          required
           fullWidth
           autoComplete="email"
           autoFocus
@@ -110,23 +99,13 @@ const SignUpForm = () => {
           id="password"
           label={t("general.auth.password")}
           margin="normal"
+          required
           fullWidth
           type="password"
           autoComplete="current-password"
           {...register('password')}
           error={!!errors.password}
           helperText={errors.password?.message}
-        />
-        <TextField
-          id="re_password"
-          label={t("general.auth.confirmPassword")}
-          margin="normal"
-          fullWidth
-          type="password"
-          autoComplete="confirmPassword"
-          {...register('re_password')}
-          error={!!errors.re_password}
-          helperText={errors.re_password?.message}
         />
         <Button
           type="submit"
@@ -137,19 +116,12 @@ const SignUpForm = () => {
           disabled={isSubmitting}
         >
           {isSubmitting ? 
-            <CircularProgress size={24} color="primary" /> : t("general.auth.signUp")
+            <CircularProgress size={24} color="primary" /> : t("component.button.login")
           }
         </Button>
       </form>
     </div>
-    // <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-    //   <Grid container spacing={2}>
-    //     <Grid item xs={12}>
-    //       <TextField/>
-    //     </Grid>
-    //   </Grid>
-    // </Box>
   )
 }
 
-export default SignUpForm;
+export default LoginForm;

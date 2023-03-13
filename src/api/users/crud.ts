@@ -22,8 +22,8 @@ export const getUser:getUserFunction = async(token:string) => {
 }
 
 export const saveUser = async (data:object) => {
-  const POST_URL = BASEURL + 'users/';
   console.log('Active saveUser() src/api/users/crud.ts');
   console.log(data);
+  const POST_URL = BASEURL + 'users/';
   return await axios.post(POST_URL, data);
 }

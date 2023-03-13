@@ -2,16 +2,18 @@ import { useTranslation } from 'next-i18next';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import CustomLink from 'components/atoms/CustomLink';
-import SignUpForm from 'components/molecules/Form/SignUpForm';
+import LoginForm from 'components/molecules/Form/LoginForm';
 import Copyright from 'components/molecules/Copyright';
 
-const SignUp = () => {
+
+const Login = () => {
   const { t } = useTranslation();
 
-  return (
-    <div className='sign_up'>
+  return(
+    <div>
       <Box
         sx={{
           marginTop: 8,
@@ -24,16 +26,25 @@ const SignUp = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {t("general.auth.signUp")}
+          {t("general.auth.login")}
         </Typography>
-        <SignUpForm/>
-        <CustomLink href="/login2">
-          すでにサインアップしてますか？
-        </CustomLink>
+        <LoginForm/>
+        <Grid container>
+          <Grid item xs>
+            <CustomLink href="/forget-password">
+              {t("general.auth.forgotPassword") + "?"}
+            </CustomLink>
+          </Grid>
+          <Grid item>
+            <CustomLink href="/sign-up">
+              {t("general.auth.noAccount") + "?" + t("general.auth.pleaseSignUp")}
+            </CustomLink>
+          </Grid>
+        </Grid>
+        <Copyright sx={{ mt: 3 }}/>
       </Box>
-      <Copyright sx={{ mt: 3 }} />
     </div>
   )
 }
 
-export default SignUp;
+export default Login;

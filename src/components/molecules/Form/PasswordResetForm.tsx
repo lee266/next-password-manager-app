@@ -11,39 +11,32 @@ import { Alert } from "redux/Feedback/types";
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 import TextField from '@mui/material/TextField';
-import { saveUser } from "api/users/crud";
+import { resetPasswordConfirm } from "api/auth/auth";
 
-type SignUpFormData = {
-  username: string;
-  email: string;
-  password: string;
-  re_password: string;
+type PasswordResetFormData = {
+  new_password: string;
+  re_new_password: string;
+  uid: string,
+  token: string,
 }
 
-const SignUpForm = () => {
+const PasswordResetForm = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const router = useRouter();
+  const routerQuery = router.query;
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   // Define yup Error Messages
   const requiredError = t("general.yup.required");
-  const requiredEmail = t("general.yup.email");
   const passwordMatchError = t("general.yup.passwordsMatch");
   const minError = t("general.yup.minChars");
   const schema = yup.object().shape({
-    username: yup.string()
-      .trim()
-      .required(requiredError),
-    email: yup.string()
-      .trim()
-      .email(requiredEmail)
-      .required(requiredError),
-    password: yup.string()
+    new_password: yup.string()
       .required(requiredError)
       .min(8, minError),
-    re_password: yup.string()
-      .oneOf([yup.ref('password')], passwordMatchError)
+    re_new_password: yup.string()
+      .oneOf([yup.ref('new_password')], passwordMatchError)
       .required(requiredError),
   });
 
@@ -51,21 +44,23 @@ const SignUpForm = () => {
     register,
     handleSubmit,
     formState: { errors } 
-  } = useForm<SignUpFormData>({
+  } = useForm<PasswordResetFormData>({
     resolver: yupResolver(schema)
   });
 
-  const onSubmit: SubmitHandler<SignUpFormData> = async(data) => {
+  const onSubmit: SubmitHandler<PasswordResetFormData> = async(password) => {
     try {
       setIsSubmitting(true);
-      await saveUser(data);
-      setAlertMessage("sign up success")
+      const data = {...password, ...routerQuery}
+      console.log(data);
+      await resetPasswordConfirm(data);
+      setAlertMessage("Success change password");
       const alert: Alert = {
         message: alertMessage,
         severity: "success",
       }
       dispatch(addAlert(alert))
-      await router.push('/login2');
+      await router.push("/login2")
     } catch (error) {
       if (error instanceof Error) {
         setAlertMessage(error.message)
@@ -77,45 +72,24 @@ const SignUpForm = () => {
         severity: "error",
       }
       dispatch(addAlert(alert))
-    }finally {
+    }finally{
       setIsSubmitting(false);
     }
   }
 
-  return (
-    <div className="sing-up-form">
+  return(
+    <div className="password-reset-form">
       <form>
         <TextField
-          id="username"
-          label={t("general.auth.username")}
-          margin="normal"
-          fullWidth
-          autoComplete="username"
-          {...register('username')}
-          error={!!errors.username}
-          helperText={errors.username?.message}
-        />
-        <TextField
-          id="email"
-          label={t("general.auth.email")}
-          margin="normal"
-          fullWidth
-          autoComplete="email"
-          autoFocus
-          {...register('email')}
-          error={!!errors.email}
-          helperText={errors.email?.message}
-        />
-        <TextField
-          id="password"
+          id="new_password"
           label={t("general.auth.password")}
           margin="normal"
           fullWidth
           type="password"
           autoComplete="current-password"
-          {...register('password')}
-          error={!!errors.password}
-          helperText={errors.password?.message}
+          {...register('new_password')}
+          error={!!errors.new_password}
+          helperText={errors.new_password?.message}
         />
         <TextField
           id="re_password"
@@ -124,9 +98,9 @@ const SignUpForm = () => {
           fullWidth
           type="password"
           autoComplete="confirmPassword"
-          {...register('re_password')}
-          error={!!errors.re_password}
-          helperText={errors.re_password?.message}
+          {...register('re_new_password')}
+          error={!!errors.re_new_password}
+          helperText={errors.re_new_password?.message}
         />
         <Button
           type="submit"
@@ -137,19 +111,12 @@ const SignUpForm = () => {
           disabled={isSubmitting}
         >
           {isSubmitting ? 
-            <CircularProgress size={24} color="primary" /> : t("general.auth.signUp")
+            <CircularProgress size={24} color="primary" /> : t("component.button.resetPassword")
           }
         </Button>
       </form>
     </div>
-    // <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-    //   <Grid container spacing={2}>
-    //     <Grid item xs={12}>
-    //       <TextField/>
-    //     </Grid>
-    //   </Grid>
-    // </Box>
   )
 }
 
-export default SignUpForm;
+export default PasswordResetForm;

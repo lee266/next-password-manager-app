@@ -10,15 +10,7 @@ const URL_CRETE = BASEURL + 'create';
 const URL_VERIFY = BASEURL + 'verify';
 
 export const createJwt = async(data:PostType) => {
-  const response = await axios.post(URL_CRETE, data)
-    .then(response => {
-      return response
-    })
-    .catch(error => {
-      console.log(error);
-      return null
-    });
-  return response
+  return await axios.post(URL_CRETE, data)
 }
 
 export const verifyJwt = async(jwt:string) => {
@@ -34,3 +26,5 @@ export const verifyJwt = async(jwt:string) => {
     });
   return response
 }
+
+
