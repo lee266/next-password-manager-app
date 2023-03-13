@@ -1,24 +1,22 @@
-import { GetStaticProps, NextPage } from "next";
-// translation
+import { GetStaticProps, NextPage } from 'next';
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import styles from '../styles/Home.module.scss';
-// MUI 
-import Box from "@mui/material/Box";
+import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Alerts2 from "components/molecules/Feedback/Alerts2";
-import Login from "components/organisms/Auth/Login/Login";
+import Alerts2 from 'components/molecules/Feedback/Alerts2';
+import SignUp from 'components/organisms/Auth/SignUp/SignUp';
 
-const loginPage: NextPage = () => {
+const SignUpPage:NextPage = ({}) =>{
   return (
-    <div className="login-section">
+    <div className='sign-up-section'>
       <Box className={styles.main}>
         <Alerts2/>
         <Container component="main" maxWidth="xs">
-          <Login/>
+          <SignUp/>
         </Container>
       </Box>
     </div>
-  )
+  );
 }
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
@@ -30,4 +28,4 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
   }
 }
 
-export default loginPage;
+export default SignUpPage;

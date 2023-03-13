@@ -1,14 +1,12 @@
 import '../styles/globals.scss';
 import type { AppProps } from 'next/app';
 import * as React from 'react';
-// import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from '../theme';
 import createEmotionCache from '../createEmotionCache';
-
 // Set translation
 import { appWithTranslation } from 'next-i18next';
 import { Provider } from 'react-redux';
@@ -29,6 +27,7 @@ const MyApp = (props: MyAppProps) => {
         <Head>
           <title>Password manager</title>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
+          <meta name="description" content="password管理アプリケーション"/>
           <link rel="icon" href="/favicon.ico"/> {/* 32*32 */}
           <link rel="apple-touch-icon" href="/"/> {/* 180*180  This is displaying icon when it is registered home view as shortcut */}
         </Head>
