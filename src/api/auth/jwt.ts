@@ -17,14 +17,7 @@ export const verifyJwt = async(jwt:string) => {
   const data = {
     'token': jwt
   }
-  const response = await axios.post(URL_VERIFY, data)
-    .then(response => {
-      return response
-    })
-    .catch(error => {
-      return error
-    });
-  return response
+  return await axios.post(URL_VERIFY, data)
 }
 
 
