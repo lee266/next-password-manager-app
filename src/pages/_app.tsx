@@ -20,6 +20,7 @@ interface MyAppProps extends AppProps {
 
 const MyApp = (props: MyAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+  console.log("MyAppCreate");
 
   return (
     <Provider store={store}>

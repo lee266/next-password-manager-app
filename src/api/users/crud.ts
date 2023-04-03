@@ -5,7 +5,7 @@ const API_URL = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/auth/users/me/`;
 
 type getUserFunction = (token:string) => Promise<undefined | AxiosResponse>
 
-export const getUser:getUserFunction = async(token:string) => {
+export const getUser = async(token:string) => {
   console.log('Active getUser() src/api/users/crud.ts');
   const headers = {
     "Authorization": `JWT ${token}`,
@@ -23,7 +23,7 @@ export const getUser:getUserFunction = async(token:string) => {
 
 export const saveUser = async (data:object) => {
   console.log('Active saveUser() src/api/users/crud.ts');
-  console.log(data);
+  console.log("request:data", data);
   const POST_URL = BASEURL + 'users/';
   return await axios.post(POST_URL, data);
 }
