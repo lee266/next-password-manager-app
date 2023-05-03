@@ -5,17 +5,20 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useEffect } from 'react';
 import { getToken } from 'utils/auth';
 import { useRouter } from "next/router";
+import { GetStaticProps } from 'next';
+
+import Calculator from 'components/molecules/Calculator';
 
 
-export default function Home() {
+const Home = () => {
   const { t } = useTranslation();
   const router = useRouter();
+
   useEffect(() => {
     const token = getToken();
     if (token) {
       try {
         const response = verifyJwt(token);
-        console.log("response", response);
       } catch (error) {
         router.push("/login2");
       }
@@ -27,13 +30,15 @@ export default function Home() {
   return (
     <>
       <MainLayout>
-        <p>{t("general.nav.password")}</p>
+        <h1 className='text-6xl text-blue-700'>Hello world</h1>
+        <Calculator/>
       </MainLayout>
     </>
   );
 }
 
-export async function getStaticProps({ locale }: any) {
+export const getStaticProps: GetStaticProps = async ({locale}) => {
+  if (!locale) { locale = 'ja' }
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
@@ -41,3 +46,4 @@ export async function getStaticProps({ locale }: any) {
   }
 }
 
+export default Home;

@@ -108,6 +108,7 @@ const LoginForm = () => {
           helperText={errors.password?.message}
         />
         <Button
+          className="bg-blue-500"
           type="submit"
           fullWidth
           variant="contained"
