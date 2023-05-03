@@ -129,6 +129,7 @@ const SignUpForm = () => {
           helperText={errors.re_password?.message}
         />
         <Button
+          className="bg-blue-500"
           type="submit"
           fullWidth
           variant="contained"

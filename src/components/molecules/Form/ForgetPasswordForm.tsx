@@ -67,6 +67,7 @@ const ForgetPasswordForm = () => {
             helperText={errors.email?.message}
           />
           <Button
+            className="bg-blue-500" 
             type="submit"
             fullWidth
             variant="contained"
