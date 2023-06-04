@@ -4,22 +4,16 @@ import { verifyJwt } from 'api/auth/jwt';
 import { getToken } from 'utils/auth';
 import { MainLayout } from 'components/layouts/MainLayout2';
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import PasswordTable from 'components/molecules/Table/PasswordTable';
 import { GetServerSideProps } from 'next';
+import PasswordTable from 'components/molecules/Table/PasswordTable';
 import PasswordFilters from 'components/molecules/Filter/Table/PasswordFilters';
 import PasswordAddDialog from 'components/molecules/Filter/Table/PasswordAddDialog';
-import { getUser } from 'api/users/crud';
-
-interface PasswordManageProps {
-  children: React.ReactNode;
-  open: boolean;
-  id: string;
-}
-
+import PasswordCard from 'components/molecules/Card/PasswordCards';
+import PasswordGroupAddDialog from 'components/molecules/Dialog/PasswordGroupAddDialog';
+import Alerts2 from "components/molecules/Feedback/Alerts2";
 
 const PasswordManage = () => {
   const router = useRouter();
-  // const [posts, setPosts] = useState([])
   const [token, setToken] = useState("");
 
   useEffect(() => {
@@ -28,7 +22,6 @@ const PasswordManage = () => {
       try {
         verifyJwt(token);
         setToken(token)
-        console.log("Your true");
       } catch (error) {
         router.push("/login2");
       }
@@ -40,11 +33,14 @@ const PasswordManage = () => {
   return(
     <div className='password-manage-section'>
       <MainLayout>
+        <Alerts2/>
         <PasswordAddDialog/>
+        <PasswordGroupAddDialog/>
         <PasswordFilters/>
-        <PasswordTable
+        {/* <PasswordTable
           token={token}
-        />
+        /> */}
+        <PasswordCard/>
       </MainLayout>
     </div>
   )
