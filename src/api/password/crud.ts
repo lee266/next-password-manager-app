@@ -19,6 +19,13 @@ export const getPasswords = async (id:string) => {
   return await axios.get(getUrl);
 }
 
+export const getGroupedPasswords = async (id:string) => {
+  console.log("Active getGroupedPasswords api/passwords/crud.ts");
+
+  const url = BASEURL + 'get_data/'
+  return await axios.post(url, id);
+}
+
 export const searchPasswords =async (user:object, token:string) => {
   console.log("Active searchPasswords api/passwords/crud.ts");
   console.log("request:user, token", user,token);
