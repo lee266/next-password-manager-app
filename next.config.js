@@ -15,6 +15,7 @@ const nextConfig = {
     require('./webpack.config')(config, options);
     return config;
   },
+  devtool: 'source-map',
   // hot reload 
   // webpackDevMiddleware: config => {
   //   config.watchOptions = {
