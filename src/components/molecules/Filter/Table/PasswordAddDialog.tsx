@@ -13,6 +13,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { getToken } from 'utils/auth';
 import { createPassword } from 'api/password/crud';
 import { useRouter } from 'next/router';
@@ -46,10 +48,7 @@ const PasswordAddDialog = () => {
     email: yup.string().email(requiredEmail),
     notes: yup.string(),
     tags: yup.string(),
-    website: yup.string().matches(
-      /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$/,
-      urlError
-    ),
+    website: yup.string(),
   });
 
   const {
@@ -105,7 +104,7 @@ const PasswordAddDialog = () => {
           <DialogContent>
               <TextField
                 id="title"
-                label={t("general.auth.title")}
+                label={t("component.form.title")}
                 margin="normal"
                 required
                 fullWidth
@@ -116,7 +115,7 @@ const PasswordAddDialog = () => {
               />
               <TextField
                 id="password"
-                label={t("general.auth.password")}
+                label={t("component.form.password")}
                 margin="normal"
                 required
                 fullWidth
@@ -128,7 +127,7 @@ const PasswordAddDialog = () => {
               />
               <TextField
                 id="email"
-                label={t("general.auth.email")}
+                label={t("component.form.email")}
                 margin="normal"
                 fullWidth
                 type="email"
@@ -139,7 +138,7 @@ const PasswordAddDialog = () => {
               />
               <TextField
                 id="website"
-                label={t("general.auth.website")}
+                label={t("component.form.website")}
                 margin="normal"
                 fullWidth
                 autoComplete="website url"
@@ -147,19 +146,29 @@ const PasswordAddDialog = () => {
                 error={!!errors.website}
                 helperText={errors.website?.message}
               />
-              <TextField
+              <Select
                 id="tags"
-                label={t("general.auth.tags")}
-                margin="normal"
+                label={t("component.form.tags")}
                 fullWidth
-                autoComplete="tag"
                 {...register('tags')}
                 error={!!errors.tags}
-                helperText={errors.tags?.message}
-              />
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+              </Select>
+              <Select
+                id="groups"
+                label={""}
+                fullWidth
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+              </Select>
               <TextField
                 id="notes"
-                label={t("general.auth.notes")}
+                label={t("component.form.note")}
                 multiline
                 margin="normal"
                 fullWidth
@@ -172,7 +181,7 @@ const PasswordAddDialog = () => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleSubmit(handleAdd)} form="password-add">
-              Adds
+              {t("component.button.add")}
             </Button>
           </DialogActions>
         </form>

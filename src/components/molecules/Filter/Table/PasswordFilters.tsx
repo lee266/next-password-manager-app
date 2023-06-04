@@ -20,11 +20,19 @@ const PasswordFilters = () => {
     <div className='password-filters'>
       <Box sx={{display: 'flex'}}>
         <Box sx={{ flexGrow: 1 }} />
-        <Fab variant="extended" size='small' color='primary' aria-label='add-password' onClick={handleOpenAdd}>
+        <Fab className="bg-primary" variant="extended" size='small' color='primary' aria-label='add-password' onClick={handleOpenAdd}>
           <AddIcon sx={{ mr:0.5 }}/>
-          Add
+          password
         </Fab>
-        <Fab variant="extended" size='small' color='primary' aria-label='add' 
+        <Fab className='bg-primary' variant='extended' size='small' color='primary' aria-label='add-group'>
+          <AddIcon sx={{ mr:0.5 }}/>
+          Group
+        </Fab>
+        <Fab className='bg-primary' variant='extended' size='small' color='primary' aria-label='add-group'>
+          <AddIcon sx={{ mr:0.5 }}/>
+          tag
+        </Fab>
+        <Fab className="bg-primary" variant="extended" size='small' color='primary' aria-label='add' 
           onClick={handleColumns}
           sx={{ ml:1}}
         >
