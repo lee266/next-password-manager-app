@@ -39,8 +39,19 @@
   },
   "component": {
     "button": {
+      "add": "追加",
+      "edit": "編集",
       "login": "ログイン",
       "resetPassword": "パスワード変更"
+    },
+    "form": {
+      "title": "タイトル",
+      "password": "パスワード",
+      "email": "メールアドレス",
+      "website": "webサイトURL",
+      "tag": "タグ",
+      "group": "グループ",
+      "note": "メモ"
     }
   }
 }
