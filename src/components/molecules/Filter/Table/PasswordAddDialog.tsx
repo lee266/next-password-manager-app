@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
-import { OpenAddDialog } from 'redux/passwordManage/reducer';
+import { openAddDialog, closeAddDialog } from 'redux/passwordManage/reducer';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -74,13 +74,10 @@ const PasswordAddDialog = () => {
     }else {
       await router.push("/login2")
     }
-    dispatch(OpenAddDialog());
+    dispatch(openAddDialog());
   }
 
-  const handleClose = () => {
-    dispatch(OpenAddDialog());
-    console.log("ok");
-  }
+  const handleClose = () => { dispatch(closeAddDialog()); }
 
   return(
     <div>

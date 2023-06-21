@@ -12,6 +12,7 @@ export const PasswordGroupSchema = z.object({
 
 export const PasswordTagSchema = z.object({
   id: z.number().optional(),
+  user: z.number(),
   tag_name: z.string(),
   created_at: Timestamp,
   updated_at: Timestamp

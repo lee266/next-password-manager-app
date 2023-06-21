@@ -2,14 +2,15 @@
 type AddButtonPropsType = {
   form: string|undefined,
   name: string,
-  click: () => void,
+  click?: () => void,
+  type?: "button" | "submit" | "reset",
 }
 
 const AddButton = (props: AddButtonPropsType) => {
   return(
     <div>
       <button
-        type="button"
+        type={props.type || "button"}
         form={props.form}
         className="
         bg-blue-500 hover:bg-blue-700 

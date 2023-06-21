@@ -6,7 +6,10 @@ import { getUser } from 'api/users/crud';
 import { getToken } from 'utils/auth';
 import { Password } from 'types/models/Password';
 import { getGroupedPasswords } from 'api/password/crud';
-import  PasswordText  from 'components/atoms/Text/PasswordText'
+import { useSelector } from 'react-redux';
+import  PasswordText  from 'components/atoms/Text/PasswordText';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { RootState } from 'redux/store';
 
 type Data = {
   [key: string]: {
@@ -18,6 +21,7 @@ type Data = {
 const PasswordCard = () => {
   const [data, setData] = useState<Data>({});
   const [dropdownIndex, setDropdownIndex] = useState<number | null>(null);
+  const groups = useSelector((state: RootState) => state.passwordManage.groups);
 
   const toggleDropdown = (key: string) => {
     setData((prevData) => ({
@@ -48,7 +52,7 @@ const PasswordCard = () => {
     setData(updatedData);
     }
     fetchData()
-  }, []);
+  }, [groups]);
 
   const onDragEnd = (result:any) => {
     console.log(result);
@@ -65,12 +69,10 @@ const PasswordCard = () => {
           return (
             <StrictModeDroppable key={key} droppableId={key}>
               {(provided) => (
-                <div
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-                  <div className='group_name' onClick={() => toggleDropdown(key)}>
-                    <h2>{key}</h2>
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  <div className='group_name flex justify-between items-center p-2 bg-primary rounded cursor-pointer' onClick={() => toggleDropdown(key)}>
+                    <h2 className='text-lg font-semibold mr-2'>{key}</h2>
+                    <ExpandLessIcon style={{ transform: `${group.open ? 'rotate(180deg)' : 'rotate(0deg)'}`, transition: 'transform 0.3s' }} />
                   </div>
                   {group.open && (
                     <div className='dropdown_content'>
@@ -80,7 +82,7 @@ const PasswordCard = () => {
                           <div
                             {...provided.draggableProps}
                             ref={provided.innerRef}
-                            className="max-w-sm mx-auto rounded overflow-hidden shadow-lg hover:bg-primary"
+                            className="max-w-sm mx-auto rounded overflow-hidden md:hover:bg-primary"
                           >
                             <div className='flex items-center'>
                               <div

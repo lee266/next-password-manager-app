@@ -9,8 +9,9 @@ import PasswordTable from 'components/molecules/Table/PasswordTable';
 import PasswordFilters from 'components/molecules/Filter/Table/PasswordFilters';
 import PasswordAddDialog from 'components/molecules/Filter/Table/PasswordAddDialog';
 import PasswordCard from 'components/molecules/Card/PasswordCards';
-import PasswordGroupAddDialog from 'components/molecules/Dialog/PasswordGroupAddDialog';
+import GroupAddDialog from 'components/molecules/Dialog/GroupAddDialog';
 import Alerts2 from "components/molecules/Feedback/Alerts2";
+import TagAddDialog from 'components/molecules/Dialog/TagAddDialog';
 
 const PasswordManage = () => {
   const router = useRouter();
@@ -33,14 +34,15 @@ const PasswordManage = () => {
   return(
     <div className='password-manage-section'>
       <MainLayout>
-        <Alerts2/>
-        <PasswordAddDialog/>
-        <PasswordGroupAddDialog/>
-        <PasswordFilters/>
+        <Alerts2 />
+        <PasswordAddDialog />
+        <GroupAddDialog />
+        <TagAddDialog />
+        <PasswordFilters />
         {/* <PasswordTable
           token={token}
         /> */}
-        <PasswordCard/>
+        <PasswordCard />
       </MainLayout>
     </div>
   )
