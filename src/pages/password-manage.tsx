@@ -5,9 +5,8 @@ import { getToken } from 'utils/auth';
 import { MainLayout } from 'components/layouts/MainLayout2';
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSideProps } from 'next';
-import PasswordTable from 'components/molecules/Table/PasswordTable';
+import PasswordAddDialog from 'components/molecules/Dialog/PasswordAddDialog';
 import PasswordFilters from 'components/molecules/Filter/Table/PasswordFilters';
-import PasswordAddDialog from 'components/molecules/Filter/Table/PasswordAddDialog';
 import PasswordCard from 'components/molecules/Card/PasswordCards';
 import GroupAddDialog from 'components/molecules/Dialog/GroupAddDialog';
 import Alerts2 from "components/molecules/Feedback/Alerts2";
@@ -15,7 +14,7 @@ import TagAddDialog from 'components/molecules/Dialog/TagAddDialog';
 
 const PasswordManage = () => {
   const router = useRouter();
-  const [token, setToken] = useState("");
+  const [, setToken] = useState("");
 
   useEffect(() => {
     const token = getToken();
@@ -23,12 +22,8 @@ const PasswordManage = () => {
       try {
         verifyJwt(token);
         setToken(token)
-      } catch (error) {
-        router.push("/login2");
-      }
-    } else {
-      router.push("/login2");
-    }
+      } catch (error) { router.push("/login2"); }
+    } else { router.push("/login2");}
   }, [router]);
   
   return(
@@ -39,9 +34,6 @@ const PasswordManage = () => {
         <GroupAddDialog />
         <TagAddDialog />
         <PasswordFilters />
-        {/* <PasswordTable
-          token={token}
-        /> */}
         <PasswordCard />
       </MainLayout>
     </div>
@@ -51,9 +43,7 @@ const PasswordManage = () => {
 export const getServerSideProps: GetServerSideProps = async ({locale}) => {
   if (!locale) { locale = 'ja' }
   return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-    }
+    props: { ...(await serverSideTranslations(locale, ["common"])), }
   }
 }
 

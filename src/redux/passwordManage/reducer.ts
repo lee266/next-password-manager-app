@@ -7,6 +7,7 @@ interface passwordManageState {
   openAddDialog: boolean
   openGroupDialog: boolean
   openTagDialog: boolean
+  passwordTitles: string[]
   groups: string[]
   tags: string[]
 }
@@ -18,6 +19,7 @@ const initialState: passwordManageState = {
   openAddDialog: false,
   openGroupDialog: false,
   openTagDialog: false,
+  passwordTitles: [],
   groups: [],
   tags: []
 }
@@ -44,6 +46,9 @@ const passwordManageSlice = createSlice({
     closeTagDialog: (state) => {
       state.openTagDialog = false
     },
+    addPassword: (state, action) => {
+      state.passwordTitles.push(action.payload);
+    },
     addGroup: (state, action) => {
       state.groups.push(action.payload);
     },
@@ -57,7 +62,7 @@ export const {
   openAddDialog, closeAddDialog, 
   openGroupDialog, closeGroupDialog,
   openTagDialog, closeTagDialog,
-  addGroup, addTag
+  addPassword, addGroup, addTag
 } = passwordManageSlice.actions;
 
 export default passwordManageSlice.reducer;

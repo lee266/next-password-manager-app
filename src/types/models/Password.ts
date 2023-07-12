@@ -5,7 +5,7 @@ import { Timestamp } from 'types/others/Timestamp'
 export const PasswordGroupSchema = z.object({
   id: z.number().optional(),
   user: z.number(),
-  group_name: z.string(),
+  group_name: z.string().nonempty(),
   created_at: Timestamp,
   updated_at: Timestamp
 })
@@ -13,7 +13,7 @@ export const PasswordGroupSchema = z.object({
 export const PasswordTagSchema = z.object({
   id: z.number().optional(),
   user: z.number(),
-  tag_name: z.string(),
+  tag_name: z.string().nonempty(),
   created_at: Timestamp,
   updated_at: Timestamp
 })
@@ -29,15 +29,15 @@ export const PasswordCustomSchema = z.object({
 export const PasswordSchema = z.object({
   id: z.number().optional(),
   user: z.number(),
-  title: z.string(),
-  password: z.string(),
-  email: z.string().email(),
+  title: z.string().nonempty(),
+  password: z.string().nonempty(),
+  email: z.union([z.string().email(), z.literal(''), z.null()]),
   website: z.string().nullable(),
   notes: z.string().nullable(),
-  tag: z.union([z.number().nullable(), PasswordTagSchema.optional()]),
-  group: z.union([z.number().nullable(), PasswordGroupSchema.optional()]),
-  custom: z.union([z.number().nullable(), PasswordCustomSchema.optional()]),
-  index : z.number().nullable(),
+  tag: z.union([z.literal(""), z.number().nullable(), PasswordTagSchema.optional()]),
+  group: z.union([z.literal(""), z.number().nullable(), PasswordGroupSchema.optional()]),
+  // custom: z.union([z.number().nullable(), PasswordCustomSchema.optional()]),
+  index : z.number().nullable().optional(),
   createdAt: Timestamp
 })
 
