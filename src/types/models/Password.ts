@@ -5,7 +5,9 @@ import { Timestamp } from 'types/others/Timestamp'
 export const PasswordGroupSchema = z.object({
   id: z.number().optional(),
   user: z.number(),
-  group_name: z.string().nonempty(),
+  group_name: z.string().nonempty().refine(group_name => group_name !== 'other', {
+    message: "group_name can't be 'other'",
+  }),
   created_at: Timestamp,
   updated_at: Timestamp
 })
