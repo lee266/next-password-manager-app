@@ -2,72 +2,70 @@ import { useState } from "react";
 import  Visibility  from "@mui/icons-material/Visibility";
 import  VisibilityOff  from "@mui/icons-material/VisibilityOff";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-// Alert 
 import { useDispatch } from "react-redux";
 import { addAlert } from "redux/Feedback/reducer";
 import { Alert } from "redux/Feedback/types";
 
 type PasswordTextPropsType = {
-  text: string
-  labelId: string
+  text?: string
+  labelId?: string
 }
 
 /*
   problem
-    - You can see password value if you use develop tool.
+    - You can see password value if you use develop tool(Elements).
+  about
+    - this is ok Because the user is logged in,
+    - Please fix the problem to make it more secure
 */
 
-const PasswordText = (props: PasswordTextPropsType) => {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const defaultValue = "*******"
-  const value = props.text
+const PasswordText = ({ text = '', labelId = '' }: PasswordTextPropsType) => {
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  const togglePasswordVisibility = () => setShowPassword(!(showPassword));
-  const handleCopyClick = () => {
+  const togglePasswordVisibility = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    setPasswordVisible(!(passwordVisible));
+  } 
+
+  const handleCopyClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
     try {
-      navigator.clipboard.writeText(value);
+      navigator.clipboard.writeText(text || '');
       const alert: Alert = {
         message: "パスワードをクリップボードにコピーしました",
         severity: "success",
-      }
+      };
       dispatch(addAlert(alert));
     } catch (error: any) {
-      const alert: Alert = {
-        message: error.message,
-        severity: "error",
-      }
+      const alert: Alert = { message: "パスワードのコピーに失敗しました。", severity: "error" };
       dispatch(addAlert(alert));
     }
   };
 
   return(
     <div className="text-gray-700 flex">
-      {/* display password  */}
-      <label className="mr-1" htmlFor={"passwordInput" + props.labelId}>
+      <label className="mr-1" htmlFor={"passwordInput" + (labelId || '')}>
         Password:
       </label>
       <input
-        id={"passwordInput" + props.labelId}
-        type={showPassword ? 'text' : 'password'}
-        readOnly
-        value={showPassword ? value : defaultValue}
+        id={"passwordInput" + labelId}
+        type={passwordVisible ? 'text' : 'password'}
+        value={passwordVisible ? text : "*******"}
         className="mr-2 bg-transparent border-none focus:bg-transparent focus:outline-none focus:border-transparent" 
-      />
-      {/* eye button */}
+        readOnly
+        />
+      {/* eye icon button set password visible or not */}
       <button
         type="button"
         onClick={togglePasswordVisibility}
         className="bg-transparent focus:bg-transparent mr-2"
-        aria-label={showPassword ? 'Hide password' : 'Show password'}
+        aria-label={passwordVisible ? 'Hide password' : 'Show password'}
       >
-        {showPassword? <VisibilityOff /> : <Visibility />}
+        {passwordVisible? <VisibilityOff /> : <Visibility />}
       </button>
       {/* copy button  */}
-      <button
-        onClick={handleCopyClick}
-        aria-label="Copy password"
-      >
+      <button type="button" onClick={handleCopyClick} aria-label="Copy password">
         <ContentCopyIcon />
       </button>
     </div>
