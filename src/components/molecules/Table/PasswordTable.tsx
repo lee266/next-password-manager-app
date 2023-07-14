@@ -16,7 +16,7 @@ type PasswordData = {
   password: string
   website: string
   created_at: string
-  tags: string
+  tag: string
   notes: string
 }
 
@@ -25,7 +25,7 @@ type PasswordTablePropsType = {
 }
 
 const PasswordTable = (props:PasswordTablePropsType) => {
-  const COLUMNS = ["title", "password", "website", "created_at", "tags", "notes", "option"];
+  const COLUMNS = ["title", "password", "website", "created_at", "tag", "notes", "option"];
   const [user, setUser] = useState({});
   // const [token, setToken] = useState("");
   const [data, setData] = useState<[]|[PasswordData]>([]);
@@ -72,7 +72,8 @@ const PasswordTable = (props:PasswordTablePropsType) => {
                     )
                   }else {
                     return (
-                      <TableCell key={index}>{passwords[column]}</TableCell>
+                      // <TableCell key={index}>{passwords[column]}</TableCell>
+                      <TableCell key={index}></TableCell>
                     )
                   }
                 })}
@@ -86,7 +87,7 @@ const PasswordTable = (props:PasswordTablePropsType) => {
                   </a>
                 </TableCell>
                 <TableCell>{passwords.created_at}</TableCell>
-                <TableCell>{passwords.tags}</TableCell>
+                <TableCell>{passwords.tag}</TableCell>
                 <TableCell>{passwords.notes}</TableCell>
                 <TableCell>
                   <button>fix</button>

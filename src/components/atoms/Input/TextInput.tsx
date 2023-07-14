@@ -9,9 +9,7 @@ type TextInputPropsType = {
 
 const TextInput = (props:TextInputPropsType) => {
   return(
-    <div
-      className="relative"
-    >
+    <div className="relative">
       <input
         type="text"
         className="
