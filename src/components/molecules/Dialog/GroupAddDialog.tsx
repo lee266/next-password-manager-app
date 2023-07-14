@@ -30,9 +30,12 @@ const GroupAddDialog = () => {
     resolver: zodResolver(PasswordGroupSchema),
     defaultValues: { user: 99999999, group_name: ""}
   })
-  const { register, handleSubmit, formState: { errors } } = form;
+  const { register, handleSubmit, formState: { errors }, reset } = form;
 
-  const handleClose = () => { dispatch(closeGroupDialog()); }
+  const handleClose = () => { 
+    dispatch(closeGroupDialog());
+    reset(); 
+  }
 
   const onSubmit: SubmitHandler<PasswordGroup> = async(data) => {
     try { 
@@ -40,6 +43,7 @@ const GroupAddDialog = () => {
       data["user"] = user.id;
       await createGroup(data, token);
       dispatch(addGroup(data.group_name));
+      reset();
       handleClose();
     } catch (error) {
       const alert: Alert = {
@@ -63,8 +67,8 @@ const GroupAddDialog = () => {
         <form id="group-form" onSubmit={handleSubmit(onSubmit)} autoComplete='new-group'>
           <DialogContent>
             <TextField 
-              required 
-              label="Group name"
+              label="Group name*"
+              fullWidth
               {...register('group_name')}
               error={!!errors.group_name}
               helperText={errors.group_name?.message}

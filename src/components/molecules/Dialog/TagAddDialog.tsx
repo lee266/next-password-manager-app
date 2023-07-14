@@ -30,9 +30,12 @@ const TagAddDialog = () => {
     resolver: zodResolver(PasswordTagSchema),
     defaultValues: { user: 99999999, tag_name: ""}
   })
-  const { register, handleSubmit, formState: { errors } } = form;
+  const { register, handleSubmit, formState: { errors }, reset } = form;
 
-  const handleClose = () => { dispatch(closeTagDialog()); }
+  const handleClose = () => { 
+    dispatch(closeTagDialog());
+    reset();
+  }
 
   const onSubmit: SubmitHandler<PasswordTag> = async(data) => {
     try { 
@@ -40,6 +43,7 @@ const TagAddDialog = () => {
       data["user"] = user.id;
       await createTag(data, token);
       dispatch(addTag(data.tag_name));
+      reset();
       handleClose();
     } catch (error) {
       const alert: Alert = {
@@ -51,27 +55,27 @@ const TagAddDialog = () => {
   }
 
   return(
-    <div className="group-add-dialog">
-      <Dialog open={open} aria-labelledby="group-add-dialog" onClose={() => handleClose()}>
-        <DialogTitle id="password-manage-add-dialog">
+    <div className="tag-add-dialog">
+      <Dialog open={open} aria-labelledby="tag-add-dialog" onClose={() => handleClose()}>
+        <DialogTitle id="password-tag-add-dialog">
           {t("Add Tag")}
           <IconButton aria-label="close" sx={{position: 'absolute',right: 8,top: 8,}} onClick={handleClose}>
             <CloseIcon />
           </IconButton>
         </DialogTitle>
 
-        <form id="group-form" onSubmit={handleSubmit(onSubmit)} autoComplete='new-group'>
+        <form id="tag-form" onSubmit={handleSubmit(onSubmit)} autoComplete='new-tag'>
           <DialogContent>
             <TextField 
-              required 
-              label="Tag name"
+              label="Tag name*"
+              fullWidth
               {...register('tag_name')}
               error={!!errors.tag_name}
               helperText={errors.tag_name?.message}
             />
           </DialogContent>
           <DialogActions>
-            <AddButton name={t('add')} form='group-form' type="submit" />
+            <AddButton name={t('add')} form='tag-form' type="submit" />
           </DialogActions>
         </form>
       </Dialog>
