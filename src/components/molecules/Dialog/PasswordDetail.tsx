@@ -140,20 +140,22 @@ const PasswordDetail = () => {
       )
       console.log("change selected password");
     }
-  }, [selectedPassword, open, editMode]);
+  }, [selectedPassword, open]);
 
   return(
     <div>
-      <Dialog fullScreen open={open} aria-labelledby='password-detail-dialog' onClose={() => handleClose()}>
+      <Dialog fullScreen open={open} aria-labelledby='password-detail-dialog' scroll='paper'
+        onClose={() => handleClose()}
+      >
         <DialogTitle id='password-manage-detail-dialog'>
           {t("Password detail")}
           <IconButton aria-label='close' sx={{position: 'absolute',right: 8,top: 8,}} onClick={handleClose}>
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-        <form id='password-detail-form' onSubmit={handleSubmit(onSubmit)} autoComplete='password-detail'>
-          <DialogContent dividers>
-          <TextField
+        <DialogContent dividers={true}>
+          <form id='password-detail-form' onSubmit={handleSubmit(onSubmit)} autoComplete='password-detail'>
+            <TextField
               label={t('component.form.title')  + '*'}
               margin='normal'
               fullWidth
@@ -244,26 +246,25 @@ const PasswordDetail = () => {
               helperText={errors.notes?.message}
               InputProps={{ readOnly: !editMode, ...register('notes'),}}
             />
-          </DialogContent>
-
-          <DialogActions>
-            {!editMode ? (
-              <div>
-                <IconButton aria-label="Edit button" onClick={() => setEditMode(true)}>
-                  <ModeEditTwoTone color="primary" />
-                </IconButton>
-                <IconButton arial-label='Delete button' onClick={() => setConfirmDialog(true)}>
-                  <DeleteIcon color="error" />
-                </IconButton>
-              </div>
-            ) : (
-              <div>
-                <Button onClick={() => setEditMode(false)}>Cancel</Button>
-                <Button type='submit' form='password-detail-form'>Update</Button>
-              </div>
-            )}
-          </DialogActions>
-        </form>
+          </form>
+        </DialogContent>
+        <DialogActions>
+          {!editMode ? (
+            <div>
+              <IconButton aria-label="Edit button" onClick={() => setEditMode(true)}>
+                <ModeEditTwoTone color="primary" />
+              </IconButton>
+              <IconButton arial-label='Delete button' onClick={() => setConfirmDialog(true)}>
+                <DeleteIcon color="error" />
+              </IconButton>
+            </div>
+          ) : (
+            <div>
+              <Button onClick={() => setEditMode(false)}>Cancel</Button>
+              <Button type='submit' form='password-detail-form'>Update</Button>
+            </div>
+          )}
+        </DialogActions>
       </Dialog>
 
       {/* Dialog of confirming delete a password  */}

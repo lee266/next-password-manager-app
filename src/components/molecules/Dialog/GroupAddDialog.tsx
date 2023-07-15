@@ -63,21 +63,21 @@ const GroupAddDialog = () => {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-
-        <form id="group-form" onSubmit={handleSubmit(onSubmit)} autoComplete='new-group'>
-          <DialogContent>
+        <DialogContent>
+          <form id="group-form" onSubmit={handleSubmit(onSubmit)} autoComplete='new-group'>
             <TextField 
               label="Group name*"
+              margin='normal'
               fullWidth
               {...register('group_name')}
               error={!!errors.group_name}
               helperText={errors.group_name?.message}
             />
-          </DialogContent>
-          <DialogActions>
-            <AddButton name={t('add')} form='group-form' type="submit" />
-          </DialogActions>
-        </form>
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <AddButton name={t('add')} form='group-form' type="submit" />
+        </DialogActions>
       </Dialog>
     </div>
   )
