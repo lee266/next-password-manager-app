@@ -28,7 +28,7 @@ const TagAddDialog = () => {
   // react form settings
   const form = useForm<PasswordTag>({
     resolver: zodResolver(PasswordTagSchema),
-    defaultValues: { user: 99999999, tag_name: ""}
+    defaultValues: { user: -1, tag_name: ""}
   })
   const { register, handleSubmit, formState: { errors }, reset } = form;
 

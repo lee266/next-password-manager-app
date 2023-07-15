@@ -28,7 +28,7 @@ const GroupAddDialog = () => {
   // react form settings
   const form = useForm<PasswordGroup>({
     resolver: zodResolver(PasswordGroupSchema),
-    defaultValues: { user: 99999999, group_name: ""}
+    defaultValues: { user: -1, group_name: ""}
   })
   const { register, handleSubmit, formState: { errors }, reset } = form;
 

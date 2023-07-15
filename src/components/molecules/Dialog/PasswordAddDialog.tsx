@@ -49,7 +49,7 @@ const PasswordAddDialog = () => {
   const form = useForm<Password>({
     resolver: zodResolver(PasswordSchema),
     defaultValues: { 
-      user: 9999999999, 
+      user: -1, 
       title: '',
       password: '',
       email: '',
@@ -60,7 +60,7 @@ const PasswordAddDialog = () => {
     }
   })
   const { register, handleSubmit, formState: { errors }, reset } = form;
-
+  
   const handleClose = () => { 
     dispatch(closeAddDialog());
     reset(); 
@@ -71,7 +71,6 @@ const PasswordAddDialog = () => {
     try { 
       const user = await getUser(token);
       data['user'] = user.id;
-      console.log('data', data);
 
       await createPassword(data, token);
       dispatch(addPassword(data.title));
@@ -94,7 +93,7 @@ const PasswordAddDialog = () => {
   useEffect(() => {
     console.log('move init passwordAddDialog');
     getSelectBoxData();
-  }, [token]);
+  }, []);
 
   return(
     <div className='password-add-dialog'>

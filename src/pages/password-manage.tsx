@@ -6,6 +6,7 @@ import { MainLayout } from 'components/layouts/MainLayout2';
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSideProps } from 'next';
 import PasswordAddDialog from 'components/molecules/Dialog/PasswordAddDialog';
+import PasswordDetail from 'components/molecules/Dialog/PasswordDetail';
 import PasswordFilters from 'components/molecules/Filter/Table/PasswordFilters';
 import PasswordCard from 'components/molecules/Card/PasswordCards';
 import GroupAddDialog from 'components/molecules/Dialog/GroupAddDialog';
@@ -29,12 +30,13 @@ const PasswordManage = () => {
   return(
     <div className='password-manage-section'>
       <MainLayout>
-        <Alerts2 />
-        <PasswordAddDialog />
-        <GroupAddDialog />
-        <TagAddDialog />
         <PasswordFilters />
         <PasswordCard />
+        <Alerts2 />
+        <PasswordAddDialog />
+        <PasswordDetail />
+        <GroupAddDialog />
+        <TagAddDialog />
       </MainLayout>
     </div>
   )

@@ -13,6 +13,7 @@ import { getGroupedPasswords } from 'api/password/crud';
 import  PasswordText  from 'components/atoms/Text/PasswordText';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { RootState } from 'redux/store';
+import { deleteSelectedPassword, movePassword, openDetailDialog, updateSelectedPassword } from 'redux/passwordManage/reducer';
 
 type Data = {
   [key: string]: {
@@ -26,6 +27,9 @@ const PasswordCard = () => {
   const [oldData, setOldData] = useState<Data>({});
   const passwords = useSelector((state: RootState) => state.passwordManage.passwordTitles);
   const groups = useSelector((state: RootState) => state.passwordManage.groups);
+  const passwordDelete = useSelector((state: RootState) => state.passwordManage.passwordDelete);
+  const passwordUpdate = useSelector((state: RootState) => state.passwordManage.passwordUpdate);
+  const passwordMove = useSelector((state: RootState) => state.passwordManage.passwordMove);
   const dispatch = useDispatch();
 
   const toggleDropdown = (key: string) => {
@@ -55,11 +59,14 @@ const PasswordCard = () => {
       });
 
       setData(updatedData);
+      dispatch(deleteSelectedPassword(false));
+      dispatch(updateSelectedPassword(false));
+      dispatch(movePassword(false));
       console.log("Get data", updatedData);
     }
     fetchData();
     
-  }, [passwords, groups]);
+  }, [passwords, groups, passwordDelete, passwordUpdate, passwordMove]);
 
   const onDragEnd = async (result:any) => {
     console.log("Active onDragEnd");
@@ -118,6 +125,7 @@ const PasswordCard = () => {
         };
         setData(newData);
         await updateIndex(submitData);
+        dispatch(movePassword(true));
       }else{
         console.log("Move to same group");
         
@@ -143,6 +151,7 @@ const PasswordCard = () => {
         };
         setData(newData);
         await updateIndex(submitData);
+        dispatch(movePassword(true));
 
         console.log('New passwords: keyName: passwordsToUpdate', passwordsToUpdate);
         console.log('draggedPassword', draggedPassword);
@@ -153,13 +162,15 @@ const PasswordCard = () => {
     } catch (error:any) {
       // undo updated data
       setData(oldData);
-      const alert: Alert = {message: error.message, severity: 'error',}
+      const alert: Alert = {message: "移動に失敗しました。", severity: 'error',}
       dispatch(addAlert(alert));
     }
   }
 
-  const SelectPassword = () => {
+  // Open passwordDetail dialog
+  const SelectPassword = (item:any) => {
     console.log("Select Password");
+    dispatch(openDetailDialog(item));
   }
 
   return (
@@ -197,7 +208,7 @@ const PasswordCard = () => {
                                 <DragHandleIcon />
                               </div> 
                               <div className='password-text'
-                                onClick={SelectPassword}
+                                onClick={() => SelectPassword(item)}
                               >
                                 <div className="font-bold text-xl mb-2" >{item.title}</div>
                                 <PasswordText 

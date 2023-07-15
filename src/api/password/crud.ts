@@ -32,10 +32,29 @@ export const createPassword =async (data:Password, token:string) => {
 }
 
 // Update
+export const updatePassword =async (data:Password, token:string, changeGroup:boolean) => {
+  console.log("Active updatePassword api/passwords/crud.ts");
+  const url = `${BASEURL}${data.id}/`
+  const config = { headers: { Authorization: 'JWT ' + token } };
+  const requestBody = {
+    ...data,
+    changeGroup: changeGroup,
+  };
+
+  return await axios.put(url, requestBody, config);
+}
 
 export const updateIndex =async (data:any) => {
-  // console.log("Active createPassword api/passwords/crud.ts");
+  console.log("Active createPassword api/passwords/crud.ts");
   // const config = { headers: { Authorization: 'JWT ' + token } };
   const url = BASEURL + 'update_indexes/'
   return await axios.patch(url, data);
+}
+
+// Delete
+export const deletePassword =async (data: {id: number, group: number|null}, token: string) => {
+  console.log("Active deletePassword api/passwords/crud.ts");
+  const url = `${BASEURL}${data.id}/`
+  const config = { headers: { Authorization: 'JWT ' + token } };
+  return await axios.delete(url, config);
 }
