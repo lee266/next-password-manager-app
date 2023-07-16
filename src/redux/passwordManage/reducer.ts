@@ -25,6 +25,7 @@ interface passwordManageState {
   openTagDialog: boolean
   openSearchDialog: boolean
   openDeleteTagDialog: boolean
+  openPlusButtonMenu: boolean
   openMinusButtonMenu: boolean
 }
 
@@ -46,6 +47,7 @@ const initialState: passwordManageState = {
   openTagDialog: false,
   openSearchDialog: false,
   openDeleteTagDialog: false,
+  openPlusButtonMenu: false,
   openMinusButtonMenu: false,
 }
 
@@ -74,6 +76,8 @@ const passwordManageSlice = createSlice({
     closeSearchDialog: (state) => { state.openSearchDialog = false; },
     openDeleteTagDialog: (state) => { state.openDeleteTagDialog = true; },
     closeDeleteTagDialog: (state) => { state.openDeleteTagDialog = false; },
+    openPlusButtonMenu: (state) => {state.openPlusButtonMenu = true; },
+    closePlusButtonMenu: (state) => {state.openPlusButtonMenu = false; },
     openMinusButtonMenu: (state) => {state.openMinusButtonMenu = true; },
     closeMinusButtonMenu: (state) => {state.openMinusButtonMenu = false; },
     deleteSelectedPassword: (state, action) => { state.passwordDelete = action.payload; },
@@ -92,6 +96,7 @@ export const {
   openTagDialog, closeTagDialog,
   openSearchDialog, closeSearchDialog,
   openDeleteTagDialog, closeDeleteTagDialog,
+  openPlusButtonMenu, closePlusButtonMenu, 
   openMinusButtonMenu, closeMinusButtonMenu,
   deleteSelectedPassword, updateSelectedPassword, movePassword, updateTag,
 } = passwordManageSlice.actions;

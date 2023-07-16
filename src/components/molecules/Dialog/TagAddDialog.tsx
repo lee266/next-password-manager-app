@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
-import { closeTagDialog, updateTag } from 'redux/passwordManage/reducer';
+import { closeAddDialog, closePlusButtonMenu, closeTagDialog, updateTag } from 'redux/passwordManage/reducer';
 import { getUser } from 'api/users/crud';
 import { createTag } from "api/password/tag";
 import { getToken } from 'utils/auth';
@@ -18,6 +18,8 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import AddButton from 'components/atoms/Button/AddButton';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 
 const TagAddDialog = () => {
@@ -35,6 +37,7 @@ const TagAddDialog = () => {
 
   const handleClose = () => { 
     dispatch(closeTagDialog());
+    dispatch(closePlusButtonMenu());
     reset();
   }
 
@@ -45,48 +48,51 @@ const TagAddDialog = () => {
       await createTag(data, token);
       dispatch(updateTag(true));
       reset();
-      handleClose();
     } catch (error) {
       const alert: Alert = {
-        message: "グループが既に存在しているか、エラーが発生しました。",
+        message: "エラーが発生しました。タグに既に存在している場合は追加できません。",
         severity: "error",
       }
       dispatch(addAlert(alert));
+      reset();
     }
   }
 
   return(
     <div className="tag-add-dialog">
       <Dialog open={open} aria-labelledby="tag-add-dialog" onClose={() => handleClose()}>
-        <DialogTitle id="password-tag-add-dialog">
-          {t("Add Tag")}
-          <IconButton aria-label="close" sx={{position: 'absolute',right: 8,top: 8,}} onClick={handleClose}>
-            <CloseIcon />
-          </IconButton>
+        <DialogTitle>
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Typography variant="h6">{t("Add Tag")}</Typography>
+            <IconButton onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
         </DialogTitle>
-
-        <form id="tag-form" onSubmit={handleSubmit(onSubmit)} autoComplete='new-tag'>
-          <DialogContent>
+        <DialogContent dividers>
+          <form id="tag-form" onSubmit={handleSubmit(onSubmit)} autoComplete='new-tag'>
             <TextField 
               label="Tag name*"
               fullWidth
               {...register('tag_name')}
               error={!!errors.tag_name}
               helperText={errors.tag_name?.message}
+              variant="outlined"
+              margin="normal"
             />
-            <h2 className="mt-3">現在存在するタグ</h2>
-            <div style={{ maxHeight: '8em', overflowY: 'auto', lineHeight: '1em' }}>
+            <Typography variant="subtitle1" className="mt-3">現在存在するタグ</Typography>
+            <Box bgcolor="#f0f0f0" p={1} my={2} style={{ maxHeight: '8em', overflowY: 'auto', lineHeight: '1em' }}>
               {tags.map((tag, index) => {
                 return(
-                  <h3 className="mt-2" key={index}>{tag.tag_name}</h3>
+                  <Typography variant="body2" key={index}>{tag.tag_name}</Typography>
                 )
               })}
-            </div>
-          </DialogContent>
-          <DialogActions>
-            <AddButton name={t('add')} form='tag-form' type="submit" />
-          </DialogActions>
-        </form>
+            </Box>
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <AddButton name={t('add')} form='tag-form' type="submit" />
+        </DialogActions>
       </Dialog>
     </div>
   )

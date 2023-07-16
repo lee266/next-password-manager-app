@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import { Box } from '@mui/material';
-import { closeMinusButtonMenu, openAddDialog, openDeleteTagDialog, openGroupDialog, openMinusButtonMenu, openSearchDialog, openTagDialog } from 'redux/passwordManage/reducer';
+import { closeMinusButtonMenu, closePlusButtonMenu, openAddDialog, openDeleteTagDialog, openGroupDialog, openMinusButtonMenu, openPlusButtonMenu, openSearchDialog, openTagDialog } from 'redux/passwordManage/reducer';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
@@ -17,13 +17,14 @@ const PasswordFilters = () => {
   const [anchorElAdd, setAnchorElAdd] = useState<null | HTMLElement>(null);
   const [anchorElDelete, setAnchorElDelete] = useState<null | HTMLElement>(null);
   const dispatch = useDispatch();
-  const openAdd = Boolean(anchorElAdd);
+  const openAdd = useSelector((state: RootState) => state.passwordManage.openPlusButtonMenu);
   const openDelete = useSelector((state: RootState) => state.passwordManage.openMinusButtonMenu);
 
   const handleClickAdd = useCallback((
     event: React.MouseEvent<HTMLElement>
     ) => {
       setAnchorElAdd(event.currentTarget);
+      dispatch( openPlusButtonMenu() );
     }, []
   );
   
@@ -37,6 +38,7 @@ const PasswordFilters = () => {
 
   const handleCloseAdd = useCallback(() => {
     setAnchorElAdd(null);
+    dispatch( closePlusButtonMenu() );
   }, []);
   
   const handleCloseDelete = useCallback(() => {

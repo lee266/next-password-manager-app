@@ -38,7 +38,6 @@ const TagDeleteDialog = () => {
       for (let index = 0; index < selectedTags.length; index++) {
         await deleteTag(selectedTags[index], token);
       }
-      handleClose();
       dispatch( updateTag(true) );
     } catch (error) {
       const alert: Alert = {message: "削除に失敗しました。管理者にお問い合わせください。", severity: 'error',}
