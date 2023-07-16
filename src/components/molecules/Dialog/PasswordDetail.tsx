@@ -3,10 +3,7 @@ import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUser } from 'api/users/crud';
 import { getToken } from 'utils/auth';
-import { getGroups } from 'api/password/group';
-import { getTags } from 'api/password/tag';
 import { Alert } from 'redux/Feedback/types';
 import { addAlert } from 'redux/Feedback/reducer';
 import Dialog from '@mui/material/Dialog';
@@ -30,23 +27,13 @@ import Button from '@mui/material/Button';
 import { DialogContentText } from '@mui/material';
 import { deletePassword, updatePassword } from 'api/password/crud';
 
-type SelectBoxGroup = {
-  id: number;
-  group_name: string;
-}
-
-type SelectBoxTag = {
-  id: number;
-  tag_name: string;
-}
-
 
 const PasswordDetail = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [editMode, setEditMode] = useState<boolean>(false);
   const [openConfirmDialog, setConfirmDialog] = useState<boolean>(false);
-  const [selectBoxGroups, setSelectBoxGroups] = useState<SelectBoxGroup[]>([]);
+  const selectBoxGroups = useSelector((state: RootState) => state.passwordManage.groups);
   const [oldGroup, setOldGroup] = useState<number|string|undefined>('');
   const selectBoxTags = useSelector((state: RootState) => state.passwordManage.tags);
   const token = getToken();
@@ -113,12 +100,6 @@ const PasswordDetail = () => {
     }
   }
 
-  const getSelectBoxData =async () => {
-    const user = await getUser(token);
-    const selectBoxGroups = await getGroups({ user_id: user.id }, token);
-    setSelectBoxGroups(selectBoxGroups.data);
-  }
-
   useEffect(() => {
     if (open && selectedPassword) {
       setValue("id", selectedPassword.id);
@@ -128,7 +109,6 @@ const PasswordDetail = () => {
       setValue("email", selectedPassword.email);
       setValue("website", selectedPassword.website);
       setValue("notes", selectedPassword.notes);
-      getSelectBoxData();
       setValue("tag", typeof selectedPassword.tag === 'object' && selectedPassword.tag !== null ? selectedPassword.tag.id : '');
       setValue("group", typeof selectedPassword.group === 'object' && selectedPassword.group !== null && 'id' in selectedPassword.group ? selectedPassword.group.id : '');
       setOldGroup(
@@ -136,7 +116,6 @@ const PasswordDetail = () => {
           ? selectedPassword.group.id 
           : ''
       )
-      console.log("change selected password");
     }
   }, [selectedPassword, open]);
 

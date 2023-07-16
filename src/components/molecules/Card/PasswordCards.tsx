@@ -13,8 +13,9 @@ import { getGroupedPasswords } from 'api/password/crud';
 import  PasswordText  from 'components/atoms/Text/PasswordText';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { RootState } from 'redux/store';
-import { addTags, deleteSelectedPassword, movePassword, openDetailDialog, updateSelectedPassword, updateTag } from 'redux/passwordManage/reducer';
+import { addGroups, addTags, deleteSelectedPassword, movePassword, openDetailDialog, updateGroup, updateSelectedPassword, updateTag } from 'redux/passwordManage/reducer';
 import { getTags } from 'api/password/tag';
+import { getGroups } from 'api/password/group';
 
 
 const PasswordCard = () => {
@@ -28,6 +29,7 @@ const PasswordCard = () => {
   const passwordUpdate = useSelector((state: RootState) => state.passwordManage.passwordUpdate);
   const passwordMove = useSelector((state: RootState) => state.passwordManage.passwordMove);
   const tagUpdate = useSelector((state: RootState) => state.passwordManage.tagUpdate);
+  const groupUpdate = useSelector((state: RootState) => state.passwordManage.groupUpdate);
   const dispatch = useDispatch();
 
   const toggleDropdown = (key: string) => {
@@ -50,10 +52,17 @@ const PasswordCard = () => {
       dispatch(updateSelectedPassword(false));
       dispatch(movePassword(false));
     }
+
     const Tags =async () => {
       const userData = await getUser(token);
       const selectBoxTags = await getTags({ user_id: userData.id }, token);
       dispatch(addTags(selectBoxTags.data))
+    }
+
+    const Groups =async () => {
+      const userData = await getUser(token);
+      const selectBoxGroups = await getGroups({ user_id: userData.id }, token);
+      dispatch(addGroups(selectBoxGroups.data));
     }
 
     fetchData();
@@ -61,8 +70,11 @@ const PasswordCard = () => {
       Tags();
       dispatch(updateTag(false));
     }
-    
-  }, [passwords, groups, passwordDelete, passwordUpdate, passwordMove, tagUpdate]);
+    if (groupUpdate) {
+      Groups();
+      dispatch(updateGroup(false));
+    }
+  }, [passwords, groups, passwordDelete, passwordUpdate, passwordMove, tagUpdate, groupUpdate]);
 
   const onDragEnd =async (result:any) => {
     console.log("Active onDragEnd");

@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
-import { closeAddDialog, addPassword } from 'redux/passwordManage/reducer';
+import { closeAddDialog, closePlusButtonMenu, changePasswords } from 'redux/passwordManage/reducer';
 import { getUser } from 'api/users/crud';
 import { getToken } from 'utils/auth';
 import { Password, PasswordSchema } from 'types/models/Password';
@@ -20,21 +20,13 @@ import MenuItem from '@mui/material/MenuItem';
 import CloseIcon from '@mui/icons-material/Close';
 import AddButton from 'components/atoms/Button/AddButton';
 import { createPassword } from 'api/password/crud';
-import { useEffect, useState } from 'react';
-import { getGroups } from 'api/password/group';
-import { getTags } from 'api/password/tag';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 
 
-type SelectBoxGroup = {
-  id: number;
-  group_name: string;
-}
-
 const PasswordAddDialog = () => {
-  const [selectBoxGroups, setSelectBoxGroups] = useState<SelectBoxGroup[]>([]);
+  const selectBoxGroups = useSelector((state: RootState) => state.passwordManage.groups);
   const selectBoxTags = useSelector((state: RootState) => state.passwordManage.tags);
   const { t } = useTranslation();
   const token = getToken();
@@ -58,6 +50,7 @@ const PasswordAddDialog = () => {
   
   const handleClose = () => { 
     dispatch(closeAddDialog());
+    dispatch(closePlusButtonMenu());
     reset(); 
   }
 
@@ -68,29 +61,17 @@ const PasswordAddDialog = () => {
       data['user'] = user.id;
 
       await createPassword(data, token);
-      dispatch(addPassword(data.title));
       reset();
-      handleClose();
+      dispatch(changePasswords(true));
     } catch (error:any) {
       const alert: Alert = {message: error.message, severity: 'error',}
       dispatch(addAlert(alert));
     }
   }
 
-  const getSelectBoxData =async () => {
-    const user = await getUser(token);
-    const selectBoxGroups = await getGroups({ user_id: user.id }, token);
-    setSelectBoxGroups(selectBoxGroups.data);
-  }
-
-  useEffect(() => {
-    console.log('move init passwordAddDialog');
-    getSelectBoxData();
-  }, []);
-
   return(
     <div className='password-add-dialog'>
-      <Dialog open={open} aria-labelledby='password-add-dialog' scroll='paper' onClose={() => handleClose()}>
+      <Dialog fullScreen open={open} aria-labelledby='password-add-dialog' scroll='paper' onClose={() => handleClose()}>
         <DialogTitle id='password-manage-add-dialog'>
           {t('Add Password')}
           <IconButton aria-label='close' sx={{position: 'absolute',right: 8,top: 8,}} onClick={handleClose}>

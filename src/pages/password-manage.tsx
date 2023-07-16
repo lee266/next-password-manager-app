@@ -14,6 +14,8 @@ import Alerts2 from "components/molecules/Feedback/Alerts2";
 import TagAddDialog from 'components/molecules/Dialog/TagAddDialog';
 import PasswordSearchDialog from 'components/molecules/Dialog/PasswordSearchDialog';
 import TagDeleteDialog from 'components/molecules/Dialog/TagDeleteDialog';
+import GroupDeleteDialog from 'components/molecules/Dialog/GroupDeleteDialog';
+import PasswordDeleteDialog from 'components/molecules/Dialog/PasswordDeleteDialog';
 
 const PasswordManage = () => {
   const router = useRouter();
@@ -36,9 +38,11 @@ const PasswordManage = () => {
         <PasswordCard />
         <Alerts2 />
         <PasswordAddDialog />
+        <PasswordDeleteDialog />
         <PasswordSearchDialog />
         <PasswordDetail />
         <GroupAddDialog />
+        <GroupDeleteDialog />
         <TagAddDialog />
         <TagDeleteDialog />
       </MainLayout>

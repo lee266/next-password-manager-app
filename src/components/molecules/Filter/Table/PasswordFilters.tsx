@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import { Box } from '@mui/material';
-import { closeMinusButtonMenu, closePlusButtonMenu, openAddDialog, openDeleteTagDialog, openGroupDialog, openMinusButtonMenu, openPlusButtonMenu, openSearchDialog, openTagDialog } from 'redux/passwordManage/reducer';
+import { closeMinusButtonMenu, closePlusButtonMenu, openAddDialog, openDeleteGroupDialog, openDeleteTagDialog, openGroupDialog, openMinusButtonMenu, openPlusButtonMenu, openSearchDialog, openTagDialog } from 'redux/passwordManage/reducer';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
@@ -131,7 +131,7 @@ const PasswordFilters = () => {
               },
             },
         }}>
-          <MenuItem onClick={() => openDialog('delete_group')}> Delete group </MenuItem>
+          <MenuItem onClick={() => dispatch(openDeleteGroupDialog())}> Delete group </MenuItem>
           <MenuItem onClick={() => dispatch(openDeleteTagDialog())}> Delete tag </MenuItem>
         </Menu>
         {/* search button  */}

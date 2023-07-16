@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
-import { closeGroupDialog, addGroup } from 'redux/passwordManage/reducer';
+import { closeGroupDialog, closePlusButtonMenu, updateGroup } from 'redux/passwordManage/reducer';
 import { getUser } from 'api/users/crud';
 import { createGroup } from 'api/password/group';
 import { getToken } from 'utils/auth';
@@ -18,6 +18,8 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import AddButton from 'components/atoms/Button/AddButton';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 
 const GroupAddDialog = () => {
@@ -25,6 +27,8 @@ const GroupAddDialog = () => {
   const token = getToken();
   const dispatch = useDispatch();
   const open = useSelector((state: RootState) => state.passwordManage.openGroupDialog);
+  const groups = useSelector((state: RootState) => state.passwordManage.groups);
+
   // react form settings
   const form = useForm<PasswordGroup>({
     resolver: zodResolver(PasswordGroupSchema),
@@ -34,6 +38,7 @@ const GroupAddDialog = () => {
 
   const handleClose = () => { 
     dispatch(closeGroupDialog());
+    dispatch(closePlusButtonMenu());
     reset(); 
   }
 
@@ -42,9 +47,8 @@ const GroupAddDialog = () => {
       const user = await getUser(token);
       data["user"] = user.id;
       await createGroup(data, token);
-      dispatch(addGroup(data.group_name));
+      dispatch( updateGroup(true) );
       reset();
-      handleClose();
     } catch (error) {
       const alert: Alert = {
         message: "グループが既に存在しているか、エラーが発生しました。",
@@ -56,14 +60,16 @@ const GroupAddDialog = () => {
 
   return(
     <div className="group-add-dialog">
-      <Dialog open={open} aria-labelledby="group-add-dialog" onClose={() => handleClose()}>
+      <Dialog fullScreen open={open} aria-labelledby="group-add-dialog" onClose={() => handleClose()}>
         <DialogTitle id="password-manage-add-dialog">
-          {t("Add group")}
-          <IconButton aria-label="close" sx={{position: 'absolute',right: 8,top: 8,}} onClick={handleClose}>
-            <CloseIcon />
-          </IconButton>
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Typography variant="h6">{t("Add Group")}</Typography>
+            <IconButton onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
         </DialogTitle>
-        <DialogContent>
+        <DialogContent dividers>
           <form id="group-form" onSubmit={handleSubmit(onSubmit)} autoComplete='new-group'>
             <TextField 
               label="Group name*"
@@ -73,6 +79,12 @@ const GroupAddDialog = () => {
               error={!!errors.group_name}
               helperText={errors.group_name?.message}
             />
+            <Typography variant="subtitle1" className="mt-3">現在存在するグループ</Typography>
+            <Box bgcolor="#f0f0f0" p={1} my={2} style={{ maxHeight: '16em', overflowY: 'auto', lineHeight: '1em' }}>
+              {groups.map((group, index) => {
+                return(<Typography variant="body2" key={index}>{group.group_name}</Typography>)
+              })}
+            </Box>
           </form>
         </DialogContent>
         <DialogActions>
