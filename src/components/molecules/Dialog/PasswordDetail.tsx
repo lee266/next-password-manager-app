@@ -24,7 +24,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import CloseIcon from '@mui/icons-material/Close';
-import  ModeEditTwoTone  from '@mui/icons-material/ModeEditTwoTone';
+import ModeEditTwoTone  from '@mui/icons-material/ModeEditTwoTone';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import { DialogContentText } from '@mui/material';
@@ -47,8 +47,8 @@ const PasswordDetail = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [openConfirmDialog, setConfirmDialog] = useState<boolean>(false);
   const [selectBoxGroups, setSelectBoxGroups] = useState<SelectBoxGroup[]>([]);
-  const [selectBoxTags, setSelectBoxTags] = useState<SelectBoxTag[]>([]);
   const [oldGroup, setOldGroup] = useState<number|string|undefined>('');
+  const selectBoxTags = useSelector((state: RootState) => state.passwordManage.tags);
   const token = getToken();
   const open = useSelector((state: RootState) => state.passwordManage.openDetailDialog);
   const selectedPassword = useSelector((state: RootState) => state.passwordManage.selectedPassword);
@@ -116,9 +116,7 @@ const PasswordDetail = () => {
   const getSelectBoxData =async () => {
     const user = await getUser(token);
     const selectBoxGroups = await getGroups({ user_id: user.id }, token);
-    const selectBoxTags = await getTags({ user_id: user.id }, token);
     setSelectBoxGroups(selectBoxGroups.data);
-    setSelectBoxTags(selectBoxTags.data);
   }
 
   useEffect(() => {
@@ -143,7 +141,7 @@ const PasswordDetail = () => {
   }, [selectedPassword, open]);
 
   return(
-    <div>
+    <div className='password-detail-dialog'>
       <Dialog fullScreen open={open} aria-labelledby='password-detail-dialog' scroll='paper'
         onClose={() => handleClose()}
       >

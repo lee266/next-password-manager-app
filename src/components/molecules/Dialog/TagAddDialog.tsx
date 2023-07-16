@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
-import { closeTagDialog, addTag } from 'redux/passwordManage/reducer';
+import { closeTagDialog, updateTag } from 'redux/passwordManage/reducer';
 import { getUser } from 'api/users/crud';
 import { createTag } from "api/password/tag";
 import { getToken } from 'utils/auth';
@@ -23,6 +23,7 @@ import AddButton from 'components/atoms/Button/AddButton';
 const TagAddDialog = () => {
   const { t } = useTranslation();
   const token = getToken();
+  const tags = useSelector((state: RootState) => state.passwordManage.tags);
   const dispatch = useDispatch();
   const open = useSelector((state: RootState) => state.passwordManage.openTagDialog);
   // react form settings
@@ -42,7 +43,7 @@ const TagAddDialog = () => {
       const user = await getUser(token);
       data["user"] = user.id;
       await createTag(data, token);
-      dispatch(addTag(data.tag_name));
+      dispatch(updateTag(true));
       reset();
       handleClose();
     } catch (error) {
@@ -73,6 +74,14 @@ const TagAddDialog = () => {
               error={!!errors.tag_name}
               helperText={errors.tag_name?.message}
             />
+            <h2 className="mt-3">現在存在するタグ</h2>
+            <div style={{ maxHeight: '8em', overflowY: 'auto', lineHeight: '1em' }}>
+              {tags.map((tag, index) => {
+                return(
+                  <h3 className="mt-2" key={index}>{tag.tag_name}</h3>
+                )
+              })}
+            </div>
           </DialogContent>
           <DialogActions>
             <AddButton name={t('add')} form='tag-form' type="submit" />

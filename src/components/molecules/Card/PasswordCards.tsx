@@ -13,10 +13,12 @@ import { getGroupedPasswords } from 'api/password/crud';
 import  PasswordText  from 'components/atoms/Text/PasswordText';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { RootState } from 'redux/store';
-import { deleteSelectedPassword, movePassword, openDetailDialog, updateSelectedPassword } from 'redux/passwordManage/reducer';
+import { addTags, deleteSelectedPassword, movePassword, openDetailDialog, updateSelectedPassword, updateTag } from 'redux/passwordManage/reducer';
+import { getTags } from 'api/password/tag';
 
 
 const PasswordCard = () => {
+  const token = getToken();
   const [data, setData] = useState<Record<string, Password[]>>({});
   const [oldData, setOldData] = useState<Record<string, Password[]>>({});
   const [dropdownOpenState, setDropdownOpenState] = useState<{[key: string]: boolean}>({});
@@ -25,6 +27,7 @@ const PasswordCard = () => {
   const passwordDelete = useSelector((state: RootState) => state.passwordManage.passwordDelete);
   const passwordUpdate = useSelector((state: RootState) => state.passwordManage.passwordUpdate);
   const passwordMove = useSelector((state: RootState) => state.passwordManage.passwordMove);
+  const tagUpdate = useSelector((state: RootState) => state.passwordManage.tagUpdate);
   const dispatch = useDispatch();
 
   const toggleDropdown = (key: string) => {
@@ -47,9 +50,19 @@ const PasswordCard = () => {
       dispatch(updateSelectedPassword(false));
       dispatch(movePassword(false));
     }
+    const Tags =async () => {
+      const userData = await getUser(token);
+      const selectBoxTags = await getTags({ user_id: userData.id }, token);
+      dispatch(addTags(selectBoxTags.data))
+    }
+
     fetchData();
+    if (tagUpdate) {
+      Tags();
+      dispatch(updateTag(false));
+    }
     
-  }, [passwords, groups, passwordDelete, passwordUpdate, passwordMove]);
+  }, [passwords, groups, passwordDelete, passwordUpdate, passwordMove, tagUpdate]);
 
   const onDragEnd =async (result:any) => {
     console.log("Active onDragEnd");

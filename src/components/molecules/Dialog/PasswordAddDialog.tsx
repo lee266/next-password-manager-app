@@ -33,14 +33,9 @@ type SelectBoxGroup = {
   group_name: string;
 }
 
-type SelectBoxTag = {
-  id: number;
-  tag_name: string;
-}
-
 const PasswordAddDialog = () => {
   const [selectBoxGroups, setSelectBoxGroups] = useState<SelectBoxGroup[]>([]);
-  const [selectBoxTags, setSelectBoxTags] = useState<SelectBoxTag[]>([]);
+  const selectBoxTags = useSelector((state: RootState) => state.passwordManage.tags);
   const { t } = useTranslation();
   const token = getToken();
   const dispatch = useDispatch();
@@ -85,9 +80,7 @@ const PasswordAddDialog = () => {
   const getSelectBoxData =async () => {
     const user = await getUser(token);
     const selectBoxGroups = await getGroups({ user_id: user.id }, token);
-    const selectBoxTags = await getTags({ user_id: user.id }, token);
     setSelectBoxGroups(selectBoxGroups.data);
-    setSelectBoxTags(selectBoxTags.data);
   }
 
   useEffect(() => {
