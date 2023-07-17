@@ -5,7 +5,7 @@ interface PasswordWithNonNullID extends Omit<Password, 'id'> {
   id: number;
 }
 
-type GetPassword = Omit<Password, '_id'> & { id: number };
+type GetPassword = Omit<Password, '_id'> & { id: number, group: { id: number } };
 type GetPasswordTag = Omit<PasswordTag, '_id'> & { id: number };
 type GetPasswordGroup = Omit<PasswordGroup, '_id'> & { id: number };
 
@@ -18,7 +18,7 @@ interface passwordManageState {
   isLoading: boolean
   tableHeader: object
   passwordTitles: string[]
-  passwords: GetPassword[],
+  passwords: Record<string, GetPassword[]>,
   groups: GetPasswordGroup[]
   tags: GetPasswordTag[]
   selectedPassword: PasswordWithNonNullID | null;
@@ -36,14 +36,14 @@ interface passwordManageState {
 
 const initialState: passwordManageState = {
   passwordDelete: false,
-  passwordUpdate: false,
+  passwordUpdate: true,
   passwordMove: false,
   groupUpdate: true,
   tagUpdate: true,
   isLoading: false,
   tableHeader: ["title", ""],
   passwordTitles: [],
-  passwords: [],
+  passwords: {},
   groups: [],
   tags: [],
   selectedPassword: null,

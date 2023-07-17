@@ -6,14 +6,14 @@ import { useEffect, useState } from "react";
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable } from '../StrictModeDroppable';
 import { getUser } from 'api/users/crud';
-import { updateIndex } from 'api/password/crud';
+import { getPasswords, updateIndex } from 'api/password/crud';
 import { getToken } from 'utils/auth';
 import { Password } from 'types/models/Password';
 import { getGroupedPasswords } from 'api/password/crud';
 import  PasswordText  from 'components/atoms/Text/PasswordText';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { RootState } from 'redux/store';
-import { addGroups, addTags, deleteSelectedPassword, movePassword, openDetailDialog, updateGroup, updateSelectedPassword, updateTag } from 'redux/passwordManage/reducer';
+import { addGroups, addPasswords, addTags, changePasswords, deleteSelectedPassword, movePassword, openDetailDialog, updateGroup, updateSelectedPassword, updateTag } from 'redux/passwordManage/reducer';
 import { getTags } from 'api/password/tag';
 import { getGroups } from 'api/password/group';
 
@@ -65,7 +65,18 @@ const PasswordCard = () => {
       dispatch(addGroups(selectBoxGroups.data));
     }
 
+    const Passwords =async () => {
+      const userData = await getUser(token);
+      userData.user_id = userData.id;
+      const selectBoxPasswords = await getGroupedPasswords(userData);
+      dispatch(addPasswords(selectBoxPasswords.data));
+    }
+
     fetchData();
+    if (passwordUpdate) {
+      Passwords()
+      dispatch(changePasswords(false));
+    }
     if (tagUpdate) {
       Tags();
       dispatch(updateTag(false));
