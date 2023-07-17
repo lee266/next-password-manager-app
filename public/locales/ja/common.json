@@ -1,4 +1,3 @@
-
 {
   "localLabel": "日本語",
   "general": {
@@ -17,7 +16,10 @@
     },
     "error": {
       "require": "必須です",
-      "email": "正しいメールアドレスを入力してください"
+      "email": "正しいメールアドレスを入力してください",
+      "token": "トークンの確認に失敗しました。再度ログインしてください。",
+      "moveItem": "移動に失敗しました。",
+      "addGroup": "グループが既に存在しているか、エラーが発生しました。"
     },
     "nav": {
       "password": "パスワード",
@@ -41,8 +43,14 @@
     "button": {
       "add": "追加",
       "edit": "編集",
+      "delete": "削除",
+      "search": "検索",
       "login": "ログイン",
-      "resetPassword": "パスワード変更"
+      "resetPassword": "パスワード変更",
+      "cancel": "キャンセル",
+      "update": "更新",
+      "no": "いいえ",
+      "yes": "はい"
     },
     "form": {
       "title": "タイトル",
@@ -52,6 +60,26 @@
       "tag": "タグ",
       "group": "グループ",
       "note": "メモ"
+    },
+    "menu": {
+      "createPassword": "パスワード作成",
+      "createGroup": "グループ作成",
+      "createTag": "タグ作成",
+      "deletePassword": "パスワード削除",
+      "deleteGroup": "グループ削除",
+      "deleteTag": "タグ削除"
+    },
+    "dialog": {
+      "title": {
+        "addPassword": "パスワード追加",
+        "deletePassword": "パスワード削除",
+        "addGroup": "グループ追加",
+        "deleteGroup": "グループ削除",
+        "addTag": "タグ追加",
+        "deleteTag": "タグ削除",
+        "passwordDetail": "パスワード詳細",
+        "search": "検索条件"
+      }
     }
   }
 }

@@ -1,26 +1,84 @@
-
 {
   "localeLabel": "English",
   "general": {
     "auth": {
-      "email": "email",
-      "username": "username",
-      "password": "password",
-      "confirmPassword": "confirm password",
-      "signIn": "sign in",
-      "signUp": "sign up",
-      "forgotPassword": "you forget password",
-      "noAccount": "you don't have account",
-      "pleaseSignUp": "please sing up"
+      "email": "Email",
+      "username": "Username",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "signIn": "Sign In",
+      "signUp": "Sign Up",
+      "login": "Log In",
+      "resetPassword": "Reset Password",
+      "forgotPassword": "Forgot Password?",
+      "noAccount": "Don't have an account?",
+      "pleaseSignUp": "Please sign up"
+    },
+    "error": {
+      "require": "This field is required",
+      "email": "Please enter a valid email address",
+      "token": "Token validation failed. Please log in again.",
+      "moveItem": "Failed to move the item.",
+      "addGroup": "Either the group already exists, or an error occurred."
     },
     "nav": {
-      "password": "password",
-      "chat": "chat"
+      "password": "Password",
+      "againPassword": "Re-enter Password",
+      "chat": "Chat"
+    },
+    "common": {
+      "password": "Password"
+    },
+    "yup": {
+      "string": "This field is a string",
+      "boolean": "This field is a boolean",
+      "required": "This field is required",
+      "number": "This field is a number",
+      "email": "Please enter a valid email address",
+      "passwordsMatch": "Please enter the same password",
+      "minChars": "Too few characters"
     }
   },
   "component": {
     "button": {
-      "login": "login"
+      "add": "Add",
+      "edit": "Edit",
+      "delete": "Delete",
+      "search": "Search",
+      "login": "Log In",
+      "resetPassword": "Reset Password",
+      "cancel": "Cancel",
+      "update": "Update",
+      "no": "No",
+      "yes": "Yes"
+    },
+    "form": {
+      "title": "Title",
+      "password": "Password",
+      "email": "Email",
+      "website": "Website URL",
+      "tag": "Tag",
+      "group": "Group",
+      "note": "Note"
+    },
+    "menu": {
+      "createPassword": "Create Password",
+      "createGroup": "Create Group",
+      "createTag": "Create Tag",
+      "deletePassword": "Delete Password",
+      "deleteGroup": "Delete Group",
+      "deleteTag": "Delete Tag"
+    },
+    "dialog": {
+      "title": {
+        "addPassword": "Add Password",
+        "deletePassword": "Delete Password",
+        "addGroup": "Add Group",
+        "deleteGroup": "Delete Group",
+        "addTag": "Add Tag",
+        "deleteTag": "Delete Tag",
+        "search": "Search Filters"
+      }
     }
   }
 }
