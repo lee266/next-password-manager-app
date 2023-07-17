@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
-import { closeAddDialog, closePlusButtonMenu, closeTagDialog, updateTag } from 'redux/passwordManage/reducer';
+import { closePlusButtonMenu, closeTagDialog, updateTag } from 'redux/passwordManage/reducer';
 import { getUser } from 'api/users/crud';
 import { createTag } from "api/password/tag";
 import { getToken } from 'utils/auth';
@@ -60,7 +60,7 @@ const TagAddDialog = () => {
 
   return(
     <div className="tag-add-dialog">
-      <Dialog open={open} aria-labelledby="tag-add-dialog" onClose={() => handleClose()}>
+      <Dialog fullScreen open={open} aria-labelledby="tag-add-dialog" onClose={() => handleClose()}>
         <DialogTitle>
           <Box display="flex" justifyContent="space-between" alignItems="center">
             <Typography variant="h6">{t("Add Tag")}</Typography>

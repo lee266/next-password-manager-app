@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { GetServerSideProps } from 'next';
 import { useRouter } from "next/router";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useDispatch } from 'react-redux';
+import { Alert } from 'redux/Feedback/types';
+import { addAlert } from 'redux/Feedback/reducer';
 import { verifyJwt } from 'api/auth/jwt';
 import { getToken } from 'utils/auth';
 import { MainLayout } from 'components/layouts/MainLayout2';
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { GetServerSideProps } from 'next';
 import PasswordAddDialog from 'components/molecules/Dialog/PasswordAddDialog';
 import PasswordDetail from 'components/molecules/Dialog/PasswordDetail';
 import PasswordFilters from 'components/molecules/Filter/Table/PasswordFilters';
@@ -19,16 +22,28 @@ import PasswordDeleteDialog from 'components/molecules/Dialog/PasswordDeleteDial
 
 const PasswordManage = () => {
   const router = useRouter();
-  const [, setToken] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = getToken();
-    if (token) {
+    const verifyAndRedirect = async () => {
+      const token = getToken();
+      if (!token) return false;
+      
       try {
-        verifyJwt(token);
-        setToken(token)
-      } catch (error) { router.push("/login2"); }
-    } else { router.push("/login2");}
+        await verifyJwt(token);
+        return true;
+      } catch (error) {
+        return false;
+      }
+    };
+  
+    verifyAndRedirect().then(isValid => {
+      if (!isValid) {
+        const alert: Alert = {message: "トークンの確認に失敗しました。再度ログインしてください。", severity: 'error',}
+        dispatch(addAlert(alert));
+        router.push("/login2");
+      }
+    });
   }, [router]);
   
   return(

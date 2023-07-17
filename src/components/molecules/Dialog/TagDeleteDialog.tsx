@@ -18,7 +18,6 @@ import { Alert } from "redux/Feedback/types";
 import { addAlert } from "redux/Feedback/reducer";
 
 
-
 const TagDeleteDialog = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -52,7 +51,6 @@ const TagDeleteDialog = () => {
       setSelectedTags(selectedTags.filter(id => id !== tagId));
     }
   };
-
 
   return(
     <div>
