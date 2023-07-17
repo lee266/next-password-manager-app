@@ -125,7 +125,7 @@ const PasswordDetail = () => {
         onClose={() => handleClose()}
       >
         <DialogTitle id='password-manage-detail-dialog'>
-          {t("Password detail")}
+          {t("component.dialog.title.passwordDetail")}
           <IconButton aria-label='close' sx={{position: 'absolute',right: 8,top: 8,}} onClick={handleClose}>
             <CloseIcon />
           </IconButton>
@@ -237,8 +237,8 @@ const PasswordDetail = () => {
             </div>
           ) : (
             <div>
-              <Button onClick={() => setEditMode(false)}>Cancel</Button>
-              <Button type='submit' form='password-detail-form'>Update</Button>
+              <Button onClick={() => setEditMode(false)}>{t("component.button.cancel")}</Button>
+              <Button type='submit' form='password-detail-form'>{t("component.button.update")}</Button>
             </div>
           )}
         </DialogActions>
@@ -254,10 +254,10 @@ const PasswordDetail = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setConfirmDialog(false)}>
-            {t("No")}
+            {t("component.button.no")}
           </Button>
           <Button onClick={handleDelete} color="primary">
-            {t("Yes")}
+            {t("component.button.yes")}
           </Button>
         </DialogActions>
       </Dialog>

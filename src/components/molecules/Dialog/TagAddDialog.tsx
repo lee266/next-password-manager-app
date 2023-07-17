@@ -63,7 +63,7 @@ const TagAddDialog = () => {
       <Dialog fullScreen open={open} aria-labelledby="tag-add-dialog" onClose={() => handleClose()}>
         <DialogTitle>
           <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Typography variant="h6">{t("Add Tag")}</Typography>
+            <Typography variant="h6">{t("component.dialog.title.addTag")}</Typography>
             <IconButton onClick={handleClose}>
               <CloseIcon />
             </IconButton>
@@ -91,7 +91,7 @@ const TagAddDialog = () => {
           </form>
         </DialogContent>
         <DialogActions>
-          <AddButton name={t('add')} form='tag-form' type="submit" />
+          <AddButton name={t('component.button.add')} form='tag-form' type="submit" />
         </DialogActions>
       </Dialog>
     </div>

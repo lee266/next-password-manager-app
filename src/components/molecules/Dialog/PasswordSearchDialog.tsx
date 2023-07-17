@@ -100,7 +100,7 @@ const PasswordSearchDialog = () => {
   return(
     <Dialog fullScreen open={open} aria-labelledby='password-search-dialog' scroll='paper' onClose={handleClose}>
       <DialogTitle id='password-search-dialog'>
-        {t("Search")}
+        {t("component.dialog.title.search")}
         <IconButton aria-label='close' sx={{position: 'absolute',right: 8,top: 8,}} onClick={handleClose}>
           <CloseIcon />
         </IconButton>

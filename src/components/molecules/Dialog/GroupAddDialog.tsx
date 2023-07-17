@@ -51,7 +51,7 @@ const GroupAddDialog = () => {
       reset();
     } catch (error) {
       const alert: Alert = {
-        message: "グループが既に存在しているか、エラーが発生しました。",
+        message: t('general.error.addGroup'),
         severity: "error",
       }
       dispatch(addAlert(alert));
@@ -63,7 +63,7 @@ const GroupAddDialog = () => {
       <Dialog fullScreen open={open} aria-labelledby="group-add-dialog" onClose={() => handleClose()}>
         <DialogTitle id="password-manage-add-dialog">
           <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Typography variant="h6">{t("Add Group")}</Typography>
+            <Typography variant="h6">{t("component.dialog.title.addGroup")}</Typography>
             <IconButton onClick={handleClose}>
               <CloseIcon />
             </IconButton>
@@ -88,7 +88,7 @@ const GroupAddDialog = () => {
           </form>
         </DialogContent>
         <DialogActions>
-          <AddButton name={t('add')} form='group-form' type="submit" />
+          <AddButton name={t('component.button.add')} form='group-form' type="submit" />
         </DialogActions>
       </Dialog>
     </div>

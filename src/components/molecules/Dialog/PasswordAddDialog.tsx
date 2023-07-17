@@ -73,7 +73,7 @@ const PasswordAddDialog = () => {
     <div className='password-add-dialog'>
       <Dialog fullScreen open={open} aria-labelledby='password-add-dialog' scroll='paper' onClose={() => handleClose()}>
         <DialogTitle id='password-manage-add-dialog'>
-          {t('Add Password')}
+          {t('component.dialog.title.addPassword')}
           <IconButton aria-label='close' sx={{position: 'absolute',right: 8,top: 8,}} onClick={handleClose}>
             <CloseIcon />
           </IconButton>
@@ -169,7 +169,7 @@ const PasswordAddDialog = () => {
         </form>
         </DialogContent>
         <DialogActions>
-          <AddButton name={t('add')} form='password-form' type='submit' />
+          <AddButton name={t('component.button.add')} form='password-form' type='submit' />
         </DialogActions>
       </Dialog>
     </div>

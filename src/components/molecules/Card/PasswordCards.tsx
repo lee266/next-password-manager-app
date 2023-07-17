@@ -196,7 +196,7 @@ const PasswordCard = () => {
   const SelectPassword = (item:Password) => { dispatch(openDetailDialog(item)); }
 
   return (
-    <div className="password_card">
+    <div className="password_card mt-1">
       <DragDropContext onDragEnd={onDragEnd}>
         {Object.keys(data).map((key:string) => {
           return(

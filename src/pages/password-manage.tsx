@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useDispatch } from 'react-redux';
 import { Alert } from 'redux/Feedback/types';
@@ -21,6 +22,7 @@ import GroupDeleteDialog from 'components/molecules/Dialog/GroupDeleteDialog';
 import PasswordDeleteDialog from 'components/molecules/Dialog/PasswordDeleteDialog';
 
 const PasswordManage = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -39,7 +41,7 @@ const PasswordManage = () => {
   
     verifyAndRedirect().then(isValid => {
       if (!isValid) {
-        const alert: Alert = {message: "トークンの確認に失敗しました。再度ログインしてください。", severity: 'error',}
+        const alert: Alert = {message: t('general.error.token'), severity: 'error',}
         dispatch(addAlert(alert));
         router.push("/login2");
       }
@@ -51,11 +53,11 @@ const PasswordManage = () => {
       <MainLayout>
         <PasswordFilters />
         <PasswordCard />
+        <PasswordDetail />
         <Alerts2 />
         <PasswordAddDialog />
         <PasswordDeleteDialog />
         <PasswordSearchDialog />
-        <PasswordDetail />
         <GroupAddDialog />
         <GroupDeleteDialog />
         <TagAddDialog />

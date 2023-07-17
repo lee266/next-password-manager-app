@@ -58,7 +58,7 @@ const TagDeleteDialog = () => {
         onClose={() => handleClose()}
       >
         <DialogTitle id='tag-delete-dialog'>
-          {t("Tag delete")}
+          {t("component.dialog.title.deleteTag")}
           <IconButton aria-label='close' sx={{position: 'absolute',right: 8,top: 8,}} onClick={handleClose}>
             <CloseIcon />
           </IconButton>
@@ -83,7 +83,7 @@ const TagDeleteDialog = () => {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button color="primary" onClick={handleDelete}>削除</Button>
+          <Button color="primary" onClick={handleDelete}>{t("component.button.delete")}</Button>
         </DialogActions>
       </Dialog>
     </div>

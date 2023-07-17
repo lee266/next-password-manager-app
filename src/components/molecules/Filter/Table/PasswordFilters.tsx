@@ -69,7 +69,7 @@ const PasswordFilters = () => {
   }
 
   return(
-    <div className='password-filters'>
+    <div className='password-filters mt-1'>
       <Box sx={{display: 'flex'}}>
         <Box sx={{ flexGrow: 1 }} />
         {/* plus button  */}

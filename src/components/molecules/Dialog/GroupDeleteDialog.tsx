@@ -58,7 +58,7 @@ const GroupDeleteDialog = () => {
         onClose={() => handleClose()}
       >
         <DialogTitle id='group-delete-dialog'>
-          {t("Group delete")}
+          {t("component.dialog.title.deleteGroup")}
           <IconButton aria-label='close' sx={{position: 'absolute',right: 8,top: 8,}} onClick={handleClose}>
             <CloseIcon />
           </IconButton>
@@ -83,7 +83,7 @@ const GroupDeleteDialog = () => {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button color="primary" onClick={handleDelete}>削除</Button>
+          <Button color="primary" onClick={handleDelete}>{t("component.button.delete")}</Button>
         </DialogActions>
       </Dialog>
     </div>

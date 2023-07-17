@@ -79,7 +79,7 @@ const PasswordDeleteDialog = () => {
         onClose={() => handleClose()}
       >
         <DialogTitle id='password-delete-dialog'>
-          {t("Password delete")}
+          {t('component.dialog.title.deletePassword')}
           <IconButton aria-label='close' sx={{position: 'absolute',right: 8,top: 8,}} onClick={handleClose}>
             <CloseIcon />
           </IconButton>
@@ -122,7 +122,7 @@ const PasswordDeleteDialog = () => {
             })}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDelete}>削除</Button>
+          <Button onClick={handleDelete}>{t("component.button.delete")}</Button>
         </DialogActions>
       </Dialog>
     </div>
