@@ -1,8 +1,16 @@
 import Cookies from 'js-cookie';
+import cookie from 'cookie';
 
 export const TOKEN_KEY = 'jwt_token';
 
-export function getToken(): string {
+export function getToken(req?: any): string {
+  if (req) {
+    const parsedCookies = cookie.parse(req.headers.cookie || '');
+    console.log(parsedCookies);
+    
+    return parsedCookies[TOKEN_KEY] || '';
+  }
+
   return Cookies.get(TOKEN_KEY) || '';
 }
 

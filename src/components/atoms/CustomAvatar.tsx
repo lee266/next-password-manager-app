@@ -39,6 +39,7 @@ export const CustomAvatar = () => {
       <IconButton
         onClick={handleClick}
         sx={{ ml: 2 }}
+        aria-label="Avatar button"
       >
         <Avatar ></Avatar>
       </IconButton>

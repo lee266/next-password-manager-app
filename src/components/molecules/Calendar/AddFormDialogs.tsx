@@ -1,7 +1,13 @@
 
 // MUI 
-import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, TextField } from "@mui/material";
-
+import Button from "@mui/material/Button"
+import Checkbox from "@mui/material/Checkbox"
+import Dialog from "@mui/material/Dialog"
+import DialogActions from "@mui/material/DialogActions"
+import DialogContent from "@mui/material/DialogContent"
+import DialogTitle from "@mui/material/DialogTitle"
+import FormControlLabel from "@mui/material/FormControlLabel"
+import TextField from "@mui/material/TextField"
 // translation
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -84,7 +90,7 @@ const AddFormDialog = (props:AddFormDialogType) => {
   //   setValue(newValue);
   // };
 
-  // const handleChecboxChange = (e, field) => {
+  // const handleCheckboxChange = (e, field) => {
   //   field.onChange(e.target.checked)
   // }
 

@@ -1,8 +1,6 @@
 import * as React from 'react';
-
 import MainLayout from '../components/layouts/MainLayout';
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-
 
 
 export default function TemplatePage() {

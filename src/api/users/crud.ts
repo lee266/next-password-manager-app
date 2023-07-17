@@ -3,8 +3,6 @@ import axios, { AxiosResponse } from "axios";
 const BASEURL = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/auth/`
 const API_URL = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/auth/users/me/`;
 
-type getUserFunction = (token:string) => Promise<undefined | AxiosResponse>
-
 export const getUser = async(token:string) => {
   console.log('Active getUser() src/api/users/crud.ts');
   const headers = {
