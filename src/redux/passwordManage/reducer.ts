@@ -9,6 +9,13 @@ type GetPassword = Omit<Password, '_id'> & { id: number, group: { id: number } }
 type GetPasswordTag = Omit<PasswordTag, '_id'> & { id: number };
 type GetPasswordGroup = Omit<PasswordGroup, '_id'> & { id: number };
 
+type PasswordFilters = {
+  title: string;
+  tags: number[];
+  groups: number[];
+  method: 'and' | 'or';
+}
+
 interface passwordManageState {
   passwordDelete: boolean
   passwordUpdate: boolean
@@ -32,6 +39,8 @@ interface passwordManageState {
   openDeleteTagDialog: boolean
   openPlusButtonMenu: boolean
   openMinusButtonMenu: boolean
+  passwordFilters: PasswordFilters | null;
+  changePasswordFilters: boolean
 }
 
 const initialState: passwordManageState = {
@@ -57,6 +66,8 @@ const initialState: passwordManageState = {
   openDeleteTagDialog: false,
   openPlusButtonMenu: false,
   openMinusButtonMenu: false,
+  passwordFilters: null,
+  changePasswordFilters: false,
 }
 
 const passwordManageSlice = createSlice({
@@ -66,6 +77,7 @@ const passwordManageSlice = createSlice({
     addPasswords: (state, action) => {state.passwords = action.payload},
     addGroups: (state, action) => {state.groups = action.payload},
     addTags: (state, action) => {state.tags = action.payload},
+    addPasswordFilters: (state, action) => {state.passwordFilters = action.payload},
     openAddDialog: (state) => { state.openAddDialog = true; },
     closeAddDialog: (state) => { state.openAddDialog = false; },
     openDetailDialog: (state, action) => {
@@ -98,11 +110,13 @@ const passwordManageSlice = createSlice({
     changePasswords: (state, action) => { state.passwordUpdate = action.payload; },
     updateTag: (state, action) => { state.tagUpdate = action.payload; },
     updateGroup: (state, action) => { state.groupUpdate = action.payload; },
+    changePasswordFilters: (state, action) => { state.changePasswordFilters = action.payload; },
+    resetPasswordFilters: (state) => { state.passwordFilters = null; },
   }
 })
 
 export const { 
-  addTags, addGroups, addPasswords,
+  addTags, addGroups, addPasswords, addPasswordFilters,
   openAddDialog, closeAddDialog,
   openDetailDialog, closeDetailDialog, 
   openGroupDialog, closeGroupDialog,
@@ -114,6 +128,7 @@ export const {
   openPlusButtonMenu, closePlusButtonMenu, 
   openMinusButtonMenu, closeMinusButtonMenu,
   deleteSelectedPassword, updateSelectedPassword, movePassword, updateTag, updateGroup, changePasswords,
+  changePasswordFilters, resetPasswordFilters,
 } = passwordManageSlice.actions;
 
 export default passwordManageSlice.reducer;

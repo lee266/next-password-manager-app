@@ -1,24 +1,29 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Alert } from 'redux/Feedback/types';
+import { useTranslation } from 'react-i18next';
 import { addAlert } from 'redux/Feedback/reducer';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
 import { useEffect, useState } from "react";
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable } from '../StrictModeDroppable';
 import { getUser } from 'api/users/crud';
-import { getPasswords, updateIndex } from 'api/password/crud';
+import { searchPasswords, updateIndex } from 'api/password/crud';
 import { getToken } from 'utils/auth';
 import { Password } from 'types/models/Password';
 import { getGroupedPasswords } from 'api/password/crud';
 import  PasswordText  from 'components/atoms/Text/PasswordText';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { RootState } from 'redux/store';
-import { addGroups, addPasswords, addTags, changePasswords, deleteSelectedPassword, movePassword, openDetailDialog, updateGroup, updateSelectedPassword, updateTag } from 'redux/passwordManage/reducer';
+import { 
+  addGroups, addPasswords, addTags, changePasswordFilters, changePasswords, deleteSelectedPassword, 
+  movePassword, openDetailDialog, resetPasswordFilters, updateGroup, updateSelectedPassword, updateTag 
+} from 'redux/passwordManage/reducer';
 import { getTags } from 'api/password/tag';
 import { getGroups } from 'api/password/group';
 
 
 const PasswordCard = () => {
+  const { t } = useTranslation();
   const token = getToken();
   const [data, setData] = useState<Record<string, Password[]>>({});
   const [oldData, setOldData] = useState<Record<string, Password[]>>({});
@@ -30,6 +35,8 @@ const PasswordCard = () => {
   const passwordMove = useSelector((state: RootState) => state.passwordManage.passwordMove);
   const tagUpdate = useSelector((state: RootState) => state.passwordManage.tagUpdate);
   const groupUpdate = useSelector((state: RootState) => state.passwordManage.groupUpdate);
+  const filters = useSelector((state: RootState) => state.passwordManage.passwordFilters);
+  const passwordFiltersUpdate = useSelector((state: RootState) => state.passwordManage.changePasswordFilters);
   const dispatch = useDispatch();
 
   const toggleDropdown = (key: string) => {
@@ -41,11 +48,13 @@ const PasswordCard = () => {
       const authToken = getToken();
       const userData = await getUser(authToken);
       userData.user_id = userData.id
-      const passwordData = await getGroupedPasswords(userData);
+      const passwordData = await searchPasswords(userData.id, filters, token)
       setData(passwordData.data);
       // Set the initial state (open or closed) for the dropdown menus of each group
       Object.keys(passwordData.data).forEach((key) => {
-        if (dropdownOpenState[key] === undefined) { setDropdownOpenState(prevState => ({...prevState, [key]: false})); }
+        if (dropdownOpenState[key] === undefined) { 
+          setDropdownOpenState(prevState => ({...prevState, [key]: false})); 
+        }
       });
 
       dispatch(deleteSelectedPassword(false));
@@ -76,16 +85,25 @@ const PasswordCard = () => {
     if (passwordUpdate) {
       Passwords()
       dispatch(changePasswords(false));
+      dispatch(resetPasswordFilters());
     }
     if (tagUpdate) {
       Tags();
       dispatch(updateTag(false));
+      dispatch(resetPasswordFilters());
     }
     if (groupUpdate) {
       Groups();
       dispatch(updateGroup(false));
+      dispatch(resetPasswordFilters());
     }
-  }, [passwords, groups, passwordDelete, passwordUpdate, passwordMove, tagUpdate, groupUpdate]);
+    if (passwordFiltersUpdate) {
+      dispatch(resetPasswordFilters());
+      dispatch(changePasswordFilters(false));
+    }
+  }, [
+    passwords, groups, passwordDelete, passwordUpdate, passwordMove, tagUpdate, 
+    groupUpdate, passwordFiltersUpdate, filters]);
 
   const onDragEnd =async (result:any) => {
     console.log("Active onDragEnd");
@@ -169,16 +187,13 @@ const PasswordCard = () => {
     } catch (error) {
       // undo updated data
       setData(oldData);
-      const alert: Alert = {message: "移動に失敗しました。", severity: 'error',}
+      const alert: Alert = {message: t("general.error.moveItem"), severity: 'error',}
       dispatch(addAlert(alert));
     }
   }
 
   // Open passwordDetail dialog
-  const SelectPassword = (item:Password) => {
-    console.log("Select Password");
-    dispatch(openDetailDialog(item));
-  }
+  const SelectPassword = (item:Password) => { dispatch(openDetailDialog(item)); }
 
   return (
     <div className="password_card">

@@ -16,12 +16,12 @@ export const getGroupedPasswords = async (id:string) => {
   return await axios.post(url, id);
 }
 
-export const searchPasswords =async (user:object, token:string) => {
+export const searchPasswords =async (userId: number, passwordFilters: object|null, token: string) => {
   console.log("Active searchPasswords api/passwords/crud.ts");
-  console.log("request:user, token", user,token);
+  console.log("request:user, token", userId,token);
   const searchUrl = BASEURL + 'search/';
   const config = { headers: { Authorization: 'JWT ' + token } };
-  return await axios.post(searchUrl, user, config)
+  return await axios.post(searchUrl, { user_id: userId, passwordFilters }, config);
 }
 
 // Create

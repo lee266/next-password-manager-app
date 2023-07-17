@@ -1,9 +1,15 @@
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from "next-i18next";
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import { Box } from '@mui/material';
-import { closeMinusButtonMenu, closePlusButtonMenu, openAddDialog, openDeleteGroupDialog, openDeletePasswordDialog, openDeleteTagDialog, openGroupDialog, openMinusButtonMenu, openPlusButtonMenu, openSearchDialog, openTagDialog } from 'redux/passwordManage/reducer';
+import { 
+  changePasswordFilters,
+  closeMinusButtonMenu, closePlusButtonMenu, openAddDialog, 
+  openDeleteGroupDialog, openDeletePasswordDialog, openDeleteTagDialog, openGroupDialog, 
+  openMinusButtonMenu, openPlusButtonMenu, openSearchDialog, openTagDialog, resetPasswordFilters 
+} from 'redux/passwordManage/reducer';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
@@ -14,6 +20,7 @@ import { useSelector } from 'react-redux';
 
 
 const PasswordFilters = () => {
+  const { t } = useTranslation();
   const [anchorElAdd, setAnchorElAdd] = useState<null | HTMLElement>(null);
   const [anchorElDelete, setAnchorElDelete] = useState<null | HTMLElement>(null);
   const dispatch = useDispatch();
@@ -47,7 +54,8 @@ const PasswordFilters = () => {
   }, []);
 
   const searchReset = () => {
-    console.log("reset");
+    dispatch( resetPasswordFilters() );
+    dispatch( changePasswordFilters(true) );
   }
 
   const openDialog = (dialogType: string) => {
@@ -96,13 +104,13 @@ const PasswordFilters = () => {
           }}
         >
           <MenuItem onClick={() => openDialog('add')}>
-            Create new password
+            {t("component.menu.createPassword")}
           </MenuItem>
           <MenuItem onClick={() => openDialog('group')}>
-            Create new Group 
+            {t("component.menu.createGroup")}
           </MenuItem>
           <MenuItem onClick={() => openDialog('tag')}>
-            Create new tag
+            {t("component.menu.createTag")}
           </MenuItem>
         </Menu>
         {/* minus button  */}
@@ -132,9 +140,9 @@ const PasswordFilters = () => {
             },
         }}>
           
-          <MenuItem onClick={() => dispatch(openDeletePasswordDialog())}> Delete password </MenuItem>
-          <MenuItem onClick={() => dispatch(openDeleteGroupDialog())}> Delete group </MenuItem>
-          <MenuItem onClick={() => dispatch(openDeleteTagDialog())}> Delete tag </MenuItem>
+          <MenuItem onClick={() => dispatch(openDeletePasswordDialog())}> {t("component.menu.deletePassword")} </MenuItem>
+          <MenuItem onClick={() => dispatch(openDeleteGroupDialog())}> {t("component.menu.deleteGroup")} </MenuItem>
+          <MenuItem onClick={() => dispatch(openDeleteTagDialog())}> {t("component.menu.deleteTag")} </MenuItem>
         </Menu>
         {/* search button  */}
         <Fab className="bg-primary" size='small' color='primary' aria-label='search-button'
