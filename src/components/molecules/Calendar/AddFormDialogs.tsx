@@ -90,7 +90,7 @@ const AddFormDialog = (props:AddFormDialogType) => {
   //   setValue(newValue);
   // };
 
-  // const handleChecboxChange = (e, field) => {
+  // const handleCheckboxChange = (e, field) => {
   //   field.onChange(e.target.checked)
   // }
 
