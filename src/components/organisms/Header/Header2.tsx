@@ -15,6 +15,9 @@ import  ListItemText  from '@mui/material/ListItemText';
 import { useState } from 'react';
 import { Drawer } from '@mui/material';
 import Link from 'next/link';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';import 
+Fab from '@mui/material/Fab';
+
 
 const navItems = [
   ['index', ''],
@@ -60,8 +63,18 @@ export const Header2 = () => {
               '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
             }}
           >
+            <div className='flex items-center'>
             <Typography variant="h6" noWrap component="div" sx={{ p: 3 }}>
             </Typography>
+            <Fab onClick={handleDrawerToggle} className='ml-auto shadow-none'>
+              <NavigateBeforeIcon 
+                style={{ 
+                  transform: `${navOpen ? 'rotate(0deg)' : 'rotate(180deg)'}`, 
+                  transition: 'transform 0.3s' 
+                }}/>
+            </Fab>
+            </div>
+
             <Divider/>
             <List sx={{paddingTop:"0px"}}>
               {navItems.map((item) => (
