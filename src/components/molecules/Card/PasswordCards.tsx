@@ -235,7 +235,7 @@ const PasswordCard = () => {
                                 </div> 
                                 <div className='password-text' onClick={() => SelectPassword(item)}>
                                   <div className="font-bold text-xl mb-2" >{item.title}</div>
-                                  <PasswordText text={item.password} labelId={String(item.id)}/>
+                                  <PasswordText text={item.password ? item.password: ''} labelId={String(item.id)}/>
                                 </div>
                               </div>
                             </div>
