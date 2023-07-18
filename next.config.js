@@ -10,6 +10,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const i18n = {
   defaultLocale: "ja",
   locales: ["ja", "en"],
+  localePath: path.resolve('./public/locales')
   // localeDetection: false,
   // localePath: path.resolve("./src/locales"),
 }
