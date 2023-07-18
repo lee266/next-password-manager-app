@@ -22,10 +22,10 @@ const SelectDataDialogs = (props:SelectDataDialogType) => {
   const deleteCalendarData= useCallback(
     async() => {
       try {
-        console.log("- data delete");
-        console.log(props.eventData);
+        // console.log("- data delete");
+        // console.log(props.eventData);
         const res = await axios.delete(props.url+props.calendarId);
-        console.log("res:", res);
+        // console.log("res:", res);
         await props.mutate(props.url)
         props.setDialogOpen(false)
       } catch (error) {

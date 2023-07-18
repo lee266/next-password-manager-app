@@ -64,8 +64,6 @@ const PasswordDetail = () => {
     setEditMode(false);
   }
   const onSubmit: SubmitHandler<Password> =async (data) => {
-    console.log('onSubmit');
-    console.log(data);
     try {
       if (data.group != oldGroup) {
         await updatePassword(data, token, true);
@@ -82,7 +80,6 @@ const PasswordDetail = () => {
   }
 
   const handleDelete = async () => {
-    console.log("delete");
     try {
       if (selectedPassword) {
         let groupId: number|null = null;

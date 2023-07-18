@@ -23,9 +23,9 @@ const Alerts2 = () => {
   }, [dispatch]);
 
   const handleCloseSnackbar =  useCallback(async (message: string) => {
-    console.log("Active handleCloseSnackbar");
+    // console.log("Active handleCloseSnackbar");
     await dispatch(removeAlert(message));
-    console.log(alerts.length);
+    // console.log(alerts.length);
     
     if (alerts.length === 0) {
       dispatch(closeSnackbar());

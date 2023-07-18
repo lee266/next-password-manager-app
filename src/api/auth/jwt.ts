@@ -14,13 +14,9 @@ export const createJwt = async(data:PostType) => {
 }
 
 export const verifyJwt = async(jwt:string) => {
-  console.log("came jwt", jwt);
-  console.log(URL_VERIFY);
-  
-  
-  const data = {
-    'token': jwt
-  }
+  // console.log("came jwt", jwt);
+  // console.log(URL_VERIFY);
+  const data = { 'token': jwt }
   return await axios.post(URL_VERIFY, data)
 }
 

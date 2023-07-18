@@ -48,17 +48,14 @@ const AddFormDialog = (props:AddFormDialogType) => {
 
   const handleSave:SubmitHandler<AddFromType> = async(data) => {
     try {
-      console.log("- this is save");
       data['user'] = 1
       if (data.all_day == true) {
         data.all_day = 1
       } else {
         data.all_day = 0
       }
-      console.log(data);
       const res = await axios.post(props.url, data);
       await props.mutate(props.url)
-      console.log(res);
       props.setDialogOpen(false)
     } catch (error) {
       console.log(error);

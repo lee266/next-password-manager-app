@@ -106,7 +106,7 @@ const PasswordCard = () => {
     groupUpdate, passwordFiltersUpdate, filters]);
 
   const onDragEnd =async (result:any) => {
-    console.log("Active onDragEnd");
+    // console.log("Active onDragEnd");
     const authToken = getToken();
     const userData = await getUser(authToken);
 
@@ -114,8 +114,8 @@ const PasswordCard = () => {
     // These are key of data and group name
     const oldGroup:string = source.droppableId ?source.droppableId : 'other';
     const newGroup:string = destination.droppableId ?destination.droppableId : 'other';
-    console.log("source: 元のデータ情報", source);console.log("destination: 移動後のデータ情報", destination);
-    console.log("sourceGroup is", oldGroup, "destinationGroup is", newGroup);
+    // console.log("source: 元のデータ情報", source);console.log("destination: 移動後のデータ情報", destination);
+    // console.log("sourceGroup is", oldGroup, "destinationGroup is", newGroup);
     setOldData(data);
 
     // Pass if not move the item 
@@ -123,12 +123,12 @@ const PasswordCard = () => {
 
     const sourcePasswords = data[oldGroup]; // origin group that has the moving item passwords
     const draggedPassword = sourcePasswords[source.index]; // Detected the dragging item
-    console.log("draggedPassword", draggedPassword); console.log("beforeGroupPasswords", sourcePasswords);
+    // console.log("draggedPassword", draggedPassword); console.log("beforeGroupPasswords", sourcePasswords);
     try {
       // if the dragging item move to different group
       if (oldGroup !== newGroup) {
         const destinationPasswords = data[newGroup];
-        console.log("destinationPasswords", destinationPasswords);
+        // console.log("destinationPasswords", destinationPasswords);
 
         const updatedSourcePasswords = Array.from(sourcePasswords);
         updatedSourcePasswords.splice(source.index, 1);
@@ -152,8 +152,8 @@ const PasswordCard = () => {
         setData(newData);
         await updateIndex(submitData);
         dispatch(movePassword(true));
-        console.log(passwordsToUpdate);
-        console.log(oldPasswords);
+        // console.log(passwordsToUpdate);
+        // console.log(oldPasswords);
 
       }else {
         console.log("Move to same group");
@@ -178,11 +178,11 @@ const PasswordCard = () => {
         await updateIndex(submitData);
         dispatch(movePassword(true));
 
-        console.log('New passwords: keyName: passwordsToUpdate', passwordsToUpdate);
-        console.log('draggedPassword', draggedPassword);
-        console.log('old_group_id', oldGroup);
-        console.log('new_group_id', newGroup);
-        console.log('SubmitData', submitData);
+        // console.log('New passwords: keyName: passwordsToUpdate', passwordsToUpdate);
+        // console.log('draggedPassword', draggedPassword);
+        // console.log('old_group_id', oldGroup);
+        // console.log('new_group_id', newGroup);
+        // console.log('SubmitData', submitData);
       }
     } catch (error) {
       // undo updated data

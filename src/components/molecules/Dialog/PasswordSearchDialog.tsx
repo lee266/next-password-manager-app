@@ -38,8 +38,6 @@ const PasswordSearchDialog = () => {
   const passwordFiltersUpdate = useSelector((state: RootState) => state.passwordManage.changePasswordFilters);
 
   useEffect(() => {
-    console.log("what move");
-    
     setSelectedGroups([]);
     setSelectedTags([]);
     setTitle('');

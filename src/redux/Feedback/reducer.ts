@@ -16,21 +16,21 @@ const alertSlice = createSlice({
   initialState,
   reducers: {
     addAlert: (state, action: PayloadAction<Alert>) => {
-      console.log("Active addAlert function");
-      console.log("action",action.payload);
+      // console.log("Active addAlert function");
+      // console.log("action",action.payload);
       state.alerts.push(action.payload);
       state.open = true;
-      console.log("state.alerts",state.alerts);
+      // console.log("state.alerts",state.alerts);
     },
     removeAlert: (state, action: PayloadAction<string>) => {
-      console.log("Active removeAlert function");
+      // console.log("Active removeAlert function");
       const index = state.alerts.findIndex(alert => alert.message === action.payload);
       if (index !== -1) {
         state.alerts.splice(index, 1);
       }
     },
     closeSnackbar: (state) => {
-      console.log("Active closeSnackbar function");
+      // console.log("Active closeSnackbar function");
       state.open = false;
     },
   }

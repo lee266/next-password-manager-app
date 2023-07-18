@@ -55,7 +55,6 @@ const PasswordAddDialog = () => {
   }
 
   const onSubmit: SubmitHandler<Password> = async(data) => {
-    console.log('onSubmit');
     try { 
       const user = await getUser(token);
       data['user'] = user.id;

@@ -41,14 +41,11 @@ const ForgetPasswordForm = () => {
     setIsSubmitting(true);
     try {
       const response = await resetPassword(data)
-      console.log(response);
       setIsSubmitting(false);
       setSuccessSubmit(true)
     } catch (error) {
-      console.log(error);
       setIsSubmitting(false);
     }
-    console.log("submit");
   }
 
   return(
