@@ -52,7 +52,6 @@ const PasswordResetForm = () => {
     try {
       setIsSubmitting(true);
       const data = {...password, ...routerQuery}
-      console.log(data);
       await resetPasswordConfirm(data);
       setAlertMessage("Success change password");
       const alert: Alert = {

@@ -7,7 +7,7 @@ type MainLayoutType = {
 }
 
 export const MainLayout = (props:MainLayoutType) => {
-  console.log("create MainLayout");
+  // console.log("create MainLayout");
   return(
     <div className={styles.content}>
       <Header2/>

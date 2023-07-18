@@ -6,13 +6,13 @@ import { clearUser, fetchUserDataRequest, loginError, loginSuccess } from "./red
 import { User } from "./types";
 
 function* loginUserSaga(action: PayloadAction<User>):Generator<any, any, any> {
-  console.log("Active loginUserSaga function");
-  console.log('action', action);
+  // console.log("Active loginUserSaga function");
+  // console.log('action', action);
   const token = action.payload.token;
   try {
     // Data is string if getUser success
     const response = yield call(getUser,token);
-    console.log('response',response);
+    // console.log('response',response);
     yield put(loginSuccess(response));
     // User information save to cookie 
     saveCookie(JSON.stringify(response));

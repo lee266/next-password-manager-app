@@ -18,9 +18,9 @@ const userSlice = createSlice({
     // actionName: ()=>{}
     loginSuccess: (state, action:PayloadAction<User|undefined>) => {
       state.error = '';
-      console.log("test",action.payload);
+      // console.log("test",action.payload);
       state.user = action.payload;
-      console.log(state.user);
+      // console.log(state.user);
       state.isLoading = false;
     },
     loginError: (state, action:PayloadAction<string>) => {

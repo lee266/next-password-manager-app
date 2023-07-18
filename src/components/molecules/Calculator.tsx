@@ -74,13 +74,10 @@ const Calculator = () => {
       setCalculateInputSymbol(false);
     }else{
       if (['+', '/', '*', '-'].includes(calculateInput.slice(-3, -2))) {
-        console.log("ok");
-        
         setCalculateInputNumber(false);
         setCalculateInputSymbol(true);
         setCalculateInput((prevExpression) => prevExpression.slice(0, -2));
       }else if(calculateInputSymbol) {
-        console.log("ok2");
         setCalculateInput((prevExpression) => prevExpression.slice(0, -2));
         setCalculateInputNumber(true);
         setCalculateInputSymbol(false);
@@ -99,11 +96,9 @@ const Calculator = () => {
       let values: string[] = [];
       if (calculateInputSymbol) {
         values = calculateInput.slice(0, -2).split(' ');
-        console.log(values);
         setCalculateResult(calculateInput.slice(0, -1) + value);
       } else {
         values = calculateInput.split(' ');
-        console.log(values);
         setCalculateResult(calculateInput + value);
       }
 
@@ -127,7 +122,6 @@ const Calculator = () => {
         }else {
           index += 2
         }
-        console.log(values);
       }
       index = 1
       while (values.length > 1) {
