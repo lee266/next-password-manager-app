@@ -28,7 +28,8 @@
       "chat": "チャット"
     },
     "common": {
-      "password": "パスワード"
+      "password": "パスワード",
+      "calculator": "計算機"
     },
     "yup": {
       "string": "この項目は文字を入れてください",

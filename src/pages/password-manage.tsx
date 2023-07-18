@@ -22,7 +22,7 @@ import GroupDeleteDialog from 'components/molecules/Dialog/GroupDeleteDialog';
 import PasswordDeleteDialog from 'components/molecules/Dialog/PasswordDeleteDialog';
 
 const PasswordManage = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common']);
   const router = useRouter();
   const dispatch = useDispatch();
 

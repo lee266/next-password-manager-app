@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import NumberButton from 'components/atoms/Calculator/NumberButton';
 import { useState } from 'react';
 import BackspaceIcon from '@mui/icons-material/Backspace';
@@ -8,6 +9,7 @@ const Calculator = () => {
   const [calculateInputNumber, setCalculateInputNumber] = useState<boolean>(true);
   const [calculateInputSymbol, setCalculateInputSymbol] = useState<boolean>(false);
   const [useDot, setUseDot] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   const sum = (x:number, y:number) => {
     const s = x + y
@@ -167,7 +169,7 @@ const Calculator = () => {
       <div className="flex flex-col items-center
         bg-white border border-gray-200 rounded-lg"
       >
-        <h2 className="text-3xl font-bold">計算機</h2>
+        <h2 className="text-3xl font-bold">{t('general.common.calculator')}</h2>
         <div className="bg-gray-200 p-4 rounded-lg w-full">
           <div className="text-2xl text-right font-bold mb-4">{calculateResult}</div>
           <div className="text-xl text-right font-bold">{calculateInput}</div>
