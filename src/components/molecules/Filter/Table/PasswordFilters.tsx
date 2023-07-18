@@ -15,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
 import RemoveIcon from '@mui/icons-material/Remove';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
+import ClearIcon from '@mui/icons-material/Clear';
 import { RootState } from 'redux/rootReducer';
 import { useSelector } from 'react-redux';
 
@@ -117,7 +118,14 @@ const PasswordFilters = () => {
         <Fab className="bg-primary" size='small' color='primary' aria-label='minus-button'
           onClick={handleClickDelete}
         >
-          <RemoveIcon />
+          {openDelete? (
+            <AddIcon 
+              style={{ 
+                transform: `rotate(45deg)`, 
+            }}/>
+          ) : (
+            <RemoveIcon />
+          )}
         </Fab>
         <Menu
           onClose={handleCloseDelete}

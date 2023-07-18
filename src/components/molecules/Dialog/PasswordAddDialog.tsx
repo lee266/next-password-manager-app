@@ -103,7 +103,6 @@ const PasswordAddDialog = () => {
             label={t('component.form.email')}
             margin='normal'
             fullWidth
-            type='email'
             autoComplete='email'
             {...register('email')}
             error={!!errors.email}

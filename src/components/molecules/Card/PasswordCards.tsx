@@ -107,24 +107,24 @@ const PasswordCard = () => {
 
   const onDragEnd =async (result:any) => {
     // console.log("Active onDragEnd");
-    const authToken = getToken();
-    const userData = await getUser(authToken);
-
-    const { source, destination } = result;
-    // These are key of data and group name
-    const oldGroup:string = source.droppableId ?source.droppableId : 'other';
-    const newGroup:string = destination.droppableId ?destination.droppableId : 'other';
-    // console.log("source: 元のデータ情報", source);console.log("destination: 移動後のデータ情報", destination);
-    // console.log("sourceGroup is", oldGroup, "destinationGroup is", newGroup);
-    setOldData(data);
-
-    // Pass if not move the item 
-    if (oldGroup === newGroup && source.index === destination.index){return;}
-
-    const sourcePasswords = data[oldGroup]; // origin group that has the moving item passwords
-    const draggedPassword = sourcePasswords[source.index]; // Detected the dragging item
-    // console.log("draggedPassword", draggedPassword); console.log("beforeGroupPasswords", sourcePasswords);
     try {
+      const authToken = getToken();
+      const userData = await getUser(authToken);
+  
+      const { source, destination } = result;
+      // These are key of data and group name
+      const oldGroup:string = source.droppableId ?source.droppableId : 'other';
+      const newGroup:string = destination.droppableId ?destination.droppableId : 'other';
+      // console.log("source: 元のデータ情報", source);console.log("destination: 移動後のデータ情報", destination);
+      // console.log("sourceGroup is", oldGroup, "destinationGroup is", newGroup);
+      setOldData(data);
+  
+      // Pass if not move the item 
+      if (oldGroup === newGroup && source.index === destination.index){return;}
+  
+      const sourcePasswords = data[oldGroup]; // origin group that has the moving item passwords
+      const draggedPassword = sourcePasswords[source.index]; // Detected the dragging item
+      // console.log("draggedPassword", draggedPassword); console.log("beforeGroupPasswords", sourcePasswords);
       // if the dragging item move to different group
       if (oldGroup !== newGroup) {
         const destinationPasswords = data[newGroup];
@@ -196,7 +196,7 @@ const PasswordCard = () => {
   const SelectPassword = (item:Password) => { dispatch(openDetailDialog(item)); }
 
   return (
-    <div className="password_card mt-1">
+    <div className="password_card mt-1 mb-10 max-w-[834px] mx-auto">
       <DragDropContext onDragEnd={onDragEnd}>
         {Object.keys(data).map((key:string) => {
           return(
@@ -204,13 +204,16 @@ const PasswordCard = () => {
               {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
                   {/* Group name */}
-                  <div className='group_name flex justify-between items-center p-2 bg-primary rounded cursor-pointer' 
+                  <div className='group_name flex justify-between items-center p-4 bg-primary rounded cursor-pointer' 
                     onClick={() => toggleDropdown(key)}
                   >
-                    <h2 className='text-lg font-semibold mr-2'>{key}</h2>
-                    <ExpandLessIcon style={{ 
-                      transform: `${dropdownOpenState[key] ? 'rotate(180deg)' : 'rotate(0deg)'}`, transition: 'transform 0.3s' 
-                    }} />
+                    <div className='flex items-center'>
+                      <h2 className='text-lg font-semibold mr-2'>{key}</h2>
+                      <span className='mr-2 bg-[#5e9afa] rounded-full px-2 py-1 text-xs'>{data[key].length}</span>
+                    </div>
+                      <ExpandLessIcon style={{ 
+                        transform: `${dropdownOpenState[key] ? 'rotate(180deg)' : 'rotate(0deg)'}`, transition: 'transform 0.3s' 
+                      }} />
                   </div>
                   {/* Display passwords */}
                   {dropdownOpenState[key] && (
@@ -225,10 +228,10 @@ const PasswordCard = () => {
                               ref={provided.innerRef}
                               className="password-box max-w-sm mx-auto rounded overflow-hidden md:hover:bg-primary"
                             >
-                              <div className='flex items-center'>
+                              <div className='flex justify-between items-center'>
                                 <div
                                   {...provided.dragHandleProps} 
-                                  className='password-drag-icon mr-2'
+                                  className='password-drag-icon mx-2'
                                   aria-label="Drag Handle"
                                 >
                                   <DragHandleIcon />
