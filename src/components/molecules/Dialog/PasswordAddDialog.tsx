@@ -90,7 +90,7 @@ const PasswordAddDialog = () => {
           />
           <TextField
             id='password'
-            label={t('component.form.password') + '*'}
+            label={t('component.form.password')}
             margin='normal'
             fullWidth
             type='password'

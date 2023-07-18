@@ -28,7 +28,8 @@
       "chat": "Chat"
     },
     "common": {
-      "password": "Password"
+      "password": "Password",
+      "calculator": "calculator"
     },
     "yup": {
       "string": "This field is a string",
