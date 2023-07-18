@@ -23,6 +23,7 @@
     },
     "nav": {
       "password": "パスワード",
+      "index": "ホーム",
       "againPassword": "パスワード再入力",
       "chat": "チャット"
     },

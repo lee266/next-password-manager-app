@@ -23,6 +23,7 @@
     },
     "nav": {
       "password": "Password",
+      "index": "Home",
       "againPassword": "Re-enter Password",
       "chat": "Chat"
     },
