@@ -2,14 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface commonState {
   openSettingDialog: boolean
-  sideBarPosition: "left" | "right"
   openNavigation: boolean
+  openProfileDialog: boolean
+  sideBarPosition: "left" | "right"
 }
 
 const initialState: commonState = {
   openSettingDialog: false,
-  sideBarPosition: "left",
   openNavigation: false,
+  openProfileDialog: false,
+  sideBarPosition: "left",
 }
 
 const commonSlice = createSlice({
@@ -18,13 +20,21 @@ const commonSlice = createSlice({
   reducers: {
     openSettingDialog: (state) => { state.openSettingDialog = true; },
     closeSettingDialog: (state) => { state.openSettingDialog = false; },
-    setSideBarPosition: (state, actions) => {state.sideBarPosition = actions.payload},
+    openProfileDialog: (state) => { state.openProfileDialog = true; },
+    closeProfileDialog: (state) => { state.openProfileDialog = false; },
+
+    setSideBarPosition: (state, action) => {
+      if (state.sideBarPosition !== action.payload) {
+        state.sideBarPosition = action.payload;
+      }
+    },
     toggleNavigation: (state) => { state.openNavigation = !state.openNavigation},
   }
 })
 
 export const {
   openSettingDialog, closeSettingDialog,
+  openProfileDialog, closeProfileDialog,
   toggleNavigation,
   setSideBarPosition,
 } = commonSlice.actions;
