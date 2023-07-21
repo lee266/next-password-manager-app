@@ -1,8 +1,7 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "redux/rootReducer";
-import { toggleNavigation } from "redux/Common/reducer";
 import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -13,6 +12,10 @@ import ListItemButton  from '@mui/material/ListItemButton';
 import ListItemText  from '@mui/material/ListItemText';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
+type SideNavigationProps = {
+  open: boolean;
+  handleClose: () => void;
+}
 
 const drawerWidth = 240;
 
@@ -22,20 +25,18 @@ const navItems = [
   ['inquiry', 'inquiry'],
 ]
 
-const SideNavigation2 = () => {
+const SideNavigation2:React.FC<SideNavigationProps> = ({open, handleClose}) => {
   const { t } = useTranslation();
   const router = useRouter();
-  const dispatch = useDispatch();
-  const open = useSelector((state: RootState) => state.common.openNavigation);
+  const navOpen = open;
   const sideBarPosition = useSelector((state: RootState) => state.common.sideBarPosition);
-
   return(
     <Box>
       <Drawer
         anchor={sideBarPosition}
         variant="temporary"
-        open={open}
-        onClose={() => dispatch(toggleNavigation())}
+        open={navOpen}
+        onClose={handleClose}
         ModalProps={{ keepMounted: true,}}
         sx={{
           '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
@@ -43,7 +44,7 @@ const SideNavigation2 = () => {
       > 
         {/* Back arrow icon  */}
         <div className='flex items-center'>
-          <Fab onClick={() => dispatch(toggleNavigation())} className='ml-auto shadow-none'>
+          <Fab onClick={handleClose} className='ml-auto shadow-none'>
             <NavigateBeforeIcon 
               style={{ 
                 transform: `${sideBarPosition === 'left' ? (open ? 'rotate(0deg)' : 'rotate(180deg)') : (open ? 'rotate(180deg)' : 'rotate(0deg)')}`, 

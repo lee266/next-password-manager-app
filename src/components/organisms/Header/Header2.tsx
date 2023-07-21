@@ -5,13 +5,12 @@ import Toolbar from '@mui/material/Toolbar'
 import MenuIcon from '@mui/icons-material/Menu';
 import LanguageSwitcher from "../../molecules/Navigation/LanguageSwitcher";
 import { CustomAvatar } from "../../atoms/CustomAvatar";
+import { useState } from "react";
 import SideNavigation2 from '../Navbar/SideNavigation2';
-import { useDispatch } from 'react-redux';
-import { toggleNavigation } from 'redux/Common/reducer';
 
 
 export const Header2 = () => {
-  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
 
   return(
     <>
@@ -25,7 +24,7 @@ export const Header2 = () => {
               color="inherit"
               aria-label="toggle-navigation-menu"
               sx={{ mr:2 }}
-              onClick={() => dispatch(toggleNavigation())}
+              onClick={() => setOpen(!open)}
             >
               <MenuIcon/>
             </IconButton>
@@ -34,7 +33,10 @@ export const Header2 = () => {
             <CustomAvatar/>
           </Toolbar>
         </AppBar>
-        <SideNavigation2 />
+        <SideNavigation2
+          open={open}
+          handleClose={() => setOpen(!open)}
+        />
       </Box>
     </>
   )

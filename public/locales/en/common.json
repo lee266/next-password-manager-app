@@ -25,11 +25,15 @@
       "password": "Password",
       "index": "Home",
       "againPassword": "Re-enter Password",
-      "chat": "Chat"
+      "chat": "Chat",
+      "inquiry": "Inquiry"
     },
     "common": {
       "password": "Password",
-      "calculator": "calculator"
+      "calculator": "calculator",
+      "logout": "Logout",
+      "setting": "Settings",
+      "profile": "Profile"
     },
     "yup": {
       "string": "This field is a string",
@@ -52,7 +56,8 @@
       "cancel": "Cancel",
       "update": "Update",
       "no": "No",
-      "yes": "Yes"
+      "yes": "Yes",
+      "sent": "Send"
     },
     "form": {
       "title": "Title",
@@ -61,7 +66,9 @@
       "website": "Website URL",
       "tag": "Tag",
       "group": "Group",
-      "note": "Note"
+      "note": "Note",
+      "inquiryCategory": "Inquiry Category",
+      "inquiryContent": "Inquiry Content"
     },
     "menu": {
       "createPassword": "Create Password",
@@ -79,7 +86,14 @@
         "deleteGroup": "Delete Group",
         "addTag": "Add Tag",
         "deleteTag": "Delete Tag",
-        "search": "Search Filters"
+        "search": "Search Filters",
+        "setting": "Settings",
+        "profile": "Profile",
+        "inquiry": "Inquiry"
+      },
+      "explain": {
+        "inquiry_category_explanation": "Please select an inquiry category from the options below.",
+        "inquiry_content_explanation": "Please enter the details of your inquiry in the field below."
       }
     }
   }

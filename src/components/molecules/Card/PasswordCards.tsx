@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Alert } from 'redux/Feedback/types';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { addAlert } from 'redux/Feedback/reducer';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
 import { useEffect, useState } from "react";
