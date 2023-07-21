@@ -20,12 +20,13 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import CloseIcon from '@mui/icons-material/Close';
 import ModeEditTwoTone  from '@mui/icons-material/ModeEditTwoTone';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import { DialogContentText } from '@mui/material';
 import { deletePassword, updatePassword } from 'api/password/crud';
+import CustomDialog from "components/atoms/CustomDialog";
+import CustomDialogTitle from "components/atoms/CustomDialogTitle";
 
 
 const PasswordDetail = () => {
@@ -118,15 +119,15 @@ const PasswordDetail = () => {
 
   return(
     <div className='password-detail-dialog'>
-      <Dialog fullScreen open={open} aria-labelledby='password-detail-dialog' scroll='paper'
-        onClose={() => handleClose()}
-      >
-        <DialogTitle id='password-manage-detail-dialog'>
-          {t("component.dialog.title.passwordDetail")}
-          <IconButton aria-label='close' sx={{position: 'absolute',right: 8,top: 8,}} onClick={handleClose}>
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
+      <CustomDialog params={{
+        open: open, 
+        ariaLabelledBy: "password-detail-dialog", 
+        close: () => handleClose()
+      }}>
+        <CustomDialogTitle
+          title={t("component.dialog.title.passwordDetail")}
+          close={() => handleClose()}
+          />
         <DialogContent dividers={true}>
           <form id='password-detail-form' onSubmit={handleSubmit(onSubmit)} autoComplete='password-detail'>
             <TextField
@@ -238,7 +239,7 @@ const PasswordDetail = () => {
             </div>
           )}
         </DialogActions>
-      </Dialog>
+      </CustomDialog>
 
       {/* Dialog of confirming delete a password  */}
       <Dialog open={openConfirmDialog} onClose={() => setConfirmDialog(false)}>

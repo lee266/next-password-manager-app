@@ -2,16 +2,12 @@ import { useTranslation } from 'next-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
 import { addPasswordFilters, closeSearchDialog } from 'redux/passwordManage/reducer';
-import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
-import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from 'react';
 import { Alert } from 'redux/Feedback/types';
 import { addAlert } from 'redux/Feedback/reducer';
@@ -22,6 +18,8 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import CustomDialog from "components/atoms/CustomDialog";
+import CustomDialogTitle from "components/atoms/CustomDialogTitle";
 
 
 const PasswordSearchDialog = () => {
@@ -96,20 +94,22 @@ const PasswordSearchDialog = () => {
   }
 
   return(
-    <Dialog fullScreen open={open} aria-labelledby='password-search-dialog' scroll='paper' onClose={handleClose}>
-      <DialogTitle id='password-search-dialog'>
-        {t("component.dialog.title.search")}
-        <IconButton aria-label='close' sx={{position: 'absolute',right: 8,top: 8,}} onClick={handleClose}>
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
+    <CustomDialog params={{
+      open: open, 
+      ariaLabelledBy: "password-search-dialog", 
+      close: () => handleClose()
+    }}>
+      <CustomDialogTitle
+        title={t("component.dialog.title.search")}
+        close={() => handleClose()}
+        />
       <DialogContent dividers>
         <Container maxWidth="md">
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <FormControl component="fieldset" variant="standard">
                 <Typography variant="h6">{t('method')}</Typography>
-                <FormGroup>
+                <FormGroup row>
                   <FormControlLabel
                     control={
                       <Radio checked={method === 'and'} onChange={handleMethodChange} value="and" />
@@ -167,7 +167,7 @@ const PasswordSearchDialog = () => {
           {t("component.button.search")}
         </Button>
       </DialogActions>
-    </Dialog>
+    </CustomDialog>
   );
 }
 

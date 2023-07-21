@@ -10,8 +10,12 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import { useDispatch } from 'react-redux';
 import { useRouter } from "next/router";
 import { clearUser } from 'redux/users/reducer';
+import { openProfileDialog, openSettingDialog } from 'redux/Common/reducer';
+import { useTranslation } from 'react-i18next';
+import { resetPasswordManager } from 'redux/passwordManage/reducer';
 
 export const CustomAvatar = () => {
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -29,8 +33,9 @@ export const CustomAvatar = () => {
     }, []
   );
 
-  const handleLogin = async() => {
+  const handleLogout = async() => {
     dispatch(clearUser());
+    dispatch(resetPasswordManager())
     router.push("/login2");
   }
 
@@ -75,23 +80,23 @@ export const CustomAvatar = () => {
           },
         }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => dispatch(openProfileDialog())}>
           <ListItemIcon>
             <AssignmentIndIcon/>
           </ListItemIcon>
-          Profile
+          {t('general.common.profile')}
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => dispatch(openSettingDialog())}>
           <ListItemIcon>
             <Settings/>
           </ListItemIcon>
-          Settings
+          {t('general.common.setting')}
         </MenuItem>
-        <MenuItem onClick={handleLogin}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout/>
           </ListItemIcon>
-          Logout
+          {t('general.common.logout')}
         </MenuItem>
       </Menu>
     </div>

@@ -56,7 +56,7 @@ const LoginForm = () => {
       const accessKey:string = token.data.access;
       // Save token in cookie 
       saveToken(accessKey);
-      dispatch(fetchUserDataRequest({token: accessKey}));
+      dispatch(fetchUserDataRequest());
       setAlertMessage("create jwt");
       const alert: Alert = {
         message: alertMessage,

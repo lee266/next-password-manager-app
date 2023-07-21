@@ -4,20 +4,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from "redux/rootReducer";
 import { changePasswords, closeDeletePasswordDialog, closeMinusButtonMenu } from "redux/passwordManage/reducer";
 import { getToken } from 'utils/auth';
-import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Alert } from "redux/Feedback/types";
 import { addAlert } from "redux/Feedback/reducer";
 import { Password } from "types/models/Password";
 import Box from '@mui/material/Box';
 import { deletePassword } from "api/password/crud";
+import CustomDialog from "components/atoms/CustomDialog";
+import CustomDialogTitle from "components/atoms/CustomDialogTitle";
 
 
 type GetPassword = Omit<Password, '_id'> & { id: number };
@@ -75,15 +73,15 @@ const PasswordDeleteDialog = () => {
 
   return(
     <div>
-      <Dialog fullScreen open={open} aria-labelledby='password-delete-dialog' scroll='paper'
-        onClose={() => handleClose()}
-      >
-        <DialogTitle id='password-delete-dialog'>
-          {t('component.dialog.title.deletePassword')}
-          <IconButton aria-label='close' sx={{position: 'absolute',right: 8,top: 8,}} onClick={handleClose}>
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
+      <CustomDialog params={{
+        open: open, 
+        ariaLabelledBy: "password-delete-dialog", 
+        close: () => handleClose()
+      }}>
+        <CustomDialogTitle
+          title={t('component.dialog.title.deletePassword')}
+          close={() => handleClose()}
+        />
         <DialogContent dividers>
           {Object.keys(passwords).map((key:string) => {
             const ids = passwords[key].map(item => item.id);
@@ -124,7 +122,7 @@ const PasswordDeleteDialog = () => {
         <DialogActions>
           <Button onClick={handleDelete}>{t("component.button.delete")}</Button>
         </DialogActions>
-      </Dialog>
+      </CustomDialog>
     </div>
   )
 }

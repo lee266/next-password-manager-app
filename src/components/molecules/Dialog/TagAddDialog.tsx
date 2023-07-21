@@ -10,16 +10,14 @@ import { getToken } from 'utils/auth';
 import { PasswordTag, PasswordTagSchema } from 'types/models/Password';
 import { Alert } from "redux/Feedback/types";
 import { addAlert } from "redux/Feedback/reducer";
-import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import AddButton from 'components/atoms/Button/AddButton';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import CustomDialog from "components/atoms/CustomDialog";
+import CustomDialogTitle from "components/atoms/CustomDialogTitle";
 
 
 const TagAddDialog = () => {
@@ -60,15 +58,15 @@ const TagAddDialog = () => {
 
   return(
     <div className="tag-add-dialog">
-      <Dialog fullScreen open={open} aria-labelledby="tag-add-dialog" onClose={() => handleClose()}>
-        <DialogTitle>
-          <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Typography variant="h6">{t("component.dialog.title.addTag")}</Typography>
-            <IconButton onClick={handleClose}>
-              <CloseIcon />
-            </IconButton>
-          </Box>
-        </DialogTitle>
+      <CustomDialog params={{
+        open: open, 
+        ariaLabelledBy: "group-delete-dialog", 
+        close: () => handleClose()
+      }}>
+        <CustomDialogTitle
+          title={t("component.dialog.title.addTag")}
+          close={() => handleClose()}
+          />
         <DialogContent dividers>
           <form id="tag-form" onSubmit={handleSubmit(onSubmit)} autoComplete='new-tag'>
             <TextField 
@@ -93,7 +91,7 @@ const TagAddDialog = () => {
         <DialogActions>
           <AddButton name={t('component.button.add')} form='tag-form' type="submit" />
         </DialogActions>
-      </Dialog>
+      </CustomDialog>
     </div>
   )
 }

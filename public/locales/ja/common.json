@@ -25,11 +25,15 @@
       "password": "パスワード",
       "index": "ホーム",
       "againPassword": "パスワード再入力",
-      "chat": "チャット"
+      "chat": "チャット",
+      "inquiry": "お問い合わせ"
     },
     "common": {
       "password": "パスワード",
-      "calculator": "計算機"
+      "calculator": "計算機",
+      "logout": "ログアウト",
+      "setting": "設定",
+      "profile": "プロフィール"
     },
     "yup": {
       "string": "この項目は文字を入れてください",
@@ -80,7 +84,9 @@
         "addTag": "タグ追加",
         "deleteTag": "タグ削除",
         "passwordDetail": "パスワード詳細",
-        "search": "検索条件"
+        "search": "検索条件",
+        "setting": "設定",
+        "profile": "プロフィール"
       }
     }
   }

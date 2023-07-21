@@ -10,16 +10,14 @@ import { getToken } from 'utils/auth';
 import { PasswordGroup, PasswordGroupSchema } from 'types/models/Password';
 import { Alert } from "redux/Feedback/types";
 import { addAlert } from "redux/Feedback/reducer";
-import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import AddButton from 'components/atoms/Button/AddButton';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import CustomDialog from "components/atoms/CustomDialog";
+import CustomDialogTitle from "components/atoms/CustomDialogTitle";
 
 
 const GroupAddDialog = () => {
@@ -60,15 +58,15 @@ const GroupAddDialog = () => {
 
   return(
     <div className="group-add-dialog">
-      <Dialog fullScreen open={open} aria-labelledby="group-add-dialog" onClose={() => handleClose()}>
-        <DialogTitle id="password-manage-add-dialog">
-          <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Typography variant="h6">{t("component.dialog.title.addGroup")}</Typography>
-            <IconButton onClick={handleClose}>
-              <CloseIcon />
-            </IconButton>
-          </Box>
-        </DialogTitle>
+      <CustomDialog params={{
+        open: open, 
+        ariaLabelledBy: "group-add-dialog", 
+        close: () => handleClose()
+      }}>
+        <CustomDialogTitle
+          title={t("component.dialog.title.addGroup")}
+          close={() => handleClose()}
+        />
         <DialogContent dividers>
           <form id="group-form" onSubmit={handleSubmit(onSubmit)} autoComplete='new-group'>
             <TextField 
@@ -90,7 +88,7 @@ const GroupAddDialog = () => {
         <DialogActions>
           <AddButton name={t('component.button.add')} form='group-form' type="submit" />
         </DialogActions>
-      </Dialog>
+      </CustomDialog>
     </div>
   )
 }
