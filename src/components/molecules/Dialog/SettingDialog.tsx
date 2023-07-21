@@ -11,7 +11,7 @@ import DialogContent from "@mui/material/DialogContent";
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import CustomRadio from "components/atoms/Input/CustomRadit";
+import CustomRadio from "components/atoms/Input/CustomRadio";
 import Button from '@mui/material/Button';
 
 
@@ -25,7 +25,7 @@ const SettingDialog = () => {
 
   const handleSave = () =>{
     dispatch(setSideBarPosition(sideBarPosition));
-    
+    dispatch(closeSettingDialog());
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

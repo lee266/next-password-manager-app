@@ -4,18 +4,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from "redux/rootReducer";
 import { closeDeleteTagDialog, closeMinusButtonMenu, updateTag } from "redux/passwordManage/reducer";
 import { getToken } from 'utils/auth';
-import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { deleteTag } from "api/password/tag";
 import { Alert } from "redux/Feedback/types";
 import { addAlert } from "redux/Feedback/reducer";
+import CustomDialog from "components/atoms/CustomDialog";
+import CustomDialogTitle from "components/atoms/CustomDialogTitle";
 
 
 const TagDeleteDialog = () => {
@@ -54,15 +52,15 @@ const TagDeleteDialog = () => {
 
   return(
     <div>
-      <Dialog fullScreen open={open} aria-labelledby='tag-delete-dialog' scroll='paper'
-        onClose={() => handleClose()}
-      >
-        <DialogTitle id='tag-delete-dialog'>
-          {t("component.dialog.title.deleteTag")}
-          <IconButton aria-label='close' sx={{position: 'absolute',right: 8,top: 8,}} onClick={handleClose}>
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
+      <CustomDialog params={{
+        open: open, 
+        ariaLabelledBy: "tag-delete-dialog", 
+        close: () => handleClose()
+      }}>
+        <CustomDialogTitle
+          title={t("component.dialog.title.deleteTag")}
+          close={() => handleClose()}
+          />
         <DialogContent dividers={true}>
           <form id='tag-delete-form'>
             {tags.map((tag, index) => {
@@ -85,7 +83,7 @@ const TagDeleteDialog = () => {
         <DialogActions>
           <Button color="primary" onClick={handleDelete}>{t("component.button.delete")}</Button>
         </DialogActions>
-      </Dialog>
+      </CustomDialog>
     </div>
   )
 }

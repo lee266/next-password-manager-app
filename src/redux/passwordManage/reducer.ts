@@ -23,7 +23,6 @@ interface passwordManageState {
   groupUpdate: boolean
   tagUpdate: boolean
   isLoading: boolean
-  tableHeader: object
   passwordTitles: string[]
   passwords: Record<string, GetPassword[]>,
   groups: GetPasswordGroup[]
@@ -50,7 +49,6 @@ const initialState: passwordManageState = {
   groupUpdate: true,
   tagUpdate: true,
   isLoading: false,
-  tableHeader: ["title", ""],
   passwordTitles: [],
   passwords: {},
   groups: [],
@@ -111,7 +109,12 @@ const passwordManageSlice = createSlice({
     updateTag: (state, action) => { state.tagUpdate = action.payload; },
     updateGroup: (state, action) => { state.groupUpdate = action.payload; },
     changePasswordFilters: (state, action) => { state.changePasswordFilters = action.payload; },
-    resetPasswordFilters: (state) => { state.passwordFilters = null; },
+    resetPasswordFilters: (state) => { 
+      if (state.passwordFilters !== null) {
+        state.passwordFilters = null; 
+      }
+    },
+    resetPasswordManager: () => initialState,
   }
 })
 
@@ -129,6 +132,7 @@ export const {
   openMinusButtonMenu, closeMinusButtonMenu,
   deleteSelectedPassword, updateSelectedPassword, movePassword, updateTag, updateGroup, changePasswords,
   changePasswordFilters, resetPasswordFilters,
+  resetPasswordManager,
 } = passwordManageSlice.actions;
 
 export default passwordManageSlice.reducer;

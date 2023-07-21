@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UsersState, User, UserRequest } from "./types";
+import { UsersState, User } from "./types";
 
 
 const initialState: UsersState = {
@@ -12,15 +12,11 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    fetchUserDataRequest: (state, action:PayloadAction<UserRequest>) => {
-      state.isLoading = true;
-    },
+    fetchUserDataRequest: (state) => { state.isLoading = true;},
     // actionName: ()=>{}
     loginSuccess: (state, action:PayloadAction<User|undefined>) => {
       state.error = '';
-      // console.log("test",action.payload);
       state.user = action.payload;
-      // console.log(state.user);
       state.isLoading = false;
     },
     loginError: (state, action:PayloadAction<string>) => {
