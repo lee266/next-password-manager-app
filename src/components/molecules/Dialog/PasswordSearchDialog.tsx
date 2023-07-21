@@ -108,7 +108,7 @@ const PasswordSearchDialog = () => {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <FormControl component="fieldset" variant="standard">
-                <Typography variant="h6">{t('method')}</Typography>
+                <Typography variant="h6">{t('component.form.searchMethod')}</Typography>
                 <FormGroup row>
                   <FormControlLabel
                     control={
@@ -126,10 +126,10 @@ const PasswordSearchDialog = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <TextField id="standard-basic" label={t('title')} variant="standard" value={title} onChange={handleTitleChange} fullWidth />
+              <TextField id="standard-basic" label={t('component.form.title')} variant="standard" value={title} onChange={handleTitleChange} fullWidth />
             </Grid>
             <Grid item xs={12}>
-              <Box mb={2}><Typography variant="h6">{t('group')}</Typography></Box>
+              <Box mb={2}><Typography variant="h6">{t('component.form.group')}</Typography></Box>
               {groups.map((group, index) => (
                 <FormControlLabel
                   key={index}
@@ -148,7 +148,7 @@ const PasswordSearchDialog = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Box mb={2}><Typography variant="h6">{t('tag')}</Typography></Box>
+              <Box mb={2}><Typography variant="h6">{t('component.form.tag')}</Typography></Box>
               {tags.map((tag, index) => (
                 <FormControlLabel
                   key={index}

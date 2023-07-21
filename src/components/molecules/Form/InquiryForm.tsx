@@ -88,7 +88,7 @@ const InquiryForm = () => {
                   error={!!errors.inquiry_category}
                 >
                   {InquiryCategories.map((category) => (
-                    <MenuItem key={category.id} value={category.id}>{category.category_name}</MenuItem>
+                    <MenuItem key={category.id} value={category.id}>{t(`component.menu.${category.category_name}`)}</MenuItem>
                   ))}
                 </Select>
               )}
