@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from "next/router";
 import { clearUser } from 'redux/users/reducer';
 import { openProfileDialog, openSettingDialog } from 'redux/Common/reducer';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { resetPasswordManager } from 'redux/passwordManage/reducer';
 
 export const CustomAvatar = () => {

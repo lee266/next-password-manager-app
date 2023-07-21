@@ -10,7 +10,7 @@ import FormControlLabel from "@mui/material/FormControlLabel"
 import TextField from "@mui/material/TextField"
 // translation
 import React, { useCallback, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'next-i18next';
 // validation rule
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
