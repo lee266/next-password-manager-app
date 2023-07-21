@@ -68,7 +68,8 @@
       "group": "グループ",
       "note": "メモ",
       "inquiryCategory": "お問い合わせの種類",
-      "inquiryContent": "お問い合わせ内容"
+      "inquiryContent": "お問い合わせ内容",
+      "searchMethod": "検索方法"
     },
     "menu": {
       "createPassword": "パスワード作成",
@@ -76,7 +77,11 @@
       "createTag": "タグ作成",
       "deletePassword": "パスワード削除",
       "deleteGroup": "グループ削除",
-      "deleteTag": "タグ削除"
+      "deleteTag": "タグ削除",
+      "complaint": "不満",
+      "instruction": "指示厨",
+      "error": "エラー",
+      "other": "その他"
     },
     "dialog": {
       "title": {

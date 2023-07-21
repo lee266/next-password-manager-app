@@ -68,7 +68,8 @@
       "group": "Group",
       "note": "Note",
       "inquiryCategory": "Inquiry Category",
-      "inquiryContent": "Inquiry Content"
+      "inquiryContent": "Inquiry Content",
+      "searchMethod": "Search method"
     },
     "menu": {
       "createPassword": "Create Password",
@@ -76,7 +77,11 @@
       "createTag": "Create Tag",
       "deletePassword": "Delete Password",
       "deleteGroup": "Delete Group",
-      "deleteTag": "Delete Tag"
+      "deleteTag": "Delete Tag",
+      "complaint": "Complaint",
+      "instruction": "Instruction",
+      "error": "Error",
+      "other": "Other"
     },
     "dialog": {
       "title": {
