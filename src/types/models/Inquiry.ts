@@ -1,6 +1,14 @@
 import { z } from 'zod'
 import { Timestamp } from 'types/others/Timestamp'
 
+const InquiryStatus = z.union([
+  z.literal("UNREAD"),
+  z.literal("READ"),
+  z.literal("IN_PROGRESS"),
+  z.literal("ANSWERED"),
+  z.literal("CLOSED"),
+]);
+
 export const InquiryCategorySchema = z.object({
   id: z.number().optional(),
   category_name: z.string(),
@@ -11,7 +19,7 @@ export const InquiryCategorySchema = z.object({
 export const InquirySchema = z.object({
   id: z.number().optional(),
   inquiry_content: z.string(),
-  status: z.string(),
+  status: InquiryStatus,
   inquiry_category: z.union([z.literal(""), z.number().nullable(), InquiryCategorySchema.optional()]),
   created_at: Timestamp,
   updated_at: Timestamp

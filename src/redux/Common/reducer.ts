@@ -29,13 +29,18 @@ const commonSlice = createSlice({
       }
     },
     toggleNavigation: (state) => { state.openNavigation = !state.openNavigation},
+    closeNavigation: (state) => { 
+      if (state.openNavigation !== false) {
+        state.openNavigation = false
+      }
+    },
   }
 })
 
 export const {
   openSettingDialog, closeSettingDialog,
   openProfileDialog, closeProfileDialog,
-  toggleNavigation,
+  toggleNavigation, closeNavigation,
   setSideBarPosition,
 } = commonSlice.actions;
 
