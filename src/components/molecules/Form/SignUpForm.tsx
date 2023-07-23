@@ -11,6 +11,7 @@ import TextField from '@mui/material/TextField';
 import { saveUser } from "api/users/crud";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserFormSchema, UserFrom } from "types/forms/UserForm";
+import { AxiosError } from "axios";
 
 
 const SignUpForm = () => {
@@ -44,9 +45,13 @@ const SignUpForm = () => {
       dispatch(addAlert(alert))
       await router.push('/login2');
     } catch (error) {
-      console.log(error);
+      const axiosError = error as AxiosError;
+      let errorMessage = "サインアップに失敗しました。既にアカウントが存在する可能性があります。";
+      if (axiosError.response && axiosError.response.status >= 400 && axiosError.response.status < 500) {
+        errorMessage = "サーバが起動中です。少々お待ちください。30s~1min";
+      }
       const alert: Alert = {
-        message: "サインアップに失敗しました。既にアカウントが存在する可能性があります。", 
+        message: errorMessage, 
         severity: 'error',
       }
       dispatch(addAlert(alert));
