@@ -23,7 +23,6 @@ const ProfileDialog = () => {
       try {
         const user = await getUser(token);
         setUser(user)
-        console.log(user);
       } catch (err) {
         console.error(err);
       }
