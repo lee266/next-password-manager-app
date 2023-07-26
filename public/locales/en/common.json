@@ -19,7 +19,10 @@
       "email": "Please enter a valid email address",
       "token": "Token validation failed. Please log in again.",
       "moveItem": "Failed to move the item.",
-      "addGroup": "Either the group already exists, or an error occurred."
+      "addGroup": "Either the group already exists, or an error occurred.",
+      "nonempty": "This field is required.",
+      "passwordNotMatch": "Passwords do not match",
+      "min8": "Please enter at least 8 characters."
     },
     "nav": {
       "password": "Password",
@@ -30,7 +33,7 @@
     },
     "common": {
       "password": "Password",
-      "calculator": "calculator",
+      "calculator": "Calculator",
       "logout": "Logout",
       "setting": "Settings",
       "profile": "Profile"
@@ -57,7 +60,8 @@
       "update": "Update",
       "no": "No",
       "yes": "Yes",
-      "sent": "Send"
+      "sent": "Send",
+      "save": "Save"
     },
     "form": {
       "title": "Title",
@@ -91,14 +95,26 @@
         "deleteGroup": "Delete Group",
         "addTag": "Add Tag",
         "deleteTag": "Delete Tag",
+        "passwordDetail": "Password Details",
         "search": "Search Filters",
         "setting": "Settings",
         "profile": "Profile",
-        "inquiry": "Inquiry"
+        "inquiry": "Inquiry",
+        "confirmLogout": "Logout Confirmation"
       },
       "explain": {
         "inquiry_category_explanation": "Please select an inquiry category from the options below.",
-        "inquiry_content_explanation": "Please enter the details of your inquiry in the field below."
+        "inquiry_content_explanation": "Please enter the details of your inquiry in the field below.",
+        "confirmLogoutMessage": "Are you sure you want to log out?"
+      }
+    },
+    "radio": {
+      "title": {
+        "navbar": "Sidebar Navigation"
+      },
+      "label": {
+        "left": "Left",
+        "right": "Right"
       }
     }
   }

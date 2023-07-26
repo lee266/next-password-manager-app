@@ -55,12 +55,14 @@
       "delete": "削除",
       "search": "検索",
       "login": "ログイン",
+      "logout": "ログアウト",
       "resetPassword": "パスワード変更",
       "cancel": "キャンセル",
       "update": "更新",
       "no": "いいえ",
       "yes": "はい",
-      "sent": "送信"
+      "sent": "送信",
+      "save": "保存"
     },
     "form": {
       "title": "タイトル",
@@ -98,11 +100,22 @@
         "search": "検索条件",
         "setting": "設定",
         "profile": "プロフィール",
-        "inquiry": "お問い合わせ"
+        "inquiry": "お問い合わせ",
+        "confirmLogout": "ログアウト確認"
       },
       "explain": {
         "inquiry_category_explanation": "以下からお問い合わせのカテゴリを選択してください。",
-        "inquiry_content_explanation": "お問い合わせの詳細な内容を以下のフィールドに記入してください。"
+        "inquiry_content_explanation": "お問い合わせの詳細な内容を以下のフィールドに記入してください。",
+        "confirmLogoutMessage": "本当にログアウトしますか？"
+      }
+    },
+    "radio": {
+      "title": {
+        "navbar": "サイドナビゲーションバー"
+      },
+      "label": {
+        "left": "左側",
+        "right": "右側"
       }
     }
   }
