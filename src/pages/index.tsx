@@ -10,6 +10,7 @@ import Calculator from 'components/molecules/Calculator';
 import { Alert } from 'redux/Feedback/types';
 import { useDispatch } from 'react-redux';
 import { addAlert } from 'redux/Feedback/reducer';
+import Alerts2 from 'components/molecules/Feedback/Alerts2';
 
 
 const HomePage = () => {
@@ -42,6 +43,7 @@ const HomePage = () => {
   return (
     <>
       <MainLayout>
+        <Alerts2/>
         <div className='flex flex-col items-center min-h-screen'>
           <h1 className='text-6xl text-blue-700'>Hello world</h1>
           <Calculator/>
