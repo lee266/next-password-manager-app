@@ -1,12 +1,13 @@
+type SymbolValue = '+' | '-' | '*' | '/';
 
-type NumberButtonType = {
+type SymbolButtonType = {
   children: React.ReactNode;
-  value: string;
+  value: SymbolValue;
   ariaLabel?: string;
-  ButtonClick: (value:string) => void;
+  ButtonClick: (value: SymbolValue) => void;
 }
 
-const NumberButton = (props:NumberButtonType) => {
+const SymbolButton = (props:SymbolButtonType) => {
   return(
     <button
       aria-label={props.ariaLabel}
@@ -21,4 +22,4 @@ const NumberButton = (props:NumberButtonType) => {
   )
 }
 
-export default NumberButton;
+export default SymbolButton;

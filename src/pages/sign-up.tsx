@@ -20,7 +20,7 @@ const SignUpPage:NextPage = ({}) =>{
 }
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
-  if (!locale) { locale = 'ja' }
+  if (!locale) { locale = 'ja' };
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),

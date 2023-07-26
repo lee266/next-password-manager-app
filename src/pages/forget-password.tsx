@@ -1,16 +1,16 @@
 import { GetStaticProps, NextPage } from "next";
 import styles from '../styles/Home.module.scss';
-// translation
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-// MUI 
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import ForgetPassword from "components/organisms/Auth/ResetPassword/ForgetPassword";
+import Alerts2 from "components/molecules/Feedback/Alerts2";
 
 const forgetPasswordPage: NextPage = () => {
   return(
     <div className="forget-password">
       <Box className={styles.main}>
+        <Alerts2/>
         <Container component="main" maxWidth="xs">
           <ForgetPassword/>
         </Container>

@@ -7,7 +7,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from '../theme';
 import createEmotionCache from '../createEmotionCache';
-// Set translation
 import { appWithTranslation } from 'next-i18next';
 import { Provider } from 'react-redux';
 import store from '../redux/store';

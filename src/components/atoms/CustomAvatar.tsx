@@ -13,10 +13,17 @@ import { clearUser } from 'redux/users/reducer';
 import { openProfileDialog, openSettingDialog } from 'redux/Common/reducer';
 import { useTranslation } from 'next-i18next';
 import { resetPasswordManager } from 'redux/passwordManage/reducer';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
 
 export const CustomAvatar = () => {
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
   const avatarOpen = Boolean(anchorEl);
@@ -92,13 +99,32 @@ export const CustomAvatar = () => {
           </ListItemIcon>
           {t('general.common.setting')}
         </MenuItem>
-        <MenuItem onClick={handleLogout}>
+        <MenuItem onClick={() => setOpenLogoutDialog(true)}>
           <ListItemIcon>
             <Logout/>
           </ListItemIcon>
           {t('general.common.logout')}
         </MenuItem>
       </Menu>
+      <Dialog
+        open={openLogoutDialog}
+        onClose={() => setOpenLogoutDialog(false)}
+      >
+        <DialogTitle>{t('component.dialog.title.confirmLogout')}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {t('component.dialog.explain.confirmLogoutMessage')}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenLogoutDialog(false)}>
+            {t('component.button.cancel')}
+          </Button>
+          <Button onClick={handleLogout} color="primary" autoFocus>
+            {t('component.button.logout')}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   )
 }

@@ -2,33 +2,39 @@ import { useTranslation } from 'next-i18next';
 import NumberButton from 'components/atoms/Calculator/NumberButton';
 import { useState } from 'react';
 import BackspaceIcon from '@mui/icons-material/Backspace';
+import StaticNumberButton from 'components/atoms/Calculator/StaticNumberButton';
+import SymbolButton from 'components/atoms/Calculator/SymbolButton';
+
+type SymbolValue = '+' | '-' | '*' | '/';
+type ClearValue = 'input' | 'result';
 
 const Calculator = () => {
+  const { t } = useTranslation();
   const [calculateResult, setCalculateResult] = useState<string>('');
   const [calculateInput, setCalculateInput] = useState<string>('0');
   const [calculateInputNumber, setCalculateInputNumber] = useState<boolean>(true);
   const [calculateInputSymbol, setCalculateInputSymbol] = useState<boolean>(false);
   const [useDot, setUseDot] = useState<boolean>(false);
-  const { t } = useTranslation();
 
-  const sum = (x:number, y:number) => {
-    const s = x + y
-    return s
-  }
+  // Arithmetic functions
+  const sum = (x:number, y:number) => x + y;
+  const subtraction = (x:number, y:number) => x - y;
+  const division = (x:number, y:number) => x / y;
+  const multiplication = (x:number, y:number) => x * y;
 
-  const subtraction = (x:number, y:number) => {
-    const s = x - y
-    return s
-  }
-
-  const division = (x:number, y:number) => {
-    const s = x / y
-    return s
-  }
-
-  const multiplication = (x:number, y:number) => {
-    const s = x * y
-    return s
+  const performOperation = (operation: string, x: number, y: number) => {
+    switch (operation) {
+      case '+':
+        return sum(x, y);
+      case '-':
+        return subtraction(x, y);
+      case '*':
+        return multiplication(x, y);
+      case '/':
+        return division(x, y);
+      default:
+        throw new Error(`Unknown operation: ${operation}`);
+    }
   }
 
 
@@ -44,7 +50,7 @@ const Calculator = () => {
     }
   }
 
-  const handleSymbolButtonClick = (value:string) => {
+  const handleSymbolButtonClick = (value: SymbolValue) => {
     if (calculateInputNumber) {
       setCalculateInputNumber(false);
       setCalculateInputSymbol(true);
@@ -93,9 +99,27 @@ const Calculator = () => {
     }
   }
 
+  const processOperators = (operators: string[], values: string[]) => {
+    let index = 1;
+    while (values.length > index) {
+      let result = 0;
+      if (operators.includes(values[index])) {
+        const x:number = parseFloat(values[index - 1]);
+        const y:number = parseFloat(values[index + 1]);
+        result = performOperation(values[index], x, y);
+        values[index + 1] = String(result);
+        values.splice(index-1, 2)
+        index = 1;
+      } else {
+        index += 2;
+      }
+    }
+    return values;
+  }
+
   const handleEqualClick = (value:string)  => {
     try {
-      let values: string[] = [];
+      let values: string[];
       if (calculateInputSymbol) {
         values = calculateInput.slice(0, -2).split(' ');
         setCalculateResult(calculateInput.slice(0, -1) + value);
@@ -103,43 +127,10 @@ const Calculator = () => {
         values = calculateInput.split(' ');
         setCalculateResult(calculateInput + value);
       }
-
-      let index = 1;
-      while (values.length > index) {
-        let result = 0;
-        
-        if (['*', '/'].includes(values[index])) {
-          if (values[index] == '*') {
-            const x:number = parseFloat(values[index - 1]);
-            const y:number = parseFloat(values[index + 1]);
-            result = multiplication(x, y);
-          }else if (values[index] == '/') {
-            const x:number = parseFloat(values[index - 1]);
-            const y:number = parseFloat(values[index + 1]);
-            result = division(x, y);
-          }
-          values[index + 1] = String(result);
-          values.splice(index-1, 2)
-          index = 1
-        }else {
-          index += 2
-        }
-      }
-      index = 1
-      while (values.length > 1) {
-        let result = 0;
-        if (values[index] == '+') {
-          const x:number = parseFloat(values[index - 1]);
-          const y:number = parseFloat(values[index + 1]);
-          result = sum(x, y);
-        }else if (values[index] == '-') {
-          const x:number = parseFloat(values[index - 1]);
-          const y:number = parseFloat(values[index + 1]);
-          result = subtraction(x, y);
-        }
-        values[index + 1] = String(result);
-        values.splice(index-1, 2)
-      }
+  
+      values = processOperators(['*', '/'], values);
+      values = processOperators(['+', '-'], values);
+  
       setCalculateInput(values[0]);
       setCalculateInputNumber(true);
       setCalculateInputSymbol(false);
@@ -152,7 +143,7 @@ const Calculator = () => {
     }
   }
 
-  const handleClearClick = (value:string) => {
+  const handleClearClick = (value: ClearValue) => {
     if (value == 'input') {
       setCalculateInput('0');
       setCalculateResult('');
@@ -176,9 +167,9 @@ const Calculator = () => {
         </div>
         <div className="grid gap-4 mt-2">
           <div>
-            <NumberButton value='' ButtonClick={handleBackButtonClick}>
+            <StaticNumberButton>
               <br />
-            </NumberButton>
+            </StaticNumberButton>
             {calculateInput == '0'
               ?
                 <button 
@@ -201,12 +192,12 @@ const Calculator = () => {
                   CE
                 </button>
             }
-            <NumberButton value='back' ButtonClick={handleBackButtonClick}>
+            <NumberButton value='back' ButtonClick={handleBackButtonClick} ariaLabel="back">
               <BackspaceIcon/>
             </NumberButton>
-            <NumberButton value='/' ButtonClick={handleSymbolButtonClick}>
+            <SymbolButton value='/' ButtonClick={handleSymbolButtonClick}>
               ÷
-            </NumberButton>
+            </SymbolButton>
           </div>
           <div className='w-full'>
             <NumberButton value='7' ButtonClick={handleNumberButtonClick}>
@@ -218,9 +209,9 @@ const Calculator = () => {
             <NumberButton value='9' ButtonClick={handleNumberButtonClick}>
               9
             </NumberButton>
-            <NumberButton value='*' ButtonClick={handleSymbolButtonClick}>
+            <SymbolButton value='*' ButtonClick={handleSymbolButtonClick}>
               x
-            </NumberButton>
+            </SymbolButton>
           </div>
           <div>
             <NumberButton value='4' ButtonClick={handleNumberButtonClick}>
@@ -232,9 +223,9 @@ const Calculator = () => {
             <NumberButton value='6' ButtonClick={handleNumberButtonClick}>
               6
             </NumberButton>
-            <NumberButton value='-' ButtonClick={handleSymbolButtonClick}>
+            <SymbolButton value='-' ButtonClick={handleSymbolButtonClick}>
               -
-            </NumberButton>
+            </SymbolButton>
           </div>
           <div>
             <NumberButton value='1' ButtonClick={handleNumberButtonClick}>
@@ -246,14 +237,14 @@ const Calculator = () => {
             <NumberButton value='3' ButtonClick={handleNumberButtonClick}>
               3
             </NumberButton>
-            <NumberButton value='+' ButtonClick={handleSymbolButtonClick}>
+            <SymbolButton value='+' ButtonClick={handleSymbolButtonClick}>
               +
-            </NumberButton>
+            </SymbolButton>
           </div>
           <div>
-            <NumberButton value='' ButtonClick={handleBackButtonClick}>
+            <StaticNumberButton>
               <br />
-            </NumberButton>
+            </StaticNumberButton>
             <NumberButton value='0' ButtonClick={handleNumberButtonClick}>
               0
             </NumberButton>

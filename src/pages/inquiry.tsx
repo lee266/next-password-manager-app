@@ -11,9 +11,10 @@ import { verifyJwt } from 'api/auth/jwt';
 import { MainLayout } from "components/layouts/MainLayout2";
 import InquiryForm from "components/molecules/Form/InquiryForm";
 import Container from '@mui/material/Container';
+import Alerts2 from 'components/molecules/Feedback/Alerts2';
 
 
-const Inquiry = () => {
+const InquiryPage = () => {
   const { t } = useTranslation(['common']);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ const Inquiry = () => {
   return(
     <div>
       <MainLayout>
+        <Alerts2 />
         <Container maxWidth="sm">
           <InquiryForm />
         </Container>
@@ -61,4 +63,4 @@ export const getStaticProps: GetStaticProps  = async ({ locale }) => {
   }
 }
 
-export default Inquiry;
+export default InquiryPage;

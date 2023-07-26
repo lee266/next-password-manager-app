@@ -46,7 +46,7 @@ const SettingDialog = () => {
         <DialogContent dividers>
           <form>
             <FormControl>
-              <FormLabel id="side-nav-position">サイドナビゲーションバー</FormLabel>
+              <FormLabel id="side-nav-position">{t("component.radio.title.navbar")}</FormLabel>
               <RadioGroup
                 row
                 aria-labelledby="side-nav-position"
@@ -54,8 +54,8 @@ const SettingDialog = () => {
                 value={sideBarPosition}
                 onChange={handleChange}
               >
-                <CustomRadio value="left" label="左側"/>
-                <CustomRadio value="right" label="右側"/>
+                <CustomRadio value="left" label={t("component.radio.label.left")}/>
+                <CustomRadio value="right" label={t("component.radio.label.right")}/>
               </RadioGroup>
             </FormControl>
           </form>
