@@ -55,7 +55,9 @@ const InquiryForm = () => {
     console.log(data);
     
     try {
-      await createInquiry(data, token)
+      await createInquiry(data, token);
+      const alert: Alert = {message: "送信に成功しました。", severity: 'success',}
+      dispatch(addAlert(alert));
       reset();
     } catch (error) {
       const alert: Alert = {message: "送信に失敗しました。testerif0@gmail.comに連絡ください", severity: 'error',}
