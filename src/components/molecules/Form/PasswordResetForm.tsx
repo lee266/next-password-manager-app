@@ -1,8 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useTranslation } from "next-i18next";
-import * as yup from 'yup';
-import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addAlert } from "redux/Feedback/reducer";
@@ -12,13 +10,8 @@ import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 import TextField from '@mui/material/TextField';
 import { resetPasswordConfirm } from "api/auth/auth";
-
-type PasswordResetFormData = {
-  new_password: string;
-  re_new_password: string;
-  uid: string,
-  token: string,
-}
+import { UserResetForm, UserResetFormSchema } from "types/forms/UserForm";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const PasswordResetForm = () => {
   const { t } = useTranslation();
@@ -27,28 +20,17 @@ const PasswordResetForm = () => {
   const routerQuery = router.query;
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // Define yup Error Messages
-  const requiredError = t("general.yup.required");
-  const passwordMatchError = t("general.yup.passwordsMatch");
-  const minError = t("general.yup.minChars");
-  const schema = yup.object().shape({
-    new_password: yup.string()
-      .required(requiredError)
-      .min(8, minError),
-    re_new_password: yup.string()
-      .oneOf([yup.ref('new_password')], passwordMatchError)
-      .required(requiredError),
-  });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors } 
-  } = useForm<PasswordResetFormData>({
-    resolver: yupResolver(schema)
-  });
+  const form = useForm<UserResetForm>({
+    resolver: zodResolver(UserResetFormSchema),
+    defaultValues: {
+      new_password: '',
+      re_new_password: '',
+    }
+  })
+  const { register, handleSubmit, formState: { errors } } = form;
 
-  const onSubmit: SubmitHandler<PasswordResetFormData> = async(password) => {
+  const onSubmit: SubmitHandler<UserResetForm> = async(password) => {
     try {
       setIsSubmitting(true);
       const data = {...password, ...routerQuery}
@@ -78,10 +60,10 @@ const PasswordResetForm = () => {
 
   return(
     <div className="password-reset-form">
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
           id="new_password"
-          label={t("general.auth.password")}
+          label={t("general.auth.password") + '*'}
           margin="normal"
           fullWidth
           type="password"
@@ -92,7 +74,7 @@ const PasswordResetForm = () => {
         />
         <TextField
           id="re_password"
-          label={t("general.auth.confirmPassword")}
+          label={t("general.auth.confirmPassword") + '*'}
           margin="normal"
           fullWidth
           type="password"
@@ -106,7 +88,6 @@ const PasswordResetForm = () => {
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
-          onClick={handleSubmit(onSubmit)}
           disabled={isSubmitting}
         >
           {isSubmitting ? 
