@@ -21,7 +21,7 @@ import TagDeleteDialog from 'components/molecules/Dialog/TagDeleteDialog';
 import GroupDeleteDialog from 'components/molecules/Dialog/GroupDeleteDialog';
 import PasswordDeleteDialog from 'components/molecules/Dialog/PasswordDeleteDialog';
 
-const PasswordManage = () => {
+const PasswordManagePage = () => {
   const { t } = useTranslation(['common']);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -74,4 +74,4 @@ export const getServerSideProps: GetServerSideProps = async ({locale}) => {
   }
 }
 
-export default PasswordManage;
+export default PasswordManagePage;

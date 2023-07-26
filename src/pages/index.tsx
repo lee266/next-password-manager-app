@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { addAlert } from 'redux/Feedback/reducer';
 
 
-const Home = () => {
+const HomePage = () => {
   const router = useRouter();
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -60,4 +60,4 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
   }
 }
 
-export default Home;
+export default HomePage;
