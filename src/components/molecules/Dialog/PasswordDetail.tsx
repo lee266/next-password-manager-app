@@ -27,6 +27,8 @@ import { DialogContentText } from '@mui/material';
 import { deletePassword, updatePassword } from 'api/password/crud';
 import CustomDialog from "components/atoms/CustomDialog";
 import CustomDialogTitle from "components/atoms/CustomDialogTitle";
+import axios from 'axios';
+import CircularProgress from "@mui/material/CircularProgress";
 
 
 const PasswordDetail = () => {
@@ -40,6 +42,7 @@ const PasswordDetail = () => {
   const token = getToken();
   const open = useSelector((state: RootState) => state.passwordManage.openDetailDialog);
   const selectedPassword = useSelector((state: RootState) => state.passwordManage.selectedPassword);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<Password>({
     resolver: zodResolver(PasswordSchema),
@@ -64,8 +67,14 @@ const PasswordDetail = () => {
     dispatch(closeDetailDialog());
     setEditMode(false);
   }
+
   const onSubmit: SubmitHandler<Password> =async (data) => {
     try {
+      setIsSubmitting(true);
+      if (data['password']) {
+        const response = await axios.post('/api/encrypt', {text: data['password']})
+        data['password'] = response.data['encryptedText'];
+      }
       if (data.group != oldGroup) {
         await updatePassword(data, token, true);
       }else{
@@ -77,6 +86,8 @@ const PasswordDetail = () => {
     } catch (error) {
       const alert: Alert = {message: `${selectedPassword?.title}の更新に失敗しました。`, severity: 'error',}
       dispatch(addAlert(alert));
+    }finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -235,7 +246,10 @@ const PasswordDetail = () => {
           ) : (
             <div>
               <Button onClick={() => setEditMode(false)}>{t("component.button.cancel")}</Button>
-              <Button type='submit' form='password-detail-form'>{t("component.button.update")}</Button>
+              {isSubmitting ? 
+                <CircularProgress size={24} color="primary" /> : <Button type='submit' form='password-detail-form'>{t("component.button.update")}</Button>
+              }
+              
             </div>
           )}
         </DialogActions>

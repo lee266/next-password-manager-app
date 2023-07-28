@@ -20,6 +20,7 @@ import {
 } from 'redux/passwordManage/reducer';
 import { getTags } from 'api/password/tag';
 import { getGroups } from 'api/password/group';
+import axios from 'axios';
 
 
 const PasswordCard = () => {
@@ -48,8 +49,10 @@ const PasswordCard = () => {
       const authToken = getToken();
       const userData = await getUser(authToken);
       userData.user_id = userData.id
-      const passwordData = await searchPasswords(userData.id, filters, token)
-      setData(passwordData.data);
+      const passwordData = await searchPasswords(userData.id, filters, token);
+      const decryptPasswordData = await axios.post('/api/decrypt', passwordData);
+      
+      setData(decryptPasswordData.data);
       // Set the initial state (open or closed) for the dropdown menus of each group
       Object.keys(passwordData.data).forEach((key) => {
         if (dropdownOpenState[key] === undefined) { 
@@ -82,6 +85,7 @@ const PasswordCard = () => {
     }
 
     fetchData();
+
     if (passwordUpdate) {
       Passwords()
       dispatch(changePasswords(false));
@@ -103,7 +107,8 @@ const PasswordCard = () => {
     }
   }, [
     passwords, groups, passwordDelete, passwordUpdate, passwordMove, tagUpdate, 
-    groupUpdate, passwordFiltersUpdate, filters]);
+    groupUpdate, passwordFiltersUpdate, filters
+  ]);
 
   const onDragEnd =async (result:any) => {
     // console.log("Active onDragEnd");

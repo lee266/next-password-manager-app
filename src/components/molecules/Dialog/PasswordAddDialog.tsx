@@ -21,14 +21,18 @@ import InputLabel from '@mui/material/InputLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import CustomDialog from "components/atoms/CustomDialog";
 import CustomDialogTitle from "components/atoms/CustomDialogTitle";
+import axios from 'axios';
+import { useState } from 'react';
+import CircularProgress from "@mui/material/CircularProgress";
 
 
 const PasswordAddDialog = () => {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const token = getToken();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const selectBoxGroups = useSelector((state: RootState) => state.passwordManage.groups);
   const selectBoxTags = useSelector((state: RootState) => state.passwordManage.tags);
-  const { t } = useTranslation();
-  const token = getToken();
-  const dispatch = useDispatch();
   const open = useSelector((state: RootState) => state.passwordManage.openAddDialog);
   // react form settings
   const form = useForm<Password>({
@@ -54,15 +58,26 @@ const PasswordAddDialog = () => {
 
   const onSubmit: SubmitHandler<Password> = async(data) => {
     try { 
-      const user = await getUser(token);
+      setIsSubmitting(true);
+      const [user, encryptedPassword] = await Promise.all([
+        getUser(token),
+        data['password'] ? axios.post('/api/encrypt', {text: data['password']}) : null
+      ]);
+  
       data['user'] = user.id;
-
+  
+      if (encryptedPassword) {
+        data['password'] = encryptedPassword.data['encryptedText'];
+      }
+  
       await createPassword(data, token);
       reset();
       dispatch(changePasswords(true));
     } catch (error) {
       const alert: Alert = {message: "パスワード作成に失敗しました。", severity: 'error',}
       dispatch(addAlert(alert));
+    }finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -166,7 +181,9 @@ const PasswordAddDialog = () => {
           </form>
         </DialogContent>
         <DialogActions>
-          <AddButton name={t('component.button.add')} form='password-form' type='submit' />
+          {isSubmitting ? 
+            <CircularProgress size={24} color="primary" /> : <AddButton name={t('component.button.add')} form='password-form' type='submit' />
+          }
         </DialogActions>
       </CustomDialog>
     </div>
