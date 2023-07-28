@@ -44,7 +44,7 @@ const PasswordText = ({ text = '', labelId = '' }: PasswordTextPropsType) => {
   };
 
   return(
-    <div className="text-gray-700 flex">
+    <div className="text-gray-700 flex mr-1">
       <label className="mr-1" htmlFor={"passwordInput" + (labelId || '')}>
         Password:
       </label>
