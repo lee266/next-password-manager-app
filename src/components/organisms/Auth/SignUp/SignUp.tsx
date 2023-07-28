@@ -28,7 +28,7 @@ const SignUp = () => {
         </Typography>
         <SignUpForm/>
         <CustomLink href="/login2">
-          すでにサインアップしてますか？
+          {t("component.link.alreadySignUp")}
         </CustomLink>
       </Box>
       <Copyright sx={{ mt: 3 }} />

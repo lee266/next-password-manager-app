@@ -1,4 +1,4 @@
-import { string, z } from 'zod'
+import { z } from 'zod'
 import { Timestamp } from 'types/others/Timestamp'
 
 export const UserFormSchema = z.object({
@@ -7,7 +7,12 @@ export const UserFormSchema = z.object({
     message: "email",
     path: ['email'], 
   }),
-  password: z.string().min(8, "min8").nonempty("nonempty"),
+  password: z.string().min(8, "min8").nonempty("nonempty").refine(value => (
+    /(?=(.*\d){2,})(?=.*[a-zA-Z]{2,}).*/.test(value)
+  ), {
+    message: "weakPassword",
+    path: ['password'],
+  }),
   re_password: z.string().nonempty("nonempty"),
   createAt: Timestamp
 }).refine(data => data.password === data.re_password, {

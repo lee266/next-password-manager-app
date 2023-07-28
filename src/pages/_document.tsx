@@ -3,6 +3,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
 import theme from '../theme';
 import createEmotionCache from '../createEmotionCache';
+import Script from 'next/script';
 
 export default class MyDocument extends Document {
   render() {
@@ -19,6 +20,7 @@ export default class MyDocument extends Document {
           /> */}
           <meta name="emotion-insertion-point" content="" />
           {(this.props as any).emotionStyleTags}
+          <Script src="/js/tailwindDarkMode.js" strategy="afterInteractive" />
         </Head>
         <body>
           <Main />

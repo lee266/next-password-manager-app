@@ -5,13 +5,12 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addAlert } from "redux/Feedback/reducer";
 import { Alert } from "redux/Feedback/types";
-import Button from '@mui/material/Button';
-import CircularProgress from "@mui/material/CircularProgress";
-import TextField from '@mui/material/TextField';
 import { saveUser } from "api/users/crud";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserFormSchema, UserFrom } from "types/forms/UserForm";
 import { AxiosError } from "axios";
+import CustomTextField from "components/atoms/Input/CustomTextField";
+import CustomButton from "components/atoms/Button/CustomButton";
 
 
 const SignUpForm = () => {
@@ -20,7 +19,6 @@ const SignUpForm = () => {
   const router = useRouter();
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const form = useForm<UserFrom>({
     resolver: zodResolver(UserFormSchema),
     defaultValues: {
@@ -63,62 +61,39 @@ const SignUpForm = () => {
   return (
     <div className="sing-up-form">
       <form>
-        <TextField
+        <CustomTextField 
           id="username"
           label={t("general.auth.username")}
-          margin="normal"
-          fullWidth
-          autoComplete="username"
-          {...register('username')}
-          error={!!errors.username}
-          helperText={errors.username && t(`general.error.${errors.username?.message}`)}
+          error={errors.username}
+          register={register}
         />
-        <TextField
+        <CustomTextField 
           id="email"
           label={t("general.auth.email")}
-          margin="normal"
-          fullWidth
-          autoComplete="email"
-          autoFocus
-          {...register('email')}
-          error={!!errors.email}
-          helperText={errors.email && t(`general.error.${errors.email?.message}`)}
+          error={errors.email}
+          register={register}
         />
-        <TextField
+        <CustomTextField 
           id="password"
           label={t("general.auth.password")}
-          margin="normal"
-          fullWidth
           type="password"
-          autoComplete="current-password"
-          {...register('password')}
-          error={!!errors.password}
-          helperText={errors.password && t(`general.error.${errors.password?.message}`)}
+          error={errors.password}
+          register={register}
         />
-        <TextField
+        <CustomTextField 
           id="re_password"
           label={t("general.auth.confirmPassword")}
-          margin="normal"
-          fullWidth
           type="password"
-          autoComplete="confirmPassword"
-          {...register('re_password')}
-          error={!!errors.re_password}
-          helperText={errors.re_password && t(`general.error.${errors.re_password?.message}`)}
+          error={errors.re_password}
+          register={register}
         />
-        <Button
-          className="bg-blue-500"
+        <CustomButton 
           type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+          fullWidth={true}
           onClick={handleSubmit(onSubmit)}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? 
-            <CircularProgress size={24} color="primary" /> : t("general.auth.signUp")
-          }
-        </Button>
+          isSubmitting={isSubmitting}
+          buttonText="signUp"
+        />
       </form>
     </div>
   )

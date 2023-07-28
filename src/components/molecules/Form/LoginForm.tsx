@@ -6,14 +6,13 @@ import { useDispatch } from "react-redux";
 import { addAlert } from "redux/Feedback/reducer";
 import { Alert } from "redux/Feedback/types";
 import { fetchUserDataRequest } from "redux/users/reducer";
-import Button from '@mui/material/Button';
-import CircularProgress from "@mui/material/CircularProgress";
-import TextField from '@mui/material/TextField';
 import { createJwt } from "api/auth/jwt";
 import { saveToken } from "utils/auth";
 import { UserLoginFormSchema, UserLoginFrom } from "types/forms/UserForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
+import CustomTextField from "components/atoms/Input/CustomTextField";
+import CustomButton from "components/atoms/Button/CustomButton";
 
 const LoginForm = () => {
   const { t } = useTranslation();
@@ -57,40 +56,25 @@ const LoginForm = () => {
   return(
     <div className="login-form">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
+        <CustomTextField 
           id="email"
-          label={t("general.auth.email")  + '*'}
-          margin="normal"
-          fullWidth
-          autoComplete="email"
-          autoFocus
-          {...register('email')}
-          error={!!errors.email}
-          helperText={errors.email && t(`general.error.${errors.email?.message}`)}
+          label={t("general.auth.email")}
+          error={errors.email}
+          register={register}
         />
-        <TextField
+        <CustomTextField 
           id="password"
-          label={t("general.auth.password")  + '*'}
-          margin="normal"
-          fullWidth
+          label={t("general.auth.password")}
+          error={errors.password}
+          register={register}
           type="password"
-          autoComplete="current-password"
-          {...register('password')}
-          error={!!errors.password}
-          helperText={errors.password && t(`general.error.${errors.password?.message}`)}
         />
-        <Button
-          className="bg-primary"
+        <CustomButton 
           type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? 
-            <CircularProgress size={24} color="primary" /> : t("component.button.login")
-          }
-        </Button>
+          fullWidth={true}
+          isSubmitting={isSubmitting}
+          buttonText="login"
+        />
       </form>
     </div>
   )
