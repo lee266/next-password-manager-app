@@ -11,7 +11,7 @@ type CustomDialogTitleProps = {
 const CustomDialogTitle: React.FC<CustomDialogTitleProps>  = ({ title, close }) => {
   return(
     <>
-      <DialogTitle id='setting-dialog' className='bg-primary'>
+      <DialogTitle id='setting-dialog' className='bg-primary dark:bg-primary-dark'>
         <Box 
           display="flex" 
           justifyContent="space-between" 

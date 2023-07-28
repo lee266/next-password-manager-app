@@ -12,6 +12,7 @@ type CustomDialogProps = {
 const CustomDialog: React.FC<CustomDialogProps> = ({ children, params }) => {
   return(
     <Dialog
+      className='dark:bg-primary-dark'
       fullScreen 
       open={params.open} 
       aria-labelledby={params.ariaLabelledBy}

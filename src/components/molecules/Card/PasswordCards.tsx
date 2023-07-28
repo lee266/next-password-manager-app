@@ -209,12 +209,12 @@ const PasswordCard = () => {
               {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
                   {/* Group name */}
-                  <div className='group_name flex justify-between items-center p-4 bg-primary rounded cursor-pointer' 
+                  <div className='group_name flex justify-between items-center p-4 bg-primary rounded cursor-pointer dark:bg-primary-dark' 
                     onClick={() => toggleDropdown(key)}
                   >
                     <div className='flex items-center'>
                       <h2 className='text-lg font-semibold mr-2'>{key}</h2>
-                      <span className='mr-2 bg-[#5e9afa] rounded-full px-2 py-1 text-xs'>{data[key].length}</span>
+                      <span className='mr-2 bg-[#5e9afa] rounded-full px-2 py-1 text-xs dark:bg-accent-dark'>{data[key].length}</span>
                     </div>
                       <ExpandLessIcon style={{ 
                         transform: `${dropdownOpenState[key] ? 'rotate(180deg)' : 'rotate(0deg)'}`, transition: 'transform 0.3s' 

@@ -10,6 +10,7 @@ import createEmotionCache from '../createEmotionCache';
 import { appWithTranslation } from 'next-i18next';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
+import Script from 'next/script';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -23,6 +24,7 @@ const MyApp = (props: MyAppProps) => {
 
   return (
     <Provider store={store}>
+      <Script src="/js/tailwindDarkMode.js" strategy="afterInteractive" />
       <CacheProvider value={emotionCache}>
         <Head>
           <title>Password manager</title>

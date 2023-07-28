@@ -10,7 +10,7 @@ import Login from "components/organisms/Auth/Login/Login";
 
 const loginPage: NextPage = () => {
   return (
-    <div className="login-section">
+    <div className="login-section min-h-screen dark:bg-back-rightDark">
       <Box className={styles.main}>
         <Alerts2/>
         <Container component="main" maxWidth="xs">
