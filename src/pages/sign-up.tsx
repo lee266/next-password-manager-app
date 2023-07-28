@@ -8,7 +8,7 @@ import SignUp from 'components/organisms/Auth/SignUp/SignUp';
 
 const SignUpPage:NextPage = ({}) =>{
   return (
-    <div className='sign-up-section min-h-screen'>
+    <div className='sign-up-section min-h-screen dark:bg-back-rightDark'>
       <Box className={styles.main}>
         <Alerts2/>
         <Container component="main" maxWidth="xs">
