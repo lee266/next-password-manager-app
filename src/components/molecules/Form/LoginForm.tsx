@@ -37,7 +37,7 @@ const LoginForm = () => {
       // Save token in cookie 
       saveToken(accessKey);
       dispatch(fetchUserDataRequest());
-      await router.push("/");
+      await router.push("/password-manage");
       const alert: Alert = { message: "ログインに成功しました。", severity: "success", }
       dispatch(addAlert(alert));
     } catch (error) {
