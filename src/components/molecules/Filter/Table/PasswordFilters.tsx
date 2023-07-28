@@ -74,7 +74,7 @@ const PasswordFilters = () => {
       <Box sx={{display: 'flex'}}>
         <Box sx={{ flexGrow: 1 }} />
         {/* plus button  */}
-        <Fab className="bg-primary" size='small' color='primary' aria-label='add-password' 
+        <Fab className="bg-primary dark:bg-primary-dark" size='small' color='primary' aria-label='add-password' 
           onClick={handleClickAdd}
         >
           <AddIcon 
@@ -115,7 +115,7 @@ const PasswordFilters = () => {
           </MenuItem>
         </Menu>
         {/* minus button  */}
-        <Fab className="bg-primary" size='small' color='primary' aria-label='minus-button'
+        <Fab className="bg-primary dark:bg-primary-dark" size='small' color='primary' aria-label='minus-button'
           onClick={handleClickDelete}
         >
           {openDelete? (
@@ -153,13 +153,13 @@ const PasswordFilters = () => {
           <MenuItem onClick={() => dispatch(openDeleteTagDialog())}> {t("component.menu.deleteTag")} </MenuItem>
         </Menu>
         {/* search button  */}
-        <Fab className="bg-primary" size='small' color='primary' aria-label='search-button'
+        <Fab className="bg-primary dark:bg-primary-dark" size='small' color='primary' aria-label='search-button'
           onClick={() => dispatch(openSearchDialog())}
         >
           <SearchIcon />
         </Fab>
         {/* search reset button  */}
-        <Fab className="bg-primary" size='small' color='primary' aria-label='search-reset-button'
+        <Fab className="bg-primary dark:bg-primary-dark" size='small' color='primary' aria-label='search-reset-button'
           onClick={searchReset}
         >
           <SearchOffIcon />

@@ -15,7 +15,7 @@ export const Header2 = () => {
   return(
     <>
       <Box sx={{display: 'flex'}}>
-        <AppBar position="fixed">
+        <AppBar position="fixed" className='dark:bg-back-dark'>
           <Toolbar>
             {/* Hamburger Menu */}
             <IconButton

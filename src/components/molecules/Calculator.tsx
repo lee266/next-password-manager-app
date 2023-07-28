@@ -156,7 +156,7 @@ const Calculator = () => {
 
 
   return(
-    <div className='calculator min-w-[300px] max-w-[600px]'>
+    <div className='calculator min-w-[300px] max-w-[600px] dark:bg-back-rightDark'>
       <div className="flex flex-col items-center
         bg-white border border-gray-200 rounded-lg"
       >

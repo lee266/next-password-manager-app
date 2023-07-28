@@ -15,7 +15,9 @@ const AddButton = (props: AddButtonPropsType) => {
         className="
         bg-primary hover:bg-blue-700 
         text-white font-bold 
-          py-2 px-4 rounded-full"
+          py-2 px-4 rounded-full
+          dark:bg-primary-dark
+        "
         onClick={props.click}
       >
         {props.name}

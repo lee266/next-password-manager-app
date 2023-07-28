@@ -8,7 +8,7 @@ import Alerts2 from "components/molecules/Feedback/Alerts2";
 
 const forgetPasswordPage: NextPage = () => {
   return(
-    <div className="forget-password">
+    <div className="forget-password min-h-screen dark:bg-back-rightDark">
       <Box className={styles.main}>
         <Alerts2/>
         <Container component="main" maxWidth="xs">
