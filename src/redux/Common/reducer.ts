@@ -5,6 +5,7 @@ interface commonState {
   openNavigation: boolean
   openProfileDialog: boolean
   sideBarPosition: "left" | "right"
+  changeTheme: boolean
 }
 
 const initialState: commonState = {
@@ -12,6 +13,7 @@ const initialState: commonState = {
   openNavigation: false,
   openProfileDialog: false,
   sideBarPosition: "left",
+  changeTheme: false,
 }
 
 const commonSlice = createSlice({
@@ -34,6 +36,7 @@ const commonSlice = createSlice({
         state.openNavigation = false
       }
     },
+    changeTheme: (state) => { state.changeTheme = !state.changeTheme},
   }
 })
 
@@ -42,6 +45,7 @@ export const {
   openProfileDialog, closeProfileDialog,
   toggleNavigation, closeNavigation,
   setSideBarPosition,
+  changeTheme
 } = commonSlice.actions;
 
 export default commonSlice.reducer;
