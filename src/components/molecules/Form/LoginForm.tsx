@@ -13,6 +13,7 @@ import { createJwt } from "api/auth/jwt";
 import { saveToken } from "utils/auth";
 import { UserLoginFormSchema, UserLoginFrom } from "types/forms/UserForm";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AxiosError } from "axios";
 
 const LoginForm = () => {
   const { t } = useTranslation();
@@ -41,7 +42,11 @@ const LoginForm = () => {
       const alert: Alert = { message: "ログインに成功しました。", severity: "success", }
       dispatch(addAlert(alert));
     } catch (error) {
-      const errorMessage = "ログインに失敗しました。アカウントが存在しない可能があります。サインアップしてください。既にアカウントを持っている場合は、testerif0@gmail.comに連絡ください";
+      const axiosError = error as AxiosError;
+      let errorMessage = "ログインに失敗しました。アカウントが存在しない可能があります。サインアップしてください。既にアカウントを持っている場合は、testerif0@gmail.comに連絡ください";
+      if (axiosError.response && axiosError.response.status >= 400 && axiosError.response.status < 500) {
+        errorMessage = "サーバが起動中です。少々お待ちください。30s~1min";
+      }
       const alert: Alert = { message: errorMessage, severity: "error", }
       dispatch(addAlert(alert))
     }finally {
