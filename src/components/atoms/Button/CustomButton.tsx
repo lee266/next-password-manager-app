@@ -6,7 +6,7 @@ type ButtonType = {
   isSubmitting: boolean;
   type?: "button" | "submit" | "reset" | undefined;
   fullWidth?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   buttonText: string;
 }
 
