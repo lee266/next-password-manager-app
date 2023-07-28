@@ -22,7 +22,8 @@
       "addGroup": "Either the group already exists, or an error occurred.",
       "nonempty": "This field is required.",
       "passwordNotMatch": "Passwords do not match",
-      "min8": "Please enter at least 8 characters."
+      "min8": "Please enter at least 8 characters.",
+      "weakPassword": "Password is too simple.Please make it harder."
     },
     "nav": {
       "password": "Password",
@@ -55,6 +56,8 @@
       "delete": "Delete",
       "search": "Search",
       "login": "Log In",
+      "logout": "Logout",
+      "signUp": "Sign Up",
       "resetPassword": "Reset Password",
       "cancel": "Cancel",
       "update": "Update",
