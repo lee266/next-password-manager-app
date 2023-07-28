@@ -70,7 +70,7 @@ const PasswordResetForm = () => {
           autoComplete="current-password"
           {...register('new_password')}
           error={!!errors.new_password}
-          helperText={errors.new_password?.message}
+          helperText={errors.new_password && t(`general.error.${errors.new_password?.message}`)}
         />
         <TextField
           id="re_password"
@@ -81,7 +81,7 @@ const PasswordResetForm = () => {
           autoComplete="confirmPassword"
           {...register('re_new_password')}
           error={!!errors.re_new_password}
-          helperText={errors.re_new_password?.message}
+          helperText={errors.re_new_password && t(`general.error.${errors.re_new_password?.message}`)}
         />
         <Button
           type="submit"
