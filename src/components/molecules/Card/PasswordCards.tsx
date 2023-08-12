@@ -213,12 +213,15 @@ const PasswordCard = () => {
                     onClick={() => toggleDropdown(key)}
                   >
                     <div className='flex items-center'>
-                      <h2 className='text-lg font-semibold mr-2'>{key}</h2>
-                      <span className='mr-2 bg-[#5e9afa] rounded-full px-2 py-1 text-xs dark:bg-accent-dark'>{data[key].length}</span>
+                      <h2 className='text-black dark:text-white text-lg font-semibold mr-2'>{key}</h2>
+                      <span className='text-black dark:text-white mr-2 bg-[#5e9afa] rounded-full px-2 py-1 text-xs dark:bg-accent-dark'>{data[key].length}</span>
                     </div>
-                      <ExpandLessIcon style={{ 
-                        transform: `${dropdownOpenState[key] ? 'rotate(180deg)' : 'rotate(0deg)'}`, transition: 'transform 0.3s' 
-                      }} />
+                      <ExpandLessIcon
+                        className='text-black dark:text-white'
+                        style={{ 
+                          transform: `${dropdownOpenState[key] ? 'rotate(180deg)' : 'rotate(0deg)'}`, transition: 'transform 0.3s' 
+                        }} 
+                      />
                   </div>
                   {/* Display passwords */}
                   {dropdownOpenState[key] && (
@@ -239,10 +242,10 @@ const PasswordCard = () => {
                                   className='password-drag-icon mx-2'
                                   aria-label="Drag Handle"
                                 >
-                                  <DragHandleIcon />
+                                  <DragHandleIcon className="text-black dark:text-white" />
                                 </div> 
                                 <div className='password-text' onClick={() => SelectPassword(item)}>
-                                  <div className="font-bold text-xl mb-2" >{item.title}</div>
+                                  <div className="text-black dark:text-white font-bold text-xl mb-" >{item.title}</div>
                                   <PasswordText text={item.password ? item.password: ''} labelId={String(item.id)}/>
                                 </div>
                               </div>

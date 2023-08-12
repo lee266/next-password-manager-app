@@ -1,11 +1,8 @@
-import styled from '@emotion/styled'
-
 type TextInputPropsType = {
   id: string,
   label: string,
   showEmailErrorMessage: boolean,
 }
-
 
 const TextInput = (props:TextInputPropsType) => {
   return(

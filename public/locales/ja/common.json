@@ -114,11 +114,15 @@
     },
     "radio": {
       "title": {
-        "navbar": "サイドナビゲーションバー"
+        "navbar": "サイドナビゲーションバー",
+        "theme": "テーマ"
       },
       "label": {
         "left": "左側",
-        "right": "右側"
+        "right": "右側",
+        "systemMode": "システム",
+        "darkMode": "ダークモード",
+        "lightMode": "ライトモード"
       }
     },
     "link": {

@@ -9,21 +9,19 @@ import { getToken } from 'utils/auth';
 import { Password, PasswordSchema } from 'types/models/Password';
 import { Alert } from 'redux/Feedback/types';
 import { addAlert } from 'redux/Feedback/reducer';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import TextField from '@mui/material/TextField';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import AddButton from 'components/atoms/Button/AddButton';
 import { createPassword } from 'api/password/crud';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import FormHelperText from '@mui/material/FormHelperText';
 import CustomDialog from "components/atoms/CustomDialog";
 import CustomDialogTitle from "components/atoms/CustomDialogTitle";
 import axios from 'axios';
 import { useState } from 'react';
 import CircularProgress from "@mui/material/CircularProgress";
+import CustomDialogContent from "components/atoms/Dialog/CustomDialogContent";
+import CustomTextField from 'components/atoms/Input/CustomTextField';
+import CustomTextArea from 'components/atoms/Input/CustomTextArea';
+import CustomDialogActions from 'components/atoms/Dialog/CustomDialogActions';
+import CustomSelect from 'components/atoms/Input/CustomSelect';
+import CustomMenuItem from 'components/atoms/Menu/CustomMenuItem';
 
 
 const PasswordAddDialog = () => {
@@ -92,99 +90,68 @@ const PasswordAddDialog = () => {
           title={t('component.dialog.title.addPassword')}
           close={() => handleClose()}
         />
-        <DialogContent dividers>
+        <CustomDialogContent>
           <form id='password-form' onSubmit={handleSubmit(onSubmit)} autoComplete='new-password'>
-            <TextField
+            <CustomTextField
+              id='title'
               label={t('component.form.title')  + '*'}
-              margin='normal'
-              fullWidth
-              {...register('title')}
-              error={!!errors.title}
-              helperText={errors.title?.message}
+              error={errors.title}
+              register={register}
             />
-            <TextField
+            <CustomTextField
               id='password'
               label={t('component.form.password')}
-              margin='normal'
-              fullWidth
+              register={register}
               type='password'
-              {...register('password')}
-              error={!!errors.password}
-              helperText={errors.password?.message}
+              error={errors.password}
             />
-            <TextField
+            <CustomTextField
               id='email'
               label={t('component.form.email')}
-              margin='normal'
-              fullWidth
-              autoComplete='email'
-              {...register('email')}
-              error={!!errors.email}
-              helperText={errors.email?.message}
+              register={register}
+              error={errors.email}
             />
-            <TextField
+            <CustomTextField
               id='website'
               label={t('component.form.website')}
-              margin='normal'
-              fullWidth
-              autoComplete='website url'
-              {...register('website')}
-              error={!!errors.website}
-              helperText={errors.website?.message}
+              register={register}
+              error={errors.website}
             />
-            <FormControl className='mt-2' fullWidth>
-              <InputLabel id='tag'>{t('component.form.tag')}</InputLabel>
-              <Select
-                id='tag'
-                label='Age'
-                fullWidth
-                {...register('tag')}
-                error={!!errors.tag}
-                defaultValue=''
-              >
-                <MenuItem value={''}>{'None'}</MenuItem>
-                {selectBoxTags.map((tag) => (
-                  <MenuItem key={tag.id} value={tag.id}>{tag.tag_name}</MenuItem>
-                ))}
-              </Select>
-              <FormHelperText>{errors.tag?.message}</FormHelperText>
-            </FormControl>
-            <FormControl className='mt-4' fullWidth>
-              <InputLabel id='groups'>{t('component.form.group')}</InputLabel>
-              <Select
-                id='groups'
-                label={t('component.form.group')}
-                fullWidth
-                {...register('group')}
-                error={!!errors.group}
-                defaultValue=''
-              >
-                <MenuItem value={''}>{'None'}</MenuItem>
-                {selectBoxGroups.map((group) => (
-                  <MenuItem key={group.id} value={group.id}>{group.group_name}</MenuItem>
-                ))}
-              </Select>
-              <FormHelperText>{errors.group?.message}</FormHelperText>
-            </FormControl>
-            <TextField
+            <CustomSelect
+              id='tag'
+              label={t('component.form.tag')}
+              register={register}
+              error={errors.tag}
+            >
+              <CustomMenuItem value={''}>{'None'}</CustomMenuItem>
+              {selectBoxTags.map((tag) => (
+                <CustomMenuItem key={tag.id} value={tag.id}>{tag.tag_name}</CustomMenuItem>
+              ))}
+            </CustomSelect>
+            <CustomSelect
+              id='group'
+              label={t('component.form.group')}
+              register={register}
+              error={errors.group}
+            >
+              <CustomMenuItem value={''}>{'None'}</CustomMenuItem>
+              {selectBoxGroups.map((group) => (
+                <CustomMenuItem key={group.id} value={group.id}>{group.group_name}</CustomMenuItem>
+              ))}
+            </CustomSelect>
+            <CustomTextArea
               id='notes'
               label={t('component.form.note')}
-              multiline
-              margin='normal'
-              fullWidth
-              maxRows={4}
-              autoComplete='notes'
-              {...register('notes')}
-              error={!!errors.notes}
-              helperText={errors.notes?.message}
+              register={register}
+              error={errors.notes}
             />
           </form>
-        </DialogContent>
-        <DialogActions>
+        </CustomDialogContent>
+        <CustomDialogActions>
           {isSubmitting ? 
             <CircularProgress size={24} color="primary" /> : <AddButton name={t('component.button.add')} form='password-form' type='submit' />
           }
-        </DialogActions>
+        </CustomDialogActions>
       </CustomDialog>
     </div>
   )

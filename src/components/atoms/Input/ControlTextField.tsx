@@ -1,23 +1,15 @@
 import { useEffect, useState } from "react";
-import { useTranslation } from "next-i18next";
-import { FieldError } from "react-hook-form";
-import TextField from '@mui/material/TextField';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 import { useSelector } from "react-redux";
 import { RootState } from "redux/rootReducer";
 
 
-type TextFieldType = {
-  id: string;
-  label: string;
-  error: FieldError | undefined;
-  register: any;
-  type?: string;
-  inputProps?: any;
-}
+type ControlTextFieldType = {
+  value: any;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+} & TextFieldProps;
 
-
-const CustomTextField: React.FC<TextFieldType> = ({ id, label, error, register, type='text', inputProps }) => {
-  const { t } = useTranslation();
+const ControlTextField: React.FC<ControlTextFieldType> = ({ value, onChange, label, ...props }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const changeTheme = useSelector((state: RootState) => state.common.changeTheme);
 
@@ -30,19 +22,16 @@ const CustomTextField: React.FC<TextFieldType> = ({ id, label, error, register, 
 
   return(
     <TextField
-      id={id}
+      variant="standard" 
+      value={value} 
+      onChange={onChange} 
+      fullWidth 
+      {...props}
       label={label}
-      type={type}
-      error={!!error}
-      helperText={error && t(`general.error.${error?.message}`)}
-      {...register(id)}
-      fullWidth
-      margin='normal'
       InputProps={{
         style: {
           color: isDarkMode ? 'white' : 'black',
         },
-        inputProps
       }}
       InputLabelProps={{
         style: {
@@ -53,9 +42,15 @@ const CustomTextField: React.FC<TextFieldType> = ({ id, label, error, register, 
         '& .MuiOutlinedInput-notchedOutline': {
           borderColor: isDarkMode ? 'white' : 'black',
         },
+        '& .MuiInput-underline:before': {
+          borderBottomColor: isDarkMode ? 'white' : 'black',
+        },
+        '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+          borderBottomColor: isDarkMode ? 'white' : 'black',
+        },
       }}
     />
   )
 }
 
-export default CustomTextField;
+export default ControlTextField;

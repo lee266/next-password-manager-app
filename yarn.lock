@@ -1821,6 +1821,7 @@ __metadata:
     js-cookie: ^3.0.1
     next: 13.1.0
     next-i18next: ^13.2.1
+    next-themes: ^0.2.1
     node-fetch: ^3.3.0
     postcss: ^8.4.21
     prettier: ^2.8.4
@@ -4499,6 +4500,17 @@ __metadata:
     react: ">= 17.0.2"
     react-i18next: ^12.2.0
   checksum: fb91ba66f8b3add32cccaf3c25c849d97f76cae520c8f0aa8773b4cf45874ad8155ca62d4bffda63822673cf612353e43ad7b9c4268ed3c21dbf4c85228cae67
+  languageName: node
+  linkType: hard
+
+"next-themes@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "next-themes@npm:0.2.1"
+  peerDependencies:
+    next: "*"
+    react: "*"
+    react-dom: "*"
+  checksum: ebc248b956138e73436c4ed0a0f0a877a0a48a33156db577029b8b8469e48b5c777d61abf2baeb75953378febea74e067a4869ff90b4a3e94fce123289b862ba
   languageName: node
   linkType: hard
 

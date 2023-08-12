@@ -8,10 +8,10 @@ import { Alert } from "redux/Feedback/types";
 // MUI 
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
-import TextField from '@mui/material/TextField';
 import { resetPasswordConfirm } from "api/auth/auth";
 import { UserResetForm, UserResetFormSchema } from "types/forms/UserForm";
 import { zodResolver } from "@hookform/resolvers/zod";
+import CustomTextField from "components/atoms/Input/CustomTextField";
 
 const PasswordResetForm = () => {
   const { t } = useTranslation();
@@ -61,27 +61,19 @@ const PasswordResetForm = () => {
   return(
     <div className="password-reset-form">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
+        <CustomTextField
           id="new_password"
           label={t("general.auth.password") + '*'}
-          margin="normal"
-          fullWidth
           type="password"
-          autoComplete="current-password"
-          {...register('new_password')}
-          error={!!errors.new_password}
-          helperText={errors.new_password && t(`general.error.${errors.new_password?.message}`)}
+          register={register}
+          error={errors.new_password}
         />
-        <TextField
+        <CustomTextField
           id="re_password"
           label={t("general.auth.confirmPassword") + '*'}
-          margin="normal"
-          fullWidth
           type="password"
-          autoComplete="confirmPassword"
-          {...register('re_new_password')}
-          error={!!errors.re_new_password}
-          helperText={errors.re_new_password && t(`general.error.${errors.re_new_password?.message}`)}
+          register={register}
+          error={errors.re_new_password}
         />
         <Button
           type="submit"

@@ -6,17 +6,18 @@ import { useSelector } from "react-redux";
 import { RootState } from "redux/rootReducer";
 
 
-type TextFieldType = {
+type CustomTextAreaType = {
   id: string;
   label: string;
   error: FieldError | undefined;
   register: any;
   type?: string;
+  rows?: number;
   inputProps?: any;
 }
 
 
-const CustomTextField: React.FC<TextFieldType> = ({ id, label, error, register, type='text', inputProps }) => {
+const CustomTextArea: React.FC<CustomTextAreaType> = ({ id, label, error, register, type='text', rows=4, inputProps }) => {
   const { t } = useTranslation();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const changeTheme = useSelector((state: RootState) => state.common.changeTheme);
@@ -37,7 +38,9 @@ const CustomTextField: React.FC<TextFieldType> = ({ id, label, error, register, 
       helperText={error && t(`general.error.${error?.message}`)}
       {...register(id)}
       fullWidth
+      multiline
       margin='normal'
+      rows={rows}
       InputProps={{
         style: {
           color: isDarkMode ? 'white' : 'black',
@@ -58,4 +61,4 @@ const CustomTextField: React.FC<TextFieldType> = ({ id, label, error, register, 
   )
 }
 
-export default CustomTextField;
+export default CustomTextArea;

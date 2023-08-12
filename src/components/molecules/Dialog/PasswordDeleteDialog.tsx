@@ -4,11 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from "redux/rootReducer";
 import { changePasswords, closeDeletePasswordDialog, closeMinusButtonMenu } from "redux/passwordManage/reducer";
 import { getToken } from 'utils/auth';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import { Alert } from "redux/Feedback/types";
 import { addAlert } from "redux/Feedback/reducer";
 import { Password } from "types/models/Password";
@@ -16,7 +12,9 @@ import Box from '@mui/material/Box';
 import { deletePassword } from "api/password/crud";
 import CustomDialog from "components/atoms/CustomDialog";
 import CustomDialogTitle from "components/atoms/CustomDialogTitle";
-
+import CustomDialogContent from "components/atoms/Dialog/CustomDialogContent";
+import CustomDialogActions from "components/atoms/Dialog/CustomDialogActions";
+import CustomCheckBox from "components/atoms/Input/CustomCheckBox";
 
 type GetPassword = Omit<Password, '_id'> & { id: number };
 
@@ -82,46 +80,37 @@ const PasswordDeleteDialog = () => {
           title={t('component.dialog.title.deletePassword')}
           close={() => handleClose()}
         />
-        <DialogContent dividers>
+        <CustomDialogContent>
           {Object.keys(passwords).map((key:string) => {
             const ids = passwords[key].map(item => item.id);
             const allSelected = ids.length > 0 && ids.every(id => selectedPasswords.includes(id));
             const indeterminate = ids.some(id => selectedPasswords.includes(id)) && !allSelected;
             return (
               <Box key={key} sx={{ display: 'flex', flexDirection: 'column'}}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={allSelected}
-                      indeterminate={indeterminate}
-                      onChange={() => handleCategoryClick(key)}
-                    />
-                  }
+                <CustomCheckBox 
+                  checked={allSelected}
+                  indeterminate={indeterminate}
+                  onChange={() => handleCategoryClick(key)}
                   label={key}
-                  sx={{ mb: -1 }}
                 />
                 {passwords[key].map((item: GetPassword) => {
                   return (
-                    <FormControlLabel
+                    <CustomCheckBox
                       key={item.id}
-                      sx={{ marginLeft: 2, mb: -1 }}
-                      control={
-                        <Checkbox
-                          checked={selectedPasswords.includes(item.id)}
-                          onChange={(event) => handlePasswordSelect(event, item.id)}
-                        />
-                      }
+                      checked={selectedPasswords.includes(item.id)}
+                      onChange={(event) => handlePasswordSelect(event, item.id)}
                       label={item.title}
+                      marginLeft={2}
                     />
                   );
                 })}
               </Box>
               )
             })}
-        </DialogContent>
-        <DialogActions>
+        </CustomDialogContent>
+        <CustomDialogActions>
           <Button onClick={handleDelete}>{t("component.button.delete")}</Button>
-        </DialogActions>
+        </CustomDialogActions>
       </CustomDialog>
     </div>
   )

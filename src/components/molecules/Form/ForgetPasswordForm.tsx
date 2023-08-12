@@ -8,8 +8,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { addAlert } from "redux/Feedback/reducer";
 import { Alert } from "redux/Feedback/types";
 import { useDispatch } from "react-redux";
-import CustomTextField from "components/atoms/Input/CustomTextField";
 import CustomButton from "components/atoms/Button/CustomButton";
+import CustomTextField from "components/atoms/Input/CustomTextField";
 
 
 const ForgetPasswordForm = () => {
@@ -45,7 +45,7 @@ const ForgetPasswordForm = () => {
       {successSubmit ? 
         <Typography className="mt-1 mb-1">パスワード変更メールが送信されました。内容を確認して掲載されているURLからパスワード変更を変更してください。</Typography>:
         <form onSubmit={handleSubmit(onSubmit)}>
-          <CustomTextField 
+          <CustomTextField
             id="email"
             label={t("general.auth.email")}
             error={errors.email}

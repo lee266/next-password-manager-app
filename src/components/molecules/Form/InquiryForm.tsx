@@ -5,19 +5,17 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Inquiry, InquiryCategory, InquirySchema } from "types/models/Inquiry";
 import { getToken } from "utils/auth";
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import AddButton from 'components/atoms/Button/AddButton';
-import { Controller } from "react-hook-form";
 import Box from '@mui/system/Box';
 import { Alert } from 'redux/Feedback/types';
 import { addAlert } from 'redux/Feedback/reducer';
 import { useDispatch } from 'react-redux';
+import CustomTextArea from 'components/atoms/Input/CustomTextArea';
+import CustomSelect from 'components/atoms/Input/CustomSelect';
+import CustomMenuItem from 'components/atoms/Menu/CustomMenuItem';
+import CustomTypography from 'components/atoms/Text/CustomTypography';
 
 
 const InquiryForm = () => {
@@ -65,52 +63,36 @@ const InquiryForm = () => {
   };
 
   return(
-    <div className='mt-2'>
-      <Typography variant="h4" component="h2" align="center" gutterBottom>
+    <div className='mt-4'>
+      <CustomTypography variant="h4" component="h2" align="center" gutterBottom>
         {t('component.dialog.title.inquiry')}
-      </Typography>
+      </CustomTypography>
       <form id='inquiry-form' onSubmit={handleSubmit(onSubmit)}>
         <Box mb={4}>
-          <Typography variant="body1" component="h3">
+          <CustomTypography variant="body1" component="h3">
             {t('component.dialog.explain.inquiry_category_explanation')}
-          </Typography>
-          <FormControl className="mt-2"  fullWidth>
-            <InputLabel id='inquiry_category_label'>{t('component.form.inquiryCategory')}</InputLabel>
-            <Controller
-              name="inquiry_category"
-              control={form.control}
-              defaultValue=""
-              render={({ field }) => (
-                <Select
-                  id='inquiry_category'
-                  label={t('component.form.inquiryCategory')}
-                  labelId='inquiry_category_label'
-                  fullWidth
-                  {...field}
-                  error={!!errors.inquiry_category}
-                >
-                  {InquiryCategories.map((category) => (
-                    <MenuItem key={category.id} value={category.id}>{t(`component.menu.${category.category_name}`)}</MenuItem>
-                  ))}
-                </Select>
-              )}
-            />
-            <FormHelperText>{errors.inquiry_category?.message}</FormHelperText>
-          </FormControl>
+          </CustomTypography>
+          <CustomSelect
+            id='inquiry_category'
+            label={t('component.form.inquiryCategory')}
+            register={register}
+            error={errors.inquiry_content}
+          >
+            {InquiryCategories.map((category) => (
+              <CustomMenuItem key={category.id} value={category.id}>{t(`component.menu.${category.category_name}`)}</CustomMenuItem>
+            ))}
+          </CustomSelect>
         </Box>
         <Box mb={4}>
-          <Typography variant="body1" component="h3">
+          <CustomTypography variant="body1" component="h3">
             {t('component.dialog.explain.inquiry_content_explanation')}
-          </Typography>
+          </CustomTypography>
           <FormControl fullWidth>
-            <TextField
-              className="mt-2"
-              id="inquiry_content"
+            <CustomTextArea 
+              id='inquiry_content'
               label={t('component.form.inquiryContent')}
-              {...register('inquiry_content')}
-              error={!!errors.inquiry_content}
-              multiline
-              rows={4}
+              register={register}
+              error={errors.inquiry_content}
             />
             <FormHelperText>{errors.inquiry_content?.message}</FormHelperText>
           </FormControl>

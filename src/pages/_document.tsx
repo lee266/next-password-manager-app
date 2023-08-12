@@ -22,7 +22,7 @@ export default class MyDocument extends Document {
           {(this.props as any).emotionStyleTags}
           <Script src="/js/tailwindDarkMode.js" strategy="afterInteractive" />
         </Head>
-        <body>
+        <body className='dark:bg-back-rightDark'>
           <Main />
           <NextScript />
         </body>
