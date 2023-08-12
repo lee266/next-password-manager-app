@@ -114,11 +114,15 @@
     },
     "radio": {
       "title": {
-        "navbar": "Sidebar Navigation"
+        "navbar": "Sidebar Navigation",
+        "theme": "Theme"
       },
       "label": {
         "left": "Left",
-        "right": "Right"
+        "right": "Right",
+        "systemMode": "System",
+        "darkMode": "Dark mode",
+        "lightMode": "Light mode"
       }
     }
   }
