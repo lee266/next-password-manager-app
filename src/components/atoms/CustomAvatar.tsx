@@ -1,8 +1,6 @@
 import { useCallback, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Logout from '@mui/icons-material/Logout';
 import Settings from '@mui/icons-material/Settings';
@@ -13,12 +11,15 @@ import { clearUser } from 'redux/users/reducer';
 import { openProfileDialog, openSettingDialog } from 'redux/Common/reducer';
 import { useTranslation } from 'next-i18next';
 import { resetPasswordManager } from 'redux/passwordManage/reducer';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+import CustomDialogContent from "components/atoms/Dialog/CustomDialogContent";
+import CustomDialogActions from './Dialog/CustomDialogActions';
+import CustomMenuItem from './Menu/CustomMenuItem';
+import CustomMenu from './Menu/CustomMenu';
+import Dialog from '@mui/material/Dialog';
+import CustomDialogTitle from './CustomDialogTitle';
+
 
 export const CustomAvatar = () => {
   const { t } = useTranslation();
@@ -55,12 +56,13 @@ export const CustomAvatar = () => {
       >
         <Avatar ></Avatar>
       </IconButton>
-      <Menu
+      <CustomMenu
         onClose={handleClose}
         onClick={handleClose}
         anchorEl={anchorEl}
         open={avatarOpen}
-        PaperProps={{
+        arrowPositionRight={25}
+        paperProps={{
           elevation: 0,
           sx: {
             overflow: 'visible',
@@ -87,43 +89,47 @@ export const CustomAvatar = () => {
           },
         }}
       >
-        <MenuItem onClick={() => dispatch(openProfileDialog())}>
-          <ListItemIcon>
+        <CustomMenuItem onClick={() => dispatch(openProfileDialog())}>
+          <ListItemIcon className='dark:text-white'>
             <AssignmentIndIcon/>
           </ListItemIcon>
           {t('general.common.profile')}
-        </MenuItem>
-        <MenuItem onClick={() => dispatch(openSettingDialog())}>
-          <ListItemIcon>
+        </CustomMenuItem>
+        <CustomMenuItem onClick={() => dispatch(openSettingDialog())}>
+          <ListItemIcon className='dark:text-white'>
             <Settings/>
           </ListItemIcon>
           {t('general.common.setting')}
-        </MenuItem>
-        <MenuItem onClick={() => setOpenLogoutDialog(true)}>
-          <ListItemIcon>
+        </CustomMenuItem>
+        <CustomMenuItem onClick={() => setOpenLogoutDialog(true)}>
+          <ListItemIcon className='dark:text-white'>
             <Logout/>
           </ListItemIcon>
           {t('general.common.logout')}
-        </MenuItem>
-      </Menu>
+        </CustomMenuItem>
+      </CustomMenu>
       <Dialog
-        open={openLogoutDialog}
+        open={openLogoutDialog} 
+        aria-labelledby="password-logout-dialog" 
         onClose={() => setOpenLogoutDialog(false)}
       >
-        <DialogTitle>{t('component.dialog.title.confirmLogout')}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
+        <CustomDialogTitle 
+          title={t('component.dialog.title.confirmLogout')}
+          close={() => setOpenLogoutDialog(false)}
+        />
+        <CustomDialogContent>
+          <DialogContentText className='text-black dark:text-white'>
             {t('component.dialog.explain.confirmLogoutMessage')}
           </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpenLogoutDialog(false)}>
+        </CustomDialogContent>
+        <CustomDialogActions>
+          <Button className='dark:text-white' onClick={() => setOpenLogoutDialog(false)}>
             {t('component.button.cancel')}
           </Button>
-          <Button onClick={handleLogout} color="primary" autoFocus>
+          <Button className='dark:text-white' onClick={handleLogout} color="primary" autoFocus>
             {t('component.button.logout')}
           </Button>
-        </DialogActions>
+        </CustomDialogActions>
       </Dialog>
     </div>
   )

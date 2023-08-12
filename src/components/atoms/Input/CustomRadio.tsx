@@ -8,10 +8,11 @@ type CustomRadioType = {
 
 const CustomRadio: React.FC<CustomRadioType> = ({value, label}) => {
   return(
-    <FormControlLabel 
+    <FormControlLabel
+      className='dark:text-white'
       value={value} 
       label={label} 
-      control={<Radio />} 
+      control={<Radio className='dark:text-white'/>} 
     />
   )
 }

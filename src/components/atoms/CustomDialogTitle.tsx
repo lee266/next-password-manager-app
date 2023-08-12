@@ -19,7 +19,7 @@ const CustomDialogTitle: React.FC<CustomDialogTitleProps>  = ({ title, close }) 
           sx={{position: 'relative'}}
         > 
           {/* Max length of title is 20 */}
-          <h2 className='text-ellipsis max-w-[20ch]'>{title}</h2>
+          <h2 className='text-ellipsis max-w-[20ch] dark:text-white'>{title}</h2>
           <IconButton aria-label='close-icon' onClick={close}>
             <CloseIcon />
           </IconButton>
