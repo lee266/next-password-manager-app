@@ -22,7 +22,6 @@ module.exports = {
           dark: '#091A47',
           rightDark: '#1A2229',
           subDark: '#2B343F',
-          // '#1A2224'
         },
       }
     },
