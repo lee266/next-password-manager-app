@@ -2,7 +2,6 @@ import { useTranslation } from 'next-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
 import { addPasswordFilters, closeSearchDialog } from 'redux/passwordManage/reducer';
-import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';

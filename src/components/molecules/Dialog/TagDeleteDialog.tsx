@@ -5,8 +5,6 @@ import { RootState } from "redux/rootReducer";
 import { closeDeleteTagDialog, closeMinusButtonMenu, updateTag } from "redux/passwordManage/reducer";
 import { getToken } from 'utils/auth';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import { deleteTag } from "api/password/tag";
 import { Alert } from "redux/Feedback/types";
 import { addAlert } from "redux/Feedback/reducer";

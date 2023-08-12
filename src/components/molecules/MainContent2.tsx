@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import styles from '../../styles/Home.module.scss';
-import { makeStyles, Theme } from '@mui/material';
 
 const drawerWidth = 240;
 
