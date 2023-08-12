@@ -10,14 +10,14 @@ import { getToken } from 'utils/auth';
 import { PasswordGroup, PasswordGroupSchema } from 'types/models/Password';
 import { Alert } from "redux/Feedback/types";
 import { addAlert } from "redux/Feedback/reducer";
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import TextField from '@mui/material/TextField';
 import AddButton from 'components/atoms/Button/AddButton';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import CustomDialog from "components/atoms/CustomDialog";
 import CustomDialogTitle from "components/atoms/CustomDialogTitle";
+import CustomDialogContent from "components/atoms/Dialog/CustomDialogContent";
+import CustomDialogActions from "components/atoms/Dialog/CustomDialogActions";
+import CustomTextField from "components/atoms/Input/CustomTextField";
+import CustomTypography from "components/atoms/Text/CustomTypography";
+import CustomBox from "components/atoms/CustomBox";
 
 
 const GroupAddDialog = () => {
@@ -57,7 +57,7 @@ const GroupAddDialog = () => {
   }
 
   return(
-    <div className="group-add-dialog">
+    <div className="group-add-dialog ">
       <CustomDialog params={{
         open: open, 
         ariaLabelledBy: "group-add-dialog", 
@@ -67,27 +67,25 @@ const GroupAddDialog = () => {
           title={t("component.dialog.title.addGroup")}
           close={() => handleClose()}
         />
-        <DialogContent dividers>
+        <CustomDialogContent>
           <form id="group-form" onSubmit={handleSubmit(onSubmit)} autoComplete='new-group'>
-            <TextField 
+            <CustomTextField
+              id="group_name"
               label="Group name*"
-              margin='normal'
-              fullWidth
-              {...register('group_name')}
-              error={!!errors.group_name}
-              helperText={errors.group_name?.message}
+              register={register}
+              error={errors.group_name}
             />
-            <Typography variant="subtitle1" className="mt-3">現在存在するグループ</Typography>
-            <Box bgcolor="#f0f0f0" p={1} my={2} style={{ maxHeight: '16em', overflowY: 'auto', lineHeight: '1em' }}>
+            <CustomTypography variant="subtitle1">現在存在するグループ</CustomTypography>
+            <CustomBox maxHeight={'18em'}>
               {groups.map((group, index) => {
-                return(<Typography variant="body2" key={index}>{group.group_name}</Typography>)
+                return(<CustomTypography marginTop={1} variant="body2" key={index}>{group.group_name}</CustomTypography>)
               })}
-            </Box>
+            </CustomBox>
           </form>
-        </DialogContent>
-        <DialogActions>
+        </CustomDialogContent>
+        <CustomDialogActions>
           <AddButton name={t('component.button.add')} form='group-form' type="submit" />
-        </DialogActions>
+        </CustomDialogActions>
       </CustomDialog>
     </div>
   )

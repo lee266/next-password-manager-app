@@ -4,16 +4,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from "redux/rootReducer";
 import { closeDeleteGroupDialog, closeMinusButtonMenu, updateGroup } from "redux/passwordManage/reducer";
 import { getToken } from 'utils/auth';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import { Alert } from "redux/Feedback/types";
 import { addAlert } from "redux/Feedback/reducer";
 import { deleteGroup } from "api/password/group";
 import CustomDialog from "components/atoms/CustomDialog";
 import CustomDialogTitle from "components/atoms/CustomDialogTitle";
+import CustomDialogContent from "components/atoms/Dialog/CustomDialogContent";
+import CustomDialogActions from "components/atoms/Dialog/CustomDialogActions";
+import CustomCheckBox from "components/atoms/Input/CustomCheckBox";
 
 
 const GroupDeleteDialog = () => {
@@ -61,28 +60,24 @@ const GroupDeleteDialog = () => {
           title={t("component.dialog.title.deleteGroup")}
           close={() => handleClose()}
         />
-        <DialogContent dividers={true}>
+        <CustomDialogContent>
           <form id="group-delete-form">
             {groups.map((group, index) => {
               return(
                 <div className="flex" key={index}>
-                  <FormControlLabel
+                  <CustomCheckBox 
                     label={group.group_name}
-                    control={
-                      <Checkbox 
-                      checked={selectedGroups.includes(group.id)} 
-                      onChange={(event) => handleGroupSelect(event, group.id)} 
-                      />
-                    }
+                    checked={selectedGroups.includes(group.id)} 
+                    onChange={(event) => handleGroupSelect(event, group.id)} 
                   />
                 </div>
               )
             })}
           </form>
-        </DialogContent>
-        <DialogActions>
+        </CustomDialogContent>
+        <CustomDialogActions>
           <Button color="primary" onClick={handleDelete}>{t("component.button.delete")}</Button>
-        </DialogActions>
+        </CustomDialogActions>
       </CustomDialog>
     </div>
   )

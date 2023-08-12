@@ -11,13 +11,16 @@ import { PasswordTag, PasswordTagSchema } from 'types/models/Password';
 import { Alert } from "redux/Feedback/types";
 import { addAlert } from "redux/Feedback/reducer";
 import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import TextField from '@mui/material/TextField';
 import AddButton from 'components/atoms/Button/AddButton';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CustomDialog from "components/atoms/CustomDialog";
 import CustomDialogTitle from "components/atoms/CustomDialogTitle";
+import CustomDialogContent from "components/atoms/Dialog/CustomDialogContent";
+import CustomTextField from "components/atoms/Input/CustomTextField";
+import CustomDialogActions from "components/atoms/Dialog/CustomDialogActions";
+import CustomTypography from "components/atoms/Text/CustomTypography";
+import CustomBox from "components/atoms/CustomBox";
 
 
 const TagAddDialog = () => {
@@ -67,30 +70,27 @@ const TagAddDialog = () => {
           title={t("component.dialog.title.addTag")}
           close={() => handleClose()}
           />
-        <DialogContent dividers>
+        <CustomDialogContent>
           <form id="tag-form" onSubmit={handleSubmit(onSubmit)} autoComplete='new-tag'>
-            <TextField 
+            <CustomTextField
+              id="tag_name"
               label="Tag name*"
-              fullWidth
-              {...register('tag_name')}
-              error={!!errors.tag_name}
-              helperText={errors.tag_name?.message}
-              variant="outlined"
-              margin="normal"
+              register={register}
+              error={errors.tag_name}
             />
-            <Typography variant="subtitle1" className="mt-3">現在存在するタグ</Typography>
-            <Box bgcolor="#f0f0f0" p={1} my={2} style={{ maxHeight: '8em', overflowY: 'auto', lineHeight: '1em' }}>
+            <CustomTypography variant="subtitle1">現在存在するタグ</CustomTypography>
+            <CustomBox maxHeight={'18em'}>
               {tags.map((tag, index) => {
                 return(
-                  <Typography variant="body2" key={index}>{tag.tag_name}</Typography>
+                  <CustomTypography marginTop={1} variant="body2" key={index}>{tag.tag_name}</CustomTypography>
                 )
               })}
-            </Box>
+            </CustomBox>
           </form>
-        </DialogContent>
-        <DialogActions>
+        </CustomDialogContent>
+        <CustomDialogActions>
           <AddButton name={t('component.button.add')} form='tag-form' type="submit" />
-        </DialogActions>
+        </CustomDialogActions>
       </CustomDialog>
     </div>
   )

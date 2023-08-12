@@ -6,10 +6,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "redux/rootReducer";
 import CustomDialog from "components/atoms/CustomDialog";
 import CustomDialogTitle from "components/atoms/CustomDialogTitle";
-import DialogContent from "@mui/material/DialogContent";
 import { getUser } from "api/users/crud";
 import { getToken } from "utils/auth";
 import { User } from "types/models/User";
+import CustomDialogContent from "components/atoms/Dialog/CustomDialogContent";
 
 const ProfileDialog = () => {
   const { t } = useTranslation();
@@ -41,16 +41,16 @@ const ProfileDialog = () => {
           title={t('component.dialog.title.profile')}
           close={() => dispatch(closeProfileDialog())}
         />
-        <DialogContent dividers>
+        <CustomDialogContent>
           <div>
-            <p>Username</p>
-            <span>{user?.username}</span>
+            <p className="text-black dark:text-white">Username</p>
+            <span className="text-black dark:text-white">{user?.username}</span>
           </div>
           <div>
-            <p>Email</p>
-            <span>{user?.email}</span>
+            <p className="text-black dark:text-white">Email</p>
+            <span className="text-black dark:text-white">{user?.email}</span>
           </div>
-        </DialogContent>
+        </CustomDialogContent>
       </CustomDialog>
     </div>
   )

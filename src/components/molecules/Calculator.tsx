@@ -158,12 +158,12 @@ const Calculator = () => {
   return(
     <div className='calculator min-w-[300px] max-w-[600px] dark:bg-back-rightDark'>
       <div className="flex flex-col items-center
-        bg-white border border-gray-200 rounded-lg"
+        bg-gray-100 border border-gray-200 rounded-lg dark:bg-back-subDark"
       >
-        <h2 className="text-3xl font-bold">{t('general.common.calculator')}</h2>
-        <div className="bg-gray-200 p-4 rounded-lg w-full">
-          <div className="text-2xl text-right font-bold mb-4">{calculateResult}</div>
-          <div className="text-xl text-right font-bold">{calculateInput}</div>
+        <h2 className="text-black dark:text-white text-3xl font-bold">{t('general.common.calculator')}</h2>
+        <div className="bg-gray-200 p-4 rounded-lg w-full dark:bg-gray-400">
+          <div className="text-black dark:text-white text-2xl text-right font-bold mb-4">{calculateResult}</div>
+          <div className="text-black dark:text-white text-xl text-right font-bold">{calculateInput}</div>
         </div>
         <div className="grid gap-4 mt-2">
           <div>
@@ -175,9 +175,11 @@ const Calculator = () => {
                 <button 
                   onClick={() => handleClearClick('input')} 
                   className="
+                  text-black dark:text-white
                     col-span-2 bg-red-400 hover:bg-red-500 
                     rounded-lg p-2 text-xl font-bold
                     min-w-[56px]
+                  dark:bg-red-600 dark:hover:bg-red-800
                   ">
                   C
                 </button>
@@ -185,9 +187,11 @@ const Calculator = () => {
                 <button 
                   onClick={() => handleClearClick('result')} 
                   className="
+                  text-black dark:text-white
                     col-span-2 bg-red-400 hover:bg-red-500 
                     rounded-lg p-2 text-xl font-bold
                     min-w-[56px]
+                  dark:bg-red-600 dark:hover:bg-red-800
                   ">
                   CE
                 </button>

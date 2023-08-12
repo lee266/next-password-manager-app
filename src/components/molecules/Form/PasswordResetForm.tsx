@@ -61,7 +61,7 @@ const PasswordResetForm = () => {
   return(
     <div className="password-reset-form">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
+        <CustomTextField
           id="new_password"
           label={t("general.auth.password") + '*'}
           margin="normal"
@@ -72,7 +72,7 @@ const PasswordResetForm = () => {
           error={!!errors.new_password}
           helperText={errors.new_password && t(`general.error.${errors.new_password?.message}`)}
         />
-        <TextField
+        <CustomTextField
           id="re_password"
           label={t("general.auth.confirmPassword") + '*'}
           margin="normal"

@@ -2,8 +2,6 @@ import { useTranslation } from 'next-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
 import { addPasswordFilters, closeSearchDialog } from 'redux/passwordManage/reducer';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -12,14 +10,17 @@ import { useEffect, useState } from 'react';
 import { Alert } from 'redux/Feedback/types';
 import { addAlert } from 'redux/Feedback/reducer';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Radio from '@mui/material/Radio';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import CustomDialog from "components/atoms/CustomDialog";
 import CustomDialogTitle from "components/atoms/CustomDialogTitle";
+import CustomDialogContent from "components/atoms/Dialog/CustomDialogContent";
+import CustomDialogActions from 'components/atoms/Dialog/CustomDialogActions';
+import CustomTypography from 'components/atoms/Text/CustomTypography';
+import ControlTextField from 'components/atoms/Input/ControlTextField';
+import CustomDialog from 'components/atoms/CustomDialog';
+import CustomCheckBox from 'components/atoms/Input/CustomCheckBox';
 
 
 const PasswordSearchDialog = () => {
@@ -103,22 +104,24 @@ const PasswordSearchDialog = () => {
         title={t("component.dialog.title.search")}
         close={() => handleClose()}
         />
-      <DialogContent dividers>
+      <CustomDialogContent>
         <Container maxWidth="md">
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <FormControl component="fieldset" variant="standard">
-                <Typography variant="h6">{t('component.form.searchMethod')}</Typography>
+                <CustomTypography variant="h6">{t('component.form.searchMethod')}</CustomTypography>
                 <FormGroup row>
                   <FormControlLabel
+                    className='dark:text-white'
                     control={
-                      <Radio checked={method === 'and'} onChange={handleMethodChange} value="and" />
+                      <Radio className='dark:text-white' checked={method === 'and'} onChange={handleMethodChange} value="and" />
                     }
                     label="and"
                   />
                   <FormControlLabel
+                    className='dark:text-white'
                     control={
-                      <Radio checked={method === 'or'} onChange={handleMethodChange} value="or" />
+                      <Radio className='dark:text-white' checked={method === 'or'} onChange={handleMethodChange} value="or" />
                     }
                     label="or"
                   />
@@ -126,47 +129,44 @@ const PasswordSearchDialog = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <TextField id="standard-basic" label={t('component.form.title')} variant="standard" value={title} onChange={handleTitleChange} fullWidth />
+            <ControlTextField id="standard-basic" label={t('component.form.title')} value={title} onChange={handleTitleChange} />
             </Grid>
             <Grid item xs={12}>
-              <Box mb={2}><Typography variant="h6">{t('component.form.group')}</Typography></Box>
+              <Box mb={1}><CustomTypography variant="h6">{t('component.form.group')}</CustomTypography></Box>
               {groups.map((group, index) => (
-                <FormControlLabel
+                <CustomCheckBox 
                   key={index}
                   label={group.group_name}
-                  control={
-                    <Checkbox checked={selectedGroups.includes(group.id)} onChange={(event) => handleGroupSelect(event, group.id)} />
-                  }
+                  checked={selectedGroups.includes(group.id)} 
+                  onChange={(event) => handleGroupSelect(event, group.id)}
                 />
               ))}
-              <FormControlLabel
+              <CustomCheckBox
                 key={groups.length}
                 label={'other'}
-                control={
-                  <Checkbox checked={selectedGroups.includes(-1)} onChange={(event) => handleGroupSelect(event, -1)} />
-                }
+                checked={selectedGroups.includes(-1)} 
+                onChange={(event) => handleGroupSelect(event, -1)}
               />
             </Grid>
             <Grid item xs={12}>
-              <Box mb={2}><Typography variant="h6">{t('component.form.tag')}</Typography></Box>
+              <Box mb={1}><CustomTypography variant="h6">{t('component.form.tag')}</CustomTypography></Box>
               {tags.map((tag, index) => (
-                <FormControlLabel
+                <CustomCheckBox 
                   key={index}
                   label={tag.tag_name}
-                  control={
-                    <Checkbox checked={selectedTags.includes(tag.id)} onChange={(event) => handleTagSelect(event, tag.id)} />
-                  }
+                  checked={selectedTags.includes(tag.id)} 
+                  onChange={(event) => handleTagSelect(event, tag.id)}
                 />
               ))}
             </Grid>
           </Grid>
         </Container>
-      </DialogContent>
-      <DialogActions>
+      </CustomDialogContent>
+      <CustomDialogActions>
         <Button color="primary" onClick={handleSearch}>
           {t("component.button.search")}
         </Button>
-      </DialogActions>
+      </CustomDialogActions>
     </CustomDialog>
   );
 }

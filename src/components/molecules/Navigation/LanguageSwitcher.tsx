@@ -3,11 +3,11 @@ import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 // MUI
 import Button from '@mui/material/Button'
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpSharpIcon from '@mui/icons-material/KeyboardArrowUpSharp';
 import PublicSharpIcon from '@mui/icons-material/PublicSharp';
+import CustomMenuItem from "components/atoms/Menu/CustomMenuItem";
+import CustomMenu from "components/atoms/Menu/CustomMenu";
 
 export default function LanguageSwitcher() {
   const router = useRouter();
@@ -35,6 +35,7 @@ export default function LanguageSwitcher() {
   return (
     <div className="language_switcher_button">
       <Button
+        className="dark:hover:bg-back-dark"
         id="language_button"
         aria-controls={languageOpen ? 'basic-menu' : undefined}
         variant="contained"
@@ -45,25 +46,23 @@ export default function LanguageSwitcher() {
       >
         {activeLocale === "ja" ? "japan" : activeLocale === "en" ? "English" : "Language"}
       </Button>
-      <Menu
+      <CustomMenu
         open={languageOpen}
         anchorEl={anchorEl}
         onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
+        showArrow={false}
       >
         {otherLocales?.map((locale) => {
           const { pathname, query, asPath } = router;
           return (
-            <MenuItem key={"locale-" + locale}>
+            <CustomMenuItem key={"locale-" + locale}>
               <Link href={{ pathname, query }} as={asPath} locale={locale}>
                 {locale === "ja" ? "japan" : locale === "en" ? "English": "unable"}
               </Link>
-            </MenuItem>
+            </CustomMenuItem>
           );
         })}
-      </Menu>
+      </CustomMenu>
     </div>
   );
 }

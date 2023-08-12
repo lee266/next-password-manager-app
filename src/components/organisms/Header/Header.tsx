@@ -6,7 +6,9 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import LanguageSwitcher from '../../molecules/Navigation/LanguageSwitcher';
-import { Avatar, Box, Menu, MenuItem, Tooltip } from '@mui/material';
+import { Avatar, Box, Menu, Tooltip } from '@mui/material';
+import CustomMenuItem from 'components/atoms/Menu/CustomMenuItem';
+import CustomTypography from 'components/atoms/Text/CustomTypography';
 const drawerWidth = 240;
 interface AppBarProps extends MuiAppBarProps {
   title?: string;
@@ -53,7 +55,7 @@ export function Header(props:AppBarProps) {
             onClick={props.handleDrawerOpen}
             edge="start"
             sx={{ mr: 2, ...(props.open && { display: 'none' }) }}>
-            <MenuIcon />
+            <MenuIcon className="text-black dark:text-white" />
           </IconButton>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             {props.title}
@@ -69,7 +71,7 @@ export function Header(props:AppBarProps) {
             </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
-              id="menu-appbar"
+              id="menu-app-bar"
               anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: 'top',
@@ -84,9 +86,9 @@ export function Header(props:AppBarProps) {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
+                <CustomMenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <CustomTypography textAlign="center">{setting}</CustomTypography>
+                </CustomMenuItem>
               ))}
             </Menu>
           </Box>

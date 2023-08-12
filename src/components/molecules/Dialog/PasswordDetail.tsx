@@ -7,28 +7,26 @@ import { getToken } from 'utils/auth';
 import { Alert } from 'redux/Feedback/types';
 import { addAlert } from 'redux/Feedback/reducer';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { RootState } from 'redux/rootReducer';
 import { closeDetailDialog, deleteSelectedPassword, updateSelectedPassword } from 'redux/passwordManage/reducer';
 import { Password, PasswordSchema } from 'types/models/Password';
 import IconButton from '@mui/material/IconButton';
-import TextField from '@mui/material/TextField';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import FormHelperText from '@mui/material/FormHelperText';
 import ModeEditTwoTone  from '@mui/icons-material/ModeEditTwoTone';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
-import { DialogContentText } from '@mui/material';
+import DialogContentText from '@mui/material/DialogContentText';
 import { deletePassword, updatePassword } from 'api/password/crud';
 import CustomDialog from "components/atoms/CustomDialog";
 import CustomDialogTitle from "components/atoms/CustomDialogTitle";
 import axios from 'axios';
 import CircularProgress from "@mui/material/CircularProgress";
+import CustomDialogContent from "components/atoms/Dialog/CustomDialogContent";
+import CustomTextField from 'components/atoms/Input/CustomTextField';
+import CustomTextArea from 'components/atoms/Input/CustomTextArea';
+import CustomDialogActions from 'components/atoms/Dialog/CustomDialogActions';
+import CustomSelect from 'components/atoms/Input/CustomSelect';
+import CustomMenuItem from 'components/atoms/Menu/CustomMenuItem';
 
 
 const PasswordDetail = () => {
@@ -139,101 +137,73 @@ const PasswordDetail = () => {
           title={t("component.dialog.title.passwordDetail")}
           close={() => handleClose()}
           />
-        <DialogContent dividers={true}>
+        <CustomDialogContent>
           <form id='password-detail-form' onSubmit={handleSubmit(onSubmit)} autoComplete='password-detail'>
-            <TextField
+            <CustomTextField
+              id='title'
               label={t('component.form.title')  + '*'}
-              margin='normal'
-              fullWidth
-              {...register('title')}
-              error={!!errors.title}
-              helperText={errors.title?.message}
-              InputProps={{ readOnly: !editMode, }}
+              error={errors.title}
+              register={register}
+              inputProps={{ readOnly: !editMode, }}
             />
-            <TextField
+            <CustomTextField
               id='password'
               label={t('component.form.password')}
-              margin='normal'
-              fullWidth
-              {...register('password')}
-              error={!!errors.password}
-              helperText={errors.password?.message}
-              InputProps={{ readOnly: !editMode, }}
+              error={errors.password}
+              register={register}
+              inputProps={{ readOnly: !editMode, }}
             />
-            <TextField
+            <CustomTextField
               id='email'
               label={t('component.form.email')}
-              margin='normal'
-              fullWidth
-              autoComplete='email'
-              {...register('email')}
-              error={!!errors.email}
-              helperText={errors.email?.message}
-              InputProps={{ readOnly: !editMode, }}
+              register={register}
+              error={errors.email}
+              inputProps={{ readOnly: !editMode, }}
             />
-            <TextField
+            <CustomTextField
               id='website'
               label={t('component.form.website')}
-              margin='normal'
-              fullWidth
-              autoComplete='website url'
-              {...register('website')}
-              error={!!errors.website}
-              helperText={errors.website?.message}
-              InputProps={{ readOnly: !editMode, }}
+              register={register}
+              error={errors.website}
+              inputProps={{ readOnly: !editMode, }}
             />
-            <FormControl className='mt-2' fullWidth >
-              <InputLabel id='tag'>{t('component.form.tag')}</InputLabel>
-              <Select
-                id='tag'
-                label='Age'
-                fullWidth
-                {...register('tag')}
-                error={!!errors.tag}
-                value={selectedTag}
-                inputProps={{ readOnly: !editMode }}
-              >
-                <MenuItem value={''}>{'None'}</MenuItem>
-                {selectBoxTags.map((tag) => (
-                  <MenuItem key={tag.id} value={tag.id}>{tag.tag_name}</MenuItem>
-                ))}
-              </Select>
-              <FormHelperText>{errors.tag?.message}</FormHelperText>
-            </FormControl>
-            <FormControl className='mt-4' fullWidth>
-              <InputLabel id='groups'>{t('component.form.group')}</InputLabel>
-              <Select
-                id='groups'
-                label={t('component.form.group')}
-                fullWidth
-                {...register('group')}
-                error={!!errors.group}
-                value={selectedGroup}
-                inputProps={{ readOnly: !editMode }}
-              >
-                <MenuItem value={''}>{'None'}</MenuItem>
-                {selectBoxGroups.map((group) => (
-                  <MenuItem key={group.id} value={group.id}>{group.group_name}</MenuItem>
-                ))}
-              </Select>
-              <FormHelperText>{errors.group?.message}</FormHelperText>
-            </FormControl>
-            <TextField
-              id='notes'
+            <CustomSelect
+              id='tag'
+              label={t('component.form.tag')}
+              register={register}
+              error={errors.tag}
+              value={selectedTag}
+              inputProps={{ readOnly: !editMode }}
+            >
+              <CustomMenuItem value={''}>{'None'}</CustomMenuItem>
+              {selectBoxTags.map((tag) => (
+                <CustomMenuItem key={tag.id} value={tag.id}>{tag.tag_name}</CustomMenuItem>
+              ))}
+            </CustomSelect>
+            <CustomSelect
+              id='group'
+              label={t('component.form.group')}
+              register={register}
+              error={errors.group}
+              value={selectedGroup}
+              inputProps={{ readOnly: !editMode }}
+            >
+              <CustomMenuItem value={''}>{'None'}</CustomMenuItem>
+              {selectBoxGroups.map((group) => (
+                <CustomMenuItem key={group.id} value={group.id}>{group.group_name}</CustomMenuItem>
+              ))}
+            </CustomSelect>
+            <CustomTextArea
+              id='note'
               label={t('component.form.note')}
-              multiline
-              margin='normal'
-              fullWidth
               rows={7}
-              autoComplete='notes'
-              {...register('notes')}
-              error={!!errors.notes}
-              helperText={errors.notes?.message}
-              InputProps={{ readOnly: !editMode, ...register('notes'),}}
+              register={register}
+              error={errors.notes}
+              inputProps={{ readOnly: !editMode, ...register('notes'),}}
             />
           </form>
-        </DialogContent>
-        <DialogActions>
+        </CustomDialogContent>
+        <CustomDialogActions>
           {!editMode ? (
             <div>
               <IconButton aria-label="Edit button" onClick={() => setEditMode(true)}>
@@ -252,25 +222,25 @@ const PasswordDetail = () => {
               
             </div>
           )}
-        </DialogActions>
+        </CustomDialogActions>
       </CustomDialog>
 
       {/* Dialog of confirming delete a password  */}
       <Dialog open={openConfirmDialog} onClose={() => setConfirmDialog(false)}>
         <DialogTitle>{t("Confirm cancellation")}</DialogTitle>
-        <DialogContent>
+        <CustomDialogContent>
           <DialogContentText>
             {t("Are you sure you want to cancel the changes?")}
           </DialogContentText>
-        </DialogContent>
-        <DialogActions>
+        </CustomDialogContent>
+        <CustomDialogActions>
           <Button onClick={() => setConfirmDialog(false)}>
             {t("component.button.no")}
           </Button>
           <Button onClick={handleDelete} color="primary">
             {t("component.button.yes")}
           </Button>
-        </DialogActions>
+        </CustomDialogActions>
       </Dialog>
     </div>
   )

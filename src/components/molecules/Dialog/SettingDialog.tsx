@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "next-i18next";
 import { useDispatch } from "react-redux";
 import { changeTheme, closeSettingDialog, setSideBarPosition } from "redux/Common/reducer";
@@ -6,13 +6,14 @@ import { useSelector } from "react-redux";
 import { RootState } from "redux/rootReducer";
 import CustomDialog from "components/atoms/CustomDialog";
 import CustomDialogTitle from "components/atoms/CustomDialogTitle";
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from "@mui/material/DialogContent";
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import CustomRadio from "components/atoms/Input/CustomRadio";
 import Button from '@mui/material/Button';
+import { useTheme } from "next-themes";
+import CustomDialogContent from "components/atoms/Dialog/CustomDialogContent";
+import CustomDialogActions from "components/atoms/Dialog/CustomDialogActions";
 
 
 const SettingDialog = () => {
@@ -20,18 +21,7 @@ const SettingDialog = () => {
   const dispatch = useDispatch();
   const open = useSelector((state: RootState) => state.common.openSettingDialog);
   const [sideBarPosition, setSideBarPositionState] = useState("left");
-  // const [theme, setTheme] = useState('light');
-
-  // useEffect(() => {
-  //   const initialTheme = window.localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  //   setTheme(initialTheme);
-
-  //   if (initialTheme === 'dark') {
-  //     document.documentElement.classList.add('dark');
-  //   } else {
-  //     document.documentElement.classList.remove('dark');
-  //   }
-  // }, []);
+  const { theme, setTheme } = useTheme();
 
   const handleSave = () =>{
     dispatch(setSideBarPosition(sideBarPosition));
@@ -42,26 +32,10 @@ const SettingDialog = () => {
     setSideBarPositionState((event.target as HTMLInputElement).value);
   };
 
-  // const toggleDarkMode = () => {
-  //   if (theme === 'dark') {
-  //     // Whenever the user explicitly chooses light mode
-  //     setTheme('light');
-  //     localStorage.theme = 'light';
-  //   } else {
-  //     // Whenever the user explicitly chooses dark mode
-  //     setTheme('dark');
-  //     localStorage.theme = 'dark';
-  //   }
-  //   dispatch(changeTheme);
-  // };
-
-  // useEffect(() => {
-  //   if (theme === 'dark') {
-  //     document.documentElement.classList.add('dark');
-  //   } else {
-  //     document.documentElement.classList.remove('dark');
-  //   }
-  // }, [theme]);
+  const handleChangeTheme = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTheme(event.target.value);
+    dispatch(changeTheme());
+  };
 
   return(
     <div className="setting-dialog">
@@ -74,10 +48,10 @@ const SettingDialog = () => {
           title={t('component.dialog.title.setting')}
           close={() => dispatch(closeSettingDialog())}
         />
-        <DialogContent dividers>
+        <CustomDialogContent>
           <form>
             <FormControl>
-              <FormLabel id="side-nav-position">{t("component.radio.title.navbar")}</FormLabel>
+              <FormLabel className="text-black dark:text-white" id="side-nav-position">{t("component.radio.title.navbar")}</FormLabel>
               <RadioGroup
                 row
                 aria-labelledby="side-nav-position"
@@ -89,17 +63,27 @@ const SettingDialog = () => {
                 <CustomRadio value="right" label={t("component.radio.label.right")}/>
               </RadioGroup>
             </FormControl>
-            {/* <div className="flex">
-              <span>{theme === 'dark' ? 'Dark mode' : 'Light mode'}</span>
-              <Button type="button" onClick={toggleDarkMode}>{t("component.button.toggle_theme")}</Button>
-            </div> */}
+            <FormControl>
+              <FormLabel className="text-black dark:text-white" id="theme-choice">{t("component.radio.title.theme")}</FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="theme-choice"
+                name="theme-mode"
+                value={theme}
+                onChange={handleChangeTheme}
+              >
+                <CustomRadio value="system" label={t("component.radio.label.systemMode")}/>
+                <CustomRadio value="dark" label={t("component.radio.label.darkMode")}/>
+                <CustomRadio value="light" label={t("component.radio.label.lightMode")}/>
+              </RadioGroup>
+            </FormControl>
           </form>
-        </DialogContent>
-        <DialogActions>
+        </CustomDialogContent>
+        <CustomDialogActions>
           <Button color="primary" onClick={handleSave}>
             {t("component.button.save")}
           </Button>
-      </DialogActions>
+        </CustomDialogActions>
       </CustomDialog>
     </div>
   )

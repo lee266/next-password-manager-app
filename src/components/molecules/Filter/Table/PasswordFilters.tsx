@@ -10,14 +10,13 @@ import {
   openDeleteGroupDialog, openDeletePasswordDialog, openDeleteTagDialog, openGroupDialog, 
   openMinusButtonMenu, openPlusButtonMenu, openSearchDialog, openTagDialog, resetPasswordFilters 
 } from 'redux/passwordManage/reducer';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
 import RemoveIcon from '@mui/icons-material/Remove';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
-import ClearIcon from '@mui/icons-material/Clear';
 import { RootState } from 'redux/rootReducer';
 import { useSelector } from 'react-redux';
+import CustomMenuItem from 'components/atoms/Menu/CustomMenuItem';
+import CustomMenu from 'components/atoms/Menu/CustomMenu';
 
 
 const PasswordFilters = () => {
@@ -83,13 +82,12 @@ const PasswordFilters = () => {
               transition: 'transform 0.3s' 
             }}/>
         </Fab>
-        <Menu
+        <CustomMenu
           onClose={handleCloseAdd}
           anchorEl={anchorElAdd}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
           open={openAdd}
-          PaperProps={{
+          arrowPositionRight={15}
+          paperProps={{
             elevation: 0,
             sx: {
               overflow: 'visible',
@@ -104,16 +102,16 @@ const PasswordFilters = () => {
             },
           }}
         >
-          <MenuItem onClick={() => openDialog('add')}>
+          <CustomMenuItem onClick={() => openDialog('add')}>
             {t("component.menu.createPassword")}
-          </MenuItem>
-          <MenuItem onClick={() => openDialog('group')}>
+          </CustomMenuItem>
+          <CustomMenuItem onClick={() => openDialog('group')}>
             {t("component.menu.createGroup")}
-          </MenuItem>
-          <MenuItem onClick={() => openDialog('tag')}>
+          </CustomMenuItem>
+          <CustomMenuItem onClick={() => openDialog('tag')}>
             {t("component.menu.createTag")}
-          </MenuItem>
-        </Menu>
+          </CustomMenuItem>
+        </CustomMenu>
         {/* minus button  */}
         <Fab className="bg-primary dark:bg-primary-dark" size='small' color='primary' aria-label='minus-button'
           onClick={handleClickDelete}
@@ -127,13 +125,12 @@ const PasswordFilters = () => {
             <RemoveIcon />
           )}
         </Fab>
-        <Menu
+        <CustomMenu
           onClose={handleCloseDelete}
           anchorEl={anchorElDelete}
           open={openDelete}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          PaperProps={{
+          arrowPositionRight={15}
+          paperProps={{
             elevation: 0,
             sx: {
               overflow: 'visible',
@@ -143,15 +140,14 @@ const PasswordFilters = () => {
                 width: 32,
                 height: 32,
                 ml: -0.5,
-                mr: 5,
+                mr: 10,
               },
             },
         }}>
-          
-          <MenuItem onClick={() => dispatch(openDeletePasswordDialog())}> {t("component.menu.deletePassword")} </MenuItem>
-          <MenuItem onClick={() => dispatch(openDeleteGroupDialog())}> {t("component.menu.deleteGroup")} </MenuItem>
-          <MenuItem onClick={() => dispatch(openDeleteTagDialog())}> {t("component.menu.deleteTag")} </MenuItem>
-        </Menu>
+          <CustomMenuItem onClick={() => dispatch(openDeletePasswordDialog())}> {t("component.menu.deletePassword")} </CustomMenuItem>
+          <CustomMenuItem onClick={() => dispatch(openDeleteGroupDialog())}> {t("component.menu.deleteGroup")} </CustomMenuItem>
+          <CustomMenuItem onClick={() => dispatch(openDeleteTagDialog())}> {t("component.menu.deleteTag")} </CustomMenuItem>
+        </CustomMenu>
         {/* search button  */}
         <Fab className="bg-primary dark:bg-primary-dark" size='small' color='primary' aria-label='search-button'
           onClick={() => dispatch(openSearchDialog())}

@@ -11,6 +11,7 @@ import List  from '@mui/material/List';
 import ListItemButton  from '@mui/material/ListItemButton';
 import ListItemText  from '@mui/material/ListItemText';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import { useEffect, useState } from "react";
 
 type SideNavigationProps = {
   open: boolean;
@@ -30,6 +31,16 @@ const SideNavigation2:React.FC<SideNavigationProps> = ({open, handleClose}) => {
   const router = useRouter();
   const navOpen = open;
   const sideBarPosition = useSelector((state: RootState) => state.common.sideBarPosition);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const changeTheme = useSelector((state: RootState) => state.common.changeTheme);
+
+  useEffect(() => {
+    const storedTheme = window.localStorage.getItem('theme');
+    const isSystemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialTheme = storedTheme && storedTheme !== 'system' ? storedTheme : (isSystemDarkMode ? 'dark' : 'light');
+    setIsDarkMode(initialTheme === 'dark')
+  }, [changeTheme]);
+  
   return(
     <Box>
       <Drawer
@@ -40,12 +51,16 @@ const SideNavigation2:React.FC<SideNavigationProps> = ({open, handleClose}) => {
         ModalProps={{ keepMounted: true,}}
         sx={{
           '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          '& .MuiPaper-root': {
+            backgroundColor: isDarkMode ? '#1A2229': '#fff',
+          }
         }}
       > 
         {/* Back arrow icon  */}
-        <div className='flex items-center'>
+        <div className='flex items-center dark:bg-primary-dark'>
           <Fab onClick={handleClose} className='ml-auto shadow-none'>
-            <NavigateBeforeIcon 
+            <NavigateBeforeIcon
+              className="text-black dark:text-white"
               style={{ 
                 transform: `${sideBarPosition === 'left' ? (open ? 'rotate(0deg)' : 'rotate(180deg)') : (open ? 'rotate(180deg)' : 'rotate(0deg)')}`, 
                 transition: 'transform 0.3s' 
@@ -59,9 +74,15 @@ const SideNavigation2:React.FC<SideNavigationProps> = ({open, handleClose}) => {
             <Link key={item[0]} href={"/"+item[1]} passHref>
               <ListItemButton 
                 selected={router.asPath === ("/"+item[1])}
-                sx={{color: router.asPath === ("/"+item[1]) ? 'accent' : 'inherit'}}
+                sx={{
+                  color: router.asPath === ("/"+item[1]) ? 'accent' : 'inherit',
+                  '&.Mui-selected': {
+                    backgroundColor: isDarkMode ? '#2A2F39': '#4A8FD4',
+                    color: 'desiredTextColorWhenSelected',
+                  },
+                }}
               >
-                <ListItemText primary={t(`general.nav.${item[0]}`)}/>
+                <ListItemText className="text-black dark:text-white" primary={t(`general.nav.${item[0]}`)}/>
               </ListItemButton>
             </Link>
           ))}
