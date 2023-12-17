@@ -14,7 +14,7 @@ type PasswordResetConfirmParams = {
 
 const ResetPasswordPage = () => {
   return(
-    <div className='password-reset-section'>
+    <div className='password-reset-section min-h-screen dark:bg-back-rightDark'>
       <Box className={styles.main}>
         <Alerts2/>
         <Container component="main" maxWidth="xs">

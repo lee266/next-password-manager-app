@@ -1,8 +1,6 @@
 import { useCallback, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Logout from '@mui/icons-material/Logout';
 import Settings from '@mui/icons-material/Settings';
@@ -10,9 +8,23 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import { useDispatch } from 'react-redux';
 import { useRouter } from "next/router";
 import { clearUser } from 'redux/users/reducer';
+import { openProfileDialog, openSettingDialog } from 'redux/Common/reducer';
+import { useTranslation } from 'next-i18next';
+import { resetPasswordManager } from 'redux/passwordManage/reducer';
+import DialogContentText from '@mui/material/DialogContentText';
+import Button from '@mui/material/Button';
+import CustomDialogContent from "components/atoms/Dialog/CustomDialogContent";
+import CustomDialogActions from './Dialog/CustomDialogActions';
+import CustomMenuItem from './Menu/CustomMenuItem';
+import CustomMenu from './Menu/CustomMenu';
+import Dialog from '@mui/material/Dialog';
+import CustomDialogTitle from './CustomDialogTitle';
+
 
 export const CustomAvatar = () => {
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
   const avatarOpen = Boolean(anchorEl);
@@ -29,8 +41,9 @@ export const CustomAvatar = () => {
     }, []
   );
 
-  const handleLogin = async() => {
+  const handleLogout = async() => {
     dispatch(clearUser());
+    dispatch(resetPasswordManager())
     router.push("/login2");
   }
 
@@ -39,15 +52,17 @@ export const CustomAvatar = () => {
       <IconButton
         onClick={handleClick}
         sx={{ ml: 2 }}
+        aria-label="Avatar button"
       >
         <Avatar ></Avatar>
       </IconButton>
-      <Menu
+      <CustomMenu
         onClose={handleClose}
         onClick={handleClose}
         anchorEl={anchorEl}
         open={avatarOpen}
-        PaperProps={{
+        arrowPositionRight={25}
+        paperProps={{
           elevation: 0,
           sx: {
             overflow: 'visible',
@@ -74,25 +89,48 @@ export const CustomAvatar = () => {
           },
         }}
       >
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
+        <CustomMenuItem onClick={() => dispatch(openProfileDialog())}>
+          <ListItemIcon className='dark:text-white'>
             <AssignmentIndIcon/>
           </ListItemIcon>
-          Profile
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
+          {t('general.common.profile')}
+        </CustomMenuItem>
+        <CustomMenuItem onClick={() => dispatch(openSettingDialog())}>
+          <ListItemIcon className='dark:text-white'>
             <Settings/>
           </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem onClick={handleLogin}>
-          <ListItemIcon>
+          {t('general.common.setting')}
+        </CustomMenuItem>
+        <CustomMenuItem onClick={() => setOpenLogoutDialog(true)}>
+          <ListItemIcon className='dark:text-white'>
             <Logout/>
           </ListItemIcon>
-          Logout
-        </MenuItem>
-      </Menu>
+          {t('general.common.logout')}
+        </CustomMenuItem>
+      </CustomMenu>
+      <Dialog
+        open={openLogoutDialog} 
+        aria-labelledby="password-logout-dialog" 
+        onClose={() => setOpenLogoutDialog(false)}
+      >
+        <CustomDialogTitle 
+          title={t('component.dialog.title.confirmLogout')}
+          close={() => setOpenLogoutDialog(false)}
+        />
+        <CustomDialogContent>
+          <DialogContentText className='text-black dark:text-white'>
+            {t('component.dialog.explain.confirmLogoutMessage')}
+          </DialogContentText>
+        </CustomDialogContent>
+        <CustomDialogActions>
+          <Button className='dark:text-white' onClick={() => setOpenLogoutDialog(false)}>
+            {t('component.button.cancel')}
+          </Button>
+          <Button className='dark:text-white' onClick={handleLogout} color="primary" autoFocus>
+            {t('component.button.logout')}
+          </Button>
+        </CustomDialogActions>
+      </Dialog>
     </div>
   )
 }

@@ -3,10 +3,11 @@
  *  @type {import('next').NextConfig} 
 */
 
-const { i18n } = require('./next-i18next.config');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
+
+const { i18n } = require('./next-i18next.config');
 
 const nextConfig = {
   reactStrictMode: true,
@@ -15,6 +16,7 @@ const nextConfig = {
     require('./webpack.config')(config, options);
     return config;
   },
+  devtool: 'source-map',
   // hot reload 
   // webpackDevMiddleware: config => {
   //   config.watchOptions = {
@@ -27,4 +29,3 @@ const nextConfig = {
 };
 
 module.exports = withBundleAnalyzer(nextConfig);
-// module.exports = nextConfig;

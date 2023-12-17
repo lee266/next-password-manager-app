@@ -1,10 +1,8 @@
 import React, { useCallback } from "react";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { RootState } from "redux/rootReducer";
 import { closeSnackbar, removeAlert } from "redux/Feedback/reducer";
-import { Alert as AlertType } from "redux/Feedback/types";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Slide, { SlideProps } from "@mui/material/Slide";
@@ -25,22 +23,14 @@ const Alerts2 = () => {
   }, [dispatch]);
 
   const handleCloseSnackbar =  useCallback(async (message: string) => {
-    console.log("Active handleCloseSnackbar");
+    // console.log("Active handleCloseSnackbar");
     await dispatch(removeAlert(message));
-    console.log(alerts.length);
+    // console.log(alerts.length);
     
     if (alerts.length === 0) {
       dispatch(closeSnackbar());
     }
   }, [dispatch, alerts])
-  
-  // useEffect(() => {
-  //   alerts.forEach((alert: AlertType) => {
-  //     setTimeout(() => {
-  //       handleClose(alert.message);
-  //     }, 5000)
-  //   })
-  // }, [alerts, handleClose]);
 
   if (alerts.length === 0) {
     return null; // don't render anything if there are no alerts

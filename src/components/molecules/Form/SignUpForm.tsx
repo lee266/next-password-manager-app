@@ -1,24 +1,17 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useTranslation } from "next-i18next";
-import * as yup from 'yup';
-import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addAlert } from "redux/Feedback/reducer";
 import { Alert } from "redux/Feedback/types";
-// MUI 
-import Button from '@mui/material/Button';
-import CircularProgress from "@mui/material/CircularProgress";
-import TextField from '@mui/material/TextField';
 import { saveUser } from "api/users/crud";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { UserFormSchema, UserFrom } from "types/forms/UserForm";
+import { AxiosError } from "axios";
+import CustomTextField from "components/atoms/Input/CustomTextField";
+import CustomButton from "components/atoms/Button/CustomButton";
 
-type SignUpFormData = {
-  username: string;
-  email: string;
-  password: string;
-  re_password: string;
-}
 
 const SignUpForm = () => {
   const { t } = useTranslation();
@@ -26,36 +19,19 @@ const SignUpForm = () => {
   const router = useRouter();
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // Define yup Error Messages
-  const requiredError = t("general.yup.required");
-  const requiredEmail = t("general.yup.email");
-  const passwordMatchError = t("general.yup.passwordsMatch");
-  const minError = t("general.yup.minChars");
-  const schema = yup.object().shape({
-    username: yup.string()
-      .trim()
-      .required(requiredError),
-    email: yup.string()
-      .trim()
-      .email(requiredEmail)
-      .required(requiredError),
-    password: yup.string()
-      .required(requiredError)
-      .min(8, minError),
-    re_password: yup.string()
-      .oneOf([yup.ref('password')], passwordMatchError)
-      .required(requiredError),
-  });
+  const form = useForm<UserFrom>({
+    resolver: zodResolver(UserFormSchema),
+    defaultValues: {
+      username: '',
+      email: '',
+      password: '',
+      re_password: ''
+    }
+  })
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors } 
-  } = useForm<SignUpFormData>({
-    resolver: yupResolver(schema)
-  });
+  const { register, handleSubmit, formState: { errors } } = form;
 
-  const onSubmit: SubmitHandler<SignUpFormData> = async(data) => {
+  const onSubmit: SubmitHandler<UserFrom> = async(data) => {
     try {
       setIsSubmitting(true);
       await saveUser(data);
@@ -67,16 +43,16 @@ const SignUpForm = () => {
       dispatch(addAlert(alert))
       await router.push('/login2');
     } catch (error) {
-      if (error instanceof Error) {
-        setAlertMessage(error.message)
-      }else{
-        setAlertMessage("error")
+      const axiosError = error as AxiosError;
+      let errorMessage = "サインアップに失敗しました。既にアカウントが存在する可能性があります。";
+      if (axiosError.response && axiosError.response.status >= 400 && axiosError.response.status < 500) {
+        errorMessage = "サーバが起動中です。少々お待ちください。30s~1min";
       }
       const alert: Alert = {
-        message: alertMessage,
-        severity: "error",
+        message: errorMessage, 
+        severity: 'error',
       }
-      dispatch(addAlert(alert))
+      dispatch(addAlert(alert));
     }finally {
       setIsSubmitting(false);
     }
@@ -85,70 +61,41 @@ const SignUpForm = () => {
   return (
     <div className="sing-up-form">
       <form>
-        <TextField
+        <CustomTextField 
           id="username"
           label={t("general.auth.username")}
-          margin="normal"
-          fullWidth
-          autoComplete="username"
-          {...register('username')}
-          error={!!errors.username}
-          helperText={errors.username?.message}
+          error={errors.username}
+          register={register}
         />
-        <TextField
+        <CustomTextField 
           id="email"
           label={t("general.auth.email")}
-          margin="normal"
-          fullWidth
-          autoComplete="email"
-          autoFocus
-          {...register('email')}
-          error={!!errors.email}
-          helperText={errors.email?.message}
+          error={errors.email}
+          register={register}
         />
-        <TextField
+        <CustomTextField 
           id="password"
           label={t("general.auth.password")}
-          margin="normal"
-          fullWidth
           type="password"
-          autoComplete="current-password"
-          {...register('password')}
-          error={!!errors.password}
-          helperText={errors.password?.message}
+          error={errors.password}
+          register={register}
         />
-        <TextField
+        <CustomTextField 
           id="re_password"
           label={t("general.auth.confirmPassword")}
-          margin="normal"
-          fullWidth
           type="password"
-          autoComplete="confirmPassword"
-          {...register('re_password')}
-          error={!!errors.re_password}
-          helperText={errors.re_password?.message}
+          error={errors.re_password}
+          register={register}
         />
-        <Button
+        <CustomButton 
           type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+          fullWidth={true}
           onClick={handleSubmit(onSubmit)}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? 
-            <CircularProgress size={24} color="primary" /> : t("general.auth.signUp")
-          }
-        </Button>
+          isSubmitting={isSubmitting}
+          buttonText="signUp"
+        />
       </form>
     </div>
-    // <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-    //   <Grid container spacing={2}>
-    //     <Grid item xs={12}>
-    //       <TextField/>
-    //     </Grid>
-    //   </Grid>
-    // </Box>
   )
 }
 

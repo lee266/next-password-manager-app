@@ -1,5 +1,4 @@
 import { useTranslation } from "next-i18next";
-// MUI 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CustomLink from "components/atoms/CustomLink";
@@ -21,7 +20,7 @@ const ForgetPassword = () => {
         </Typography>
         <ForgetPasswordForm/>
         <CustomLink href="/login2">
-          back
+          {t('component.button.back')}
         </CustomLink>
       </Box>
     </div>

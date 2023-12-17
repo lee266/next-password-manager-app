@@ -1,4 +1,3 @@
-
 {
   "localLabel": "日本語",
   "general": {
@@ -17,15 +16,28 @@
     },
     "error": {
       "require": "必須です",
-      "email": "正しいメールアドレスを入力してください"
+      "email": "正しいメールアドレスを入力してください",
+      "token": "トークンの確認に失敗しました。再度ログインしてください。",
+      "moveItem": "移動に失敗しました。",
+      "addGroup": "グループが既に存在しているか、エラーが発生しました。",
+      "nonempty": "この項目は必須です。",
+      "passwordNotMatch": "パスワードが一致しません",
+      "min8": "8文字以上にしてください。",
+      "weakPassword": "パスワードが単純すぎます。難しく設定してください。"
     },
     "nav": {
       "password": "パスワード",
+      "index": "ホーム",
       "againPassword": "パスワード再入力",
-      "chat": "チャット"
+      "chat": "チャット",
+      "inquiry": "お問い合わせ"
     },
     "common": {
-      "password": "パスワード"
+      "password": "パスワード",
+      "calculator": "計算機",
+      "logout": "ログアウト",
+      "setting": "設定",
+      "profile": "プロフィール"
     },
     "yup": {
       "string": "この項目は文字を入れてください",
@@ -39,8 +51,82 @@
   },
   "component": {
     "button": {
+      "add": "追加",
+      "edit": "編集",
+      "delete": "削除",
+      "search": "検索",
       "login": "ログイン",
-      "resetPassword": "パスワード変更"
+      "logout": "ログアウト",
+      "signUp": "サインアップ",
+      "resetPassword": "パスワード変更",
+      "cancel": "キャンセル",
+      "update": "更新",
+      "no": "いいえ",
+      "yes": "はい",
+      "sent": "送信",
+      "save": "保存",
+      "back": "戻る"
+    },
+    "form": {
+      "title": "タイトル",
+      "password": "パスワード",
+      "email": "メールアドレス",
+      "website": "webサイトURL",
+      "tag": "タグ",
+      "group": "グループ",
+      "note": "メモ",
+      "inquiryCategory": "お問い合わせの種類",
+      "inquiryContent": "お問い合わせ内容",
+      "searchMethod": "検索方法"
+    },
+    "menu": {
+      "createPassword": "パスワード作成",
+      "createGroup": "グループ作成",
+      "createTag": "タグ作成",
+      "deletePassword": "パスワード削除",
+      "deleteGroup": "グループ削除",
+      "deleteTag": "タグ削除",
+      "complaint": "不満",
+      "instruction": "指示厨",
+      "error": "エラー",
+      "other": "その他"
+    },
+    "dialog": {
+      "title": {
+        "addPassword": "パスワード追加",
+        "deletePassword": "パスワード削除",
+        "addGroup": "グループ追加",
+        "deleteGroup": "グループ削除",
+        "addTag": "タグ追加",
+        "deleteTag": "タグ削除",
+        "passwordDetail": "パスワード詳細",
+        "search": "検索条件",
+        "setting": "設定",
+        "profile": "プロフィール",
+        "inquiry": "お問い合わせ",
+        "confirmLogout": "ログアウト確認"
+      },
+      "explain": {
+        "inquiry_category_explanation": "以下からお問い合わせのカテゴリを選択してください。",
+        "inquiry_content_explanation": "お問い合わせの詳細な内容を以下のフィールドに記入してください。",
+        "confirmLogoutMessage": "本当にログアウトしますか？"
+      }
+    },
+    "radio": {
+      "title": {
+        "navbar": "サイドナビゲーションバー",
+        "theme": "テーマ"
+      },
+      "label": {
+        "left": "左側",
+        "right": "右側",
+        "systemMode": "システム",
+        "darkMode": "ダークモード",
+        "lightMode": "ライトモード"
+      }
+    },
+    "link": {
+      "alreadySignUp": "既にサインアップしていますか？"
     }
   }
 }

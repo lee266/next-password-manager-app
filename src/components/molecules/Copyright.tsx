@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 
 export default function Copyright(props:any) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography className='text-white' variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="/">
         Password Manager

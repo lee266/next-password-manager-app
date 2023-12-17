@@ -1,50 +1,67 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { GetServerSideProps } from 'next';
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useDispatch } from 'react-redux';
+import { Alert } from 'redux/Feedback/types';
+import { addAlert } from 'redux/Feedback/reducer';
 import { verifyJwt } from 'api/auth/jwt';
 import { getToken } from 'utils/auth';
 import { MainLayout } from 'components/layouts/MainLayout2';
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import PasswordTable from 'components/molecules/Table/PasswordTable';
-import { GetServerSideProps } from 'next';
+import PasswordAddDialog from 'components/molecules/Dialog/PasswordAddDialog';
+import PasswordDetail from 'components/molecules/Dialog/PasswordDetail';
 import PasswordFilters from 'components/molecules/Filter/Table/PasswordFilters';
-import PasswordAddDialog from 'components/molecules/Filter/Table/PasswordAddDialog';
-import { getUser } from 'api/users/crud';
+import PasswordCard from 'components/molecules/Card/PasswordCards';
+import GroupAddDialog from 'components/molecules/Dialog/GroupAddDialog';
+import Alerts2 from "components/molecules/Feedback/Alerts2";
+import TagAddDialog from 'components/molecules/Dialog/TagAddDialog';
+import PasswordSearchDialog from 'components/molecules/Dialog/PasswordSearchDialog';
+import TagDeleteDialog from 'components/molecules/Dialog/TagDeleteDialog';
+import GroupDeleteDialog from 'components/molecules/Dialog/GroupDeleteDialog';
+import PasswordDeleteDialog from 'components/molecules/Dialog/PasswordDeleteDialog';
 
-interface PasswordManageProps {
-  children: React.ReactNode;
-  open: boolean;
-  id: string;
-}
-
-
-const PasswordManage = () => {
+const PasswordManagePage = () => {
+  const { t } = useTranslation();
   const router = useRouter();
-  // const [posts, setPosts] = useState([])
-  const [token, setToken] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = getToken();
-    if (token) {
+    const verifyAndRedirect = async () => {
+      const token = getToken();
+      if (!token) return false;
+      
       try {
-        verifyJwt(token);
-        setToken(token)
-        console.log("Your true");
+        await verifyJwt(token);
+        return true;
       } catch (error) {
+        return false;
+      }
+    };
+  
+    verifyAndRedirect().then(isValid => {
+      if (!isValid) {
+        const alert: Alert = {message: t('general.error.token'), severity: 'error',}
+        dispatch(addAlert(alert));
         router.push("/login2");
       }
-    } else {
-      router.push("/login2");
-    }
+    });
   }, [router]);
   
   return(
     <div className='password-manage-section'>
       <MainLayout>
-        <PasswordAddDialog/>
-        <PasswordFilters/>
-        <PasswordTable
-          token={token}
-        />
+        <PasswordFilters />
+        <PasswordCard />
+        <PasswordDetail />
+        <Alerts2 />
+        <PasswordAddDialog />
+        <PasswordDeleteDialog />
+        <PasswordSearchDialog />
+        <GroupAddDialog />
+        <GroupDeleteDialog />
+        <TagAddDialog />
+        <TagDeleteDialog />
       </MainLayout>
     </div>
   )
@@ -53,10 +70,8 @@ const PasswordManage = () => {
 export const getServerSideProps: GetServerSideProps = async ({locale}) => {
   if (!locale) { locale = 'ja' }
   return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-    }
+    props: { ...(await serverSideTranslations(locale, ["common"])), }
   }
 }
 
-export default PasswordManage;
+export default PasswordManagePage;
