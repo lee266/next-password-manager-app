@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /**
- *  @type {import('next').NextConfig} 
+ *  @type {import('next').NextConfig}
 */
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -17,15 +17,6 @@ const nextConfig = {
     return config;
   },
   devtool: 'source-map',
-  // hot reload 
-  // webpackDevMiddleware: config => {
-  //   config.watchOptions = {
-  //     poll: 5000,
-  //     aggregateTimeout: 300,
-  //     ignored : ['node_modules']
-  //   }
-  //   return config
-  // }, 
 };
 
 module.exports = withBundleAnalyzer(nextConfig);
