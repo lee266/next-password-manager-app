@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "analyze": "ANALYZE=true next build"
+    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'",
+    "analyze": "ANALYZE=true next build",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@babel/core": "^7.20.12",
@@ -77,6 +79,8 @@
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
     "eslint-config-prettier": "^8.6.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.0",
     "prettier": "^2.8.4"
   }
 }
