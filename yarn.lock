@@ -1659,6 +1659,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vercel/speed-insights@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@vercel/speed-insights@npm:1.0.2"
+  checksum: 074213d71684d618eb1e755df192d4a8bffa4921d1ff3314796d4fb883aad73672d7ce68ae059426def308cf3a4cd176f870803e880e31eb4d633759eb6a6ed4
+  languageName: node
+  linkType: hard
+
 "abbrev@npm:^1.0.0":
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
@@ -1843,6 +1850,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.52.0
     "@typescript-eslint/parser": ^5.52.0
     "@vercel/analytics": ^1.1.1
+    "@vercel/speed-insights": ^1.0.2
     autoprefixer: ^10.4.14
     axios: ^1.2.3
     date-fns: ^2.29.3

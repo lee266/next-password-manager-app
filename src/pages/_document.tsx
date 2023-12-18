@@ -5,6 +5,7 @@ import theme from '../theme';
 import createEmotionCache from '../createEmotionCache';
 import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export default class MyDocument extends Document {
   render() {
@@ -27,6 +28,7 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
           <Analytics />
+          <SpeedInsights />
         </body>
       </Html>
     );
