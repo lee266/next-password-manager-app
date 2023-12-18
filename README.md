@@ -1,12 +1,16 @@
-# App README
+# Frontend of Password Manager
 
-デザインはmobile first
+## Overview
 
-## Do
+This is a Frontend
+Design is mobile first
 
-Please input under command in your terminal if you enter the docker
+## Getting Started
 
-- docker exec -it password_next sh
+## Git Clone
+
+if you want to use monorepo repository, first Please clone it and Check README.md (recommend)
+[next-password-manager-monorepo](https://github.com/Lee266/next-password-manager-monorepo)
 
 ## Test account
 
@@ -14,42 +18,17 @@ Please input under command in your terminal if you enter the docker
 - mail: test@test.com
 - password: test555test
 
-## Public Information
+## Commands
+
+Please input under command in your terminal if you enter the docker
+
+- docker exec -it password_next sh
 
 ## Environments
 
-- Frontend
-  - Next.js
-  - TypeScript
-  - Material UI
-  - Tailwind css
-  - Redux
-- Backend
-  - python
-  - django
-- Infra
-  - docker
-  - MySQL
-  - PostgreSQL
-  - Vercel
-  - Render
-- code
-  - git
-
-## hints
-
-Naming Conventions
-PascalCase: CurrentUserItem
-CamelCase: currentUserItem
-SnakeCase: current_user_item
-KebabCase: current-user-item
-
-- directory
--- first layer
-  - lowerCase
--- other layer
-  - PascalCase
-- component file
-PascalCase
-- other
-KebabCase
+- Next.js v^13
+- TypeScript v^4.9.5
+- Material UI
+- Tailwind css v^3.3.1
+- Redux v^4.2.1
+- Vercel
