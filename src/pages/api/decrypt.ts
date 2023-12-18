@@ -6,17 +6,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const data = req.body.data;
 
     // helper function to decrypt an array of data
-    const decryptArray = (arr: any[]) => arr.map((item: any) => {
-      if (item.password) {
-        try {
-          const decryptedPassword = decrypt(item.password);
-          return { ...item, password: decryptedPassword };
-        } catch (e) {
-          console.error(`Failed to decrypt password for item with id ${item.id}`);
+    const decryptArray = (arr: any[]) =>
+      arr.map((item: any) => {
+        if (item.password) {
+          try {
+            const decryptedPassword = decrypt(item.password);
+            return { ...item, password: decryptedPassword };
+          } catch (e) {
+            console.error(`Failed to decrypt password for item with id ${item.id}`);
+          }
         }
-      }
-      return item;
-    });
+        return item;
+      });
 
     // Create a new object, mapping each key of the original data to the decrypted version of its array
     const decryptedData = Object.keys(data).reduce((acc: any, key: string) => {

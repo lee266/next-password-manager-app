@@ -9,28 +9,23 @@ type CustomCheckBoxProps = {
   marginLeft?: number | string;
 };
 
-const CustomCheckBox: React.FC<CustomCheckBoxProps> = ({ 
-  checked, 
-  onChange, 
-  label, 
-  indeterminate = false, 
-  marginLeft = 0
+const CustomCheckBox: React.FC<CustomCheckBoxProps> = ({
+  checked,
+  onChange,
+  label,
+  indeterminate = false,
+  marginLeft = 0,
 }) => {
-  return(
+  return (
     <FormControlLabel
-      className='dark:text-white'
+      className="dark:text-white"
       sx={{ marginLeft, mb: -1 }}
       control={
-        <Checkbox
-          className='dark:text-white'
-          checked={checked}
-          onChange={onChange}
-          indeterminate={indeterminate}
-        />
+        <Checkbox className="dark:text-white" checked={checked} onChange={onChange} indeterminate={indeterminate} />
       }
       label={label}
     />
   );
-}
+};
 
 export default CustomCheckBox;

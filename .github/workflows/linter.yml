@@ -1,0 +1,61 @@
+name: lint-check
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  eslint:
+    name: runner / eslint
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js and Yarn
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install Corepack
+      run: npm install -g corepack
+
+    - name: Active Corepack
+      run: corepack enable
+
+    - name: Install Dependencies
+      run: yarn install
+
+    - name: Run ESLint
+      run: yarn lint
+
+    - name: Reviewdog
+      uses: reviewdog/action-eslint@v1
+      with:
+        reporter: github-check
+        eslint_flags: "src/"
+
+    - name: Slack Notification on Failure
+      id: slack
+      uses: slackapi/slack-github-action@v1.24.0
+      if: ${{ failure() }}
+      with:
+        payload: |
+          {
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "デプロイ失敗しました😢\n result: ${{ job.status }}\n lint-check Action: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                }
+              }
+            ]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

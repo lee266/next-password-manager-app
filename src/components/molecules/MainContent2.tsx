@@ -4,16 +4,14 @@ import styles from '../../styles/Home.module.scss';
 
 const drawerWidth = 240;
 
-interface MainContentProps{
+interface MainContentProps {
   open: boolean;
   children: React.ReactNode;
 }
 
-
-const Main = styled('main', { 
-  shouldForwardProp: (prop) => prop !== 'open'
-})<{open?: boolean}>(({ theme, open }) => ({
-
+const Main = styled('main', {
+  shouldForwardProp: (prop) => prop !== 'open',
+})<{ open?: boolean }>(({ theme, open }) => ({
   transition: theme.transitions.create('margin', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -26,18 +24,16 @@ const Main = styled('main', {
     }),
     marginLeft: 0,
   }),
-
 }));
 
-
-export function MainContent(props:MainContentProps) {
-  const theme = useTheme()
-  return(
+export function MainContent(props: MainContentProps) {
+  const theme = useTheme();
+  return (
     <>
       <Main className={styles.content} open={props.open}>
         <div style={theme.mixins.toolbar}></div>
         {props.children}
       </Main>
     </>
-  )
+  );
 }

@@ -1,9 +1,9 @@
 type StaticNumberButtonProps = {
   children: React.ReactNode;
-}
+};
 
-const StaticNumberButton = ({children}: StaticNumberButtonProps) => {
-  return(
+const StaticNumberButton = ({ children }: StaticNumberButtonProps) => {
+  return (
     <button
       aria-label="Static button"
       disabled
@@ -17,7 +17,7 @@ const StaticNumberButton = ({children}: StaticNumberButtonProps) => {
     >
       {children}
     </button>
-  )
-}
+  );
+};
 
 export default StaticNumberButton;

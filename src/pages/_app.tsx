@@ -29,9 +29,10 @@ const MyApp = (props: MyAppProps) => {
           <Head>
             <title>Password manager</title>
             <meta name="viewport" content="initial-scale=1, width=device-width" />
-            <meta name="description" content="password管理アプリケーション"/>
-            <link rel="icon" href="/favicon.ico"/> {/* 32*32 */}
-            <link rel="apple-touch-icon" href="/"/> {/* 180*180  This is displaying icon when it is registered home view as shortcut */}
+            <meta name="description" content="password管理アプリケーション" />
+            <link rel="icon" href="/favicon.ico" /> {/* 32*32 */}
+            <link rel="apple-touch-icon" href="/" />{' '}
+            {/* 180*180  This is displaying icon when it is registered home view as shortcut */}
           </Head>
           <ThemeProvider theme={theme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
@@ -42,6 +43,6 @@ const MyApp = (props: MyAppProps) => {
       </Provider>
     </NextThemeProvider>
   );
-}
+};
 
 export default appWithTranslation(MyApp);

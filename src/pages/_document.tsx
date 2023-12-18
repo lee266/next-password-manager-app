@@ -4,6 +4,8 @@ import createEmotionServer from '@emotion/server/create-instance';
 import theme from '../theme';
 import createEmotionCache from '../createEmotionCache';
 import Script from 'next/script';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export default class MyDocument extends Document {
   render() {
@@ -22,9 +24,11 @@ export default class MyDocument extends Document {
           {(this.props as any).emotionStyleTags}
           <Script src="/js/tailwindDarkMode.js" strategy="afterInteractive" />
         </Head>
-        <body className='dark:bg-back-rightDark'>
+        <body className="dark:bg-back-rightDark">
           <Main />
           <NextScript />
+          <Analytics />
+          <SpeedInsights />
         </body>
       </Html>
     );
@@ -66,8 +70,7 @@ MyDocument.getInitialProps = async (ctx) => {
   ctx.renderPage = () =>
     originalRenderPage({
       // eslint-disable-next-line react/display-name
-      enhanceApp: (App: any) => props =>
-        <App emotionCache={cache} {...props} />,
+      enhanceApp: (App: any) => (props) => <App emotionCache={cache} {...props} />,
     });
 
   const initialProps = await Document.getInitialProps(ctx);
@@ -86,7 +89,6 @@ MyDocument.getInitialProps = async (ctx) => {
   return {
     ...initialProps,
     emotionStyleTags,
-    locale: ctx?.locale || "en",
+    locale: ctx?.locale || 'en',
   };
 };
-

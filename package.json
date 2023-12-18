@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "analyze": "ANALYZE=true next build"
+    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'",
+    "analyze": "ANALYZE=true next build",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@babel/core": "^7.20.12",
@@ -39,6 +41,8 @@
     "@types/react-redux": "^7.1.25",
     "@types/redux": "^3.6.0",
     "@types/redux-saga": "^0.10.5",
+    "@vercel/analytics": "^1.1.1",
+    "@vercel/speed-insights": "^1.0.2",
     "autoprefixer": "^10.4.14",
     "axios": "^1.2.3",
     "date-fns": "^2.29.3",
@@ -47,7 +51,7 @@
     "i18next": "^22.4.9",
     "isomorphic-unfetch": "^4.0.2",
     "js-cookie": "^3.0.1",
-    "next": "13.1.0",
+    "next": "^14.0.4",
     "next-i18next": "^13.2.1",
     "next-themes": "^0.2.1",
     "node-fetch": "^3.3.0",
@@ -68,15 +72,17 @@
     "universal-cookie": "^4.0.4",
     "zod": "^3.21.4"
   },
-  "main": "index.js",
-  "repository": "https://github.com/Lee266/next-password-manager-app.git",
-  "author": "Lee <lee20010905@gmail.com>",
-  "license": "MIT",
-  "packageManager": "yarn@3.4.1",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
     "eslint-config-prettier": "^8.6.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.0",
     "prettier": "^2.8.4"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/Lee266/next-password-manager-app.git",
+  "author": "Lee <lee20010905@gmail.com>",
+  "license": "MIT",
+  "packageManager": "yarn@3.4.1"
 }

@@ -10,19 +10,19 @@ type CustomDialogProps = {
 };
 
 const CustomDialog: React.FC<CustomDialogProps> = ({ children, params }) => {
-  return(
+  return (
     <Dialog
-      className='dark:bg-primary-dark'
-      fullScreen 
-      open={params.open} 
+      className="dark:bg-primary-dark"
+      fullScreen
+      open={params.open}
       aria-labelledby={params.ariaLabelledBy}
-      scroll='paper'
-      color='primary'
+      scroll="paper"
+      color="primary"
       onClose={params.close}
     >
       {children}
     </Dialog>
-  )
-}
+  );
+};
 
 export default CustomDialog;

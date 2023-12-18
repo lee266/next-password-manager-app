@@ -1,10 +1,9 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import  counterReducer  from "./counter/reducer";
-import userReducer from "./users/reducer";
-import alertReducer from "./Feedback/reducer";
-import passwordManageReducer from "./passwordManage/reducer";
-import commonReducer from "./Common/reducer";
-
+import { combineReducers } from '@reduxjs/toolkit';
+import counterReducer from './counter/reducer';
+import userReducer from './users/reducer';
+import alertReducer from './Feedback/reducer';
+import passwordManageReducer from './passwordManage/reducer';
+import commonReducer from './Common/reducer';
 
 export const rootReducer = combineReducers({
   counter: counterReducer,

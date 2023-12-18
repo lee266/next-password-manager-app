@@ -6,7 +6,6 @@ import { Header } from '../organisms/Header/Header';
 import { SideNavigation } from '../organisms/Navbar/SideNavigation';
 import { MainContent } from '../molecules/MainContent2';
 
-
 type LayoutProps = {
   children: React.ReactNode;
   title: string;
@@ -28,10 +27,8 @@ export default function MainLayout(props: LayoutProps) {
         <CssBaseline />
         <Header title={props.title} open={open} handleDrawerOpen={handleDrawerOpen}></Header>
         <SideNavigation open={open} handleDrawerClose={handleDrawerClose}></SideNavigation>
-        <MainContent  open={open}>
-          { props.children }
-        </MainContent>
+        <MainContent open={open}>{props.children}</MainContent>
       </Box>
     </>
-  )
+  );
 }

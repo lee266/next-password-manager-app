@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { GetServerSideProps } from 'next';
-import { useRouter } from "next/router";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useDispatch } from 'react-redux';
 import { Alert } from 'redux/Feedback/types';
 import { addAlert } from 'redux/Feedback/reducer';
@@ -14,7 +14,7 @@ import PasswordDetail from 'components/molecules/Dialog/PasswordDetail';
 import PasswordFilters from 'components/molecules/Filter/Table/PasswordFilters';
 import PasswordCard from 'components/molecules/Card/PasswordCards';
 import GroupAddDialog from 'components/molecules/Dialog/GroupAddDialog';
-import Alerts2 from "components/molecules/Feedback/Alerts2";
+import Alerts2 from 'components/molecules/Feedback/Alerts2';
 import TagAddDialog from 'components/molecules/Dialog/TagAddDialog';
 import PasswordSearchDialog from 'components/molecules/Dialog/PasswordSearchDialog';
 import TagDeleteDialog from 'components/molecules/Dialog/TagDeleteDialog';
@@ -30,7 +30,7 @@ const PasswordManagePage = () => {
     const verifyAndRedirect = async () => {
       const token = getToken();
       if (!token) return false;
-      
+
       try {
         await verifyJwt(token);
         return true;
@@ -38,18 +38,18 @@ const PasswordManagePage = () => {
         return false;
       }
     };
-  
-    verifyAndRedirect().then(isValid => {
+
+    verifyAndRedirect().then((isValid) => {
       if (!isValid) {
-        const alert: Alert = {message: t('general.error.token'), severity: 'error',}
+        const alert: Alert = { message: t('general.error.token'), severity: 'error' };
         dispatch(addAlert(alert));
-        router.push("/login2");
+        router.push('/login2');
       }
     });
   }, [router]);
-  
-  return(
-    <div className='password-manage-section'>
+
+  return (
+    <div className="password-manage-section">
       <MainLayout>
         <PasswordFilters />
         <PasswordCard />
@@ -64,14 +64,16 @@ const PasswordManagePage = () => {
         <TagDeleteDialog />
       </MainLayout>
     </div>
-  )
-}
+  );
+};
 
-export const getServerSideProps: GetServerSideProps = async ({locale}) => {
-  if (!locale) { locale = 'ja' }
-  return {
-    props: { ...(await serverSideTranslations(locale, ["common"])), }
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  if (!locale) {
+    locale = 'ja';
   }
-}
+  return {
+    props: { ...(await serverSideTranslations(locale, ['common'])) },
+  };
+};
 
 export default PasswordManagePage;

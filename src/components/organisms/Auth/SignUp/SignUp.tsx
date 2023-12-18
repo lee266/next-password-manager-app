@@ -11,7 +11,7 @@ const SignUp = () => {
   const { t } = useTranslation();
 
   return (
-    <div className='sign_up'>
+    <div className="sign_up">
       <Box
         sx={{
           marginTop: 8,
@@ -24,16 +24,14 @@ const SignUp = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {t("general.auth.signUp")}
+          {t('general.auth.signUp')}
         </Typography>
-        <SignUpForm/>
-        <CustomLink href="/login2">
-          {t("component.link.alreadySignUp")}
-        </CustomLink>
+        <SignUpForm />
+        <CustomLink href="/login2">{t('component.link.alreadySignUp')}</CustomLink>
       </Box>
       <Copyright sx={{ mt: 3 }} />
     </div>
-  )
-}
+  );
+};
 
 export default SignUp;

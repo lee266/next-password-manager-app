@@ -23,9 +23,8 @@ module.exports = {
           rightDark: '#1A2229',
           subDark: '#2B343F',
         },
-      }
+      },
     },
   },
   plugins: [],
-}
-
+};

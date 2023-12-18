@@ -1,19 +1,18 @@
-import { useState } from "react";
-import { useTranslation } from "next-i18next";
+import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from "redux/rootReducer";
-import { closeDeleteGroupDialog, closeMinusButtonMenu, updateGroup } from "redux/passwordManage/reducer";
+import { RootState } from 'redux/rootReducer';
+import { closeDeleteGroupDialog, closeMinusButtonMenu, updateGroup } from 'redux/passwordManage/reducer';
 import { getToken } from 'utils/auth';
 import Button from '@mui/material/Button';
-import { Alert } from "redux/Feedback/types";
-import { addAlert } from "redux/Feedback/reducer";
-import { deleteGroup } from "api/password/group";
-import CustomDialog from "components/atoms/CustomDialog";
-import CustomDialogTitle from "components/atoms/CustomDialogTitle";
-import CustomDialogContent from "components/atoms/Dialog/CustomDialogContent";
-import CustomDialogActions from "components/atoms/Dialog/CustomDialogActions";
-import CustomCheckBox from "components/atoms/Input/CustomCheckBox";
-
+import { Alert } from 'redux/Feedback/types';
+import { addAlert } from 'redux/Feedback/reducer';
+import { deleteGroup } from 'api/password/group';
+import CustomDialog from 'components/atoms/CustomDialog';
+import CustomDialogTitle from 'components/atoms/CustomDialogTitle';
+import CustomDialogContent from 'components/atoms/Dialog/CustomDialogContent';
+import CustomDialogActions from 'components/atoms/Dialog/CustomDialogActions';
+import CustomCheckBox from 'components/atoms/Input/CustomCheckBox';
 
 const GroupDeleteDialog = () => {
   const { t } = useTranslation();
@@ -23,64 +22,65 @@ const GroupDeleteDialog = () => {
   const groups = useSelector((state: RootState) => state.passwordManage.groups);
   const [selectedGroups, setSelectedGroups] = useState<number[]>([]);
 
-  const handleClose = () => { 
+  const handleClose = () => {
     dispatch(closeDeleteGroupDialog());
     dispatch(closeMinusButtonMenu());
-  }
+  };
 
-  const handleDelete = async() => {
+  const handleDelete = async () => {
     try {
       for (let index = 0; index < selectedGroups.length; index++) {
         await deleteGroup(selectedGroups[index], token);
       }
-      dispatch( updateGroup(true) );
+      dispatch(updateGroup(true));
       setSelectedGroups([]);
     } catch (error) {
-      const alert: Alert = {message: "削除に失敗しました。管理者にお問い合わせください。", severity: 'error',}
+      const alert: Alert = { message: '削除に失敗しました。管理者にお問い合わせください。', severity: 'error' };
       dispatch(addAlert(alert));
     }
-  }
+  };
 
   const handleGroupSelect = (event: React.ChangeEvent<HTMLInputElement>, groupId: number) => {
     if (event.target.checked) {
       setSelectedGroups([...selectedGroups, groupId]);
     } else {
-      setSelectedGroups(selectedGroups.filter(id => id !== groupId));
+      setSelectedGroups(selectedGroups.filter((id) => id !== groupId));
     }
   };
 
-  return(
+  return (
     <div>
-      <CustomDialog params={{
-        open: open, 
-        ariaLabelledBy: "group-delete-dialog", 
-        close: () => handleClose()
-      }}>
-        <CustomDialogTitle
-          title={t("component.dialog.title.deleteGroup")}
-          close={() => handleClose()}
-        />
+      <CustomDialog
+        params={{
+          open: open,
+          ariaLabelledBy: 'group-delete-dialog',
+          close: () => handleClose(),
+        }}
+      >
+        <CustomDialogTitle title={t('component.dialog.title.deleteGroup')} close={() => handleClose()} />
         <CustomDialogContent>
           <form id="group-delete-form">
             {groups.map((group, index) => {
-              return(
+              return (
                 <div className="flex" key={index}>
-                  <CustomCheckBox 
+                  <CustomCheckBox
                     label={group.group_name}
-                    checked={selectedGroups.includes(group.id)} 
-                    onChange={(event) => handleGroupSelect(event, group.id)} 
+                    checked={selectedGroups.includes(group.id)}
+                    onChange={(event) => handleGroupSelect(event, group.id)}
                   />
                 </div>
-              )
+              );
             })}
           </form>
         </CustomDialogContent>
         <CustomDialogActions>
-          <Button color="primary" onClick={handleDelete}>{t("component.button.delete")}</Button>
+          <Button color="primary" onClick={handleDelete}>
+            {t('component.button.delete')}
+          </Button>
         </CustomDialogActions>
       </CustomDialog>
     </div>
-  )
-}
+  );
+};
 
 export default GroupDeleteDialog;

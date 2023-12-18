@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 
 const drawerWidth = 240;
 
@@ -26,13 +26,10 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   }),
 }));
 
-
-export function MainContent(props:MainContentProps) {
-  return(
+export function MainContent(props: MainContentProps) {
+  return (
     <>
-      <Main open={props.open}>
-        { props.children}
-      </Main>
+      <Main open={props.open}>{props.children}</Main>
     </>
-  )
+  );
 }

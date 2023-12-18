@@ -7,7 +7,7 @@ export function getToken(req?: any): string {
   if (req) {
     const parsedCookies = cookie.parse(req.headers.cookie || '');
     // console.log(parsedCookies);
-    
+
     return parsedCookies[TOKEN_KEY] || '';
   }
 
@@ -20,7 +20,7 @@ export function saveToken(token: string): void {
     expires: 7,
     path: '/',
     secure: true,
-    sameSite: 'strict' 
+    sameSite: 'strict',
   });
 }
 
@@ -29,13 +29,13 @@ export function removeToken(): void {
   Cookies.remove(TOKEN_KEY);
 }
 
-export function saveCookie(value:string): void {
+export function saveCookie(value: string): void {
   // console.log("Active saveCookie utils/auth.ts");
   Cookies.set('user', value, {
     expires: 7,
     path: '/',
     secure: true,
-    sameSite: 'strict' 
+    sameSite: 'strict',
   });
 }
 
@@ -43,6 +43,6 @@ export function logoutCookies(): void {
   // console.log("Active logoutCookies utils/auth.ts");
   const cookieNames = ['user', TOKEN_KEY];
   for (let index = 0; index < cookieNames.length; index++) {
-    Cookies.remove(cookieNames[index])
-  }  
+    Cookies.remove(cookieNames[index]);
+  }
 }

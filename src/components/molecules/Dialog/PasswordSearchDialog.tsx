@@ -13,14 +13,13 @@ import Radio from '@mui/material/Radio';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import CustomDialogTitle from "components/atoms/CustomDialogTitle";
-import CustomDialogContent from "components/atoms/Dialog/CustomDialogContent";
+import CustomDialogTitle from 'components/atoms/CustomDialogTitle';
+import CustomDialogContent from 'components/atoms/Dialog/CustomDialogContent';
 import CustomDialogActions from 'components/atoms/Dialog/CustomDialogActions';
 import CustomTypography from 'components/atoms/Text/CustomTypography';
 import ControlTextField from 'components/atoms/Input/ControlTextField';
 import CustomDialog from 'components/atoms/CustomDialog';
 import CustomCheckBox from 'components/atoms/Input/CustomCheckBox';
-
 
 const PasswordSearchDialog = () => {
   const { t } = useTranslation();
@@ -40,14 +39,15 @@ const PasswordSearchDialog = () => {
     setSelectedTags([]);
     setTitle('');
     setMethod('and');
-  }, [groups, tags, passwordUpdate, passwordFiltersUpdate])
+  }, [groups, tags, passwordUpdate, passwordFiltersUpdate]);
 
-  const handleClose = () => { dispatch(closeSearchDialog()) }
+  const handleClose = () => {
+    dispatch(closeSearchDialog());
+  };
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
-
 
   const handleMethodChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMethod(event.target.value);
@@ -66,7 +66,7 @@ const PasswordSearchDialog = () => {
         setSelectedTags([...selectedTags, tagId]);
       }
     } else {
-      setSelectedTags(selectedTags.filter(id => id !== tagId));
+      setSelectedTags(selectedTags.filter((id) => id !== tagId));
     }
   };
 
@@ -78,31 +78,30 @@ const PasswordSearchDialog = () => {
         setSelectedGroups([...selectedGroups, groupId]);
       }
     } else {
-      setSelectedGroups(selectedGroups.filter(id => id !== groupId));
+      setSelectedGroups(selectedGroups.filter((id) => id !== groupId));
     }
   };
 
-  const handleSearch = async() => {
+  const handleSearch = async () => {
     try {
-      const data = {groups: selectedGroups, tags: selectedTags, title: title, method: method}
+      const data = { groups: selectedGroups, tags: selectedTags, title: title, method: method };
       dispatch(addPasswordFilters(data));
-      handleClose()
+      handleClose();
     } catch (error) {
-      const alert: Alert = {message: t('error.search'), severity: 'error',}
+      const alert: Alert = { message: t('error.search'), severity: 'error' };
       dispatch(addAlert(alert));
     }
-  }
+  };
 
-  return(
-    <CustomDialog params={{
-      open: open, 
-      ariaLabelledBy: "password-search-dialog", 
-      close: () => handleClose()
-    }}>
-      <CustomDialogTitle
-        title={t("component.dialog.title.search")}
-        close={() => handleClose()}
-        />
+  return (
+    <CustomDialog
+      params={{
+        open: open,
+        ariaLabelledBy: 'password-search-dialog',
+        close: () => handleClose(),
+      }}
+    >
+      <CustomDialogTitle title={t('component.dialog.title.search')} close={() => handleClose()} />
       <CustomDialogContent>
         <Container maxWidth="md">
           <Grid container spacing={3}>
@@ -111,16 +110,26 @@ const PasswordSearchDialog = () => {
                 <CustomTypography variant="h6">{t('component.form.searchMethod')}</CustomTypography>
                 <FormGroup row>
                   <FormControlLabel
-                    className='dark:text-white'
+                    className="dark:text-white"
                     control={
-                      <Radio className='dark:text-white' checked={method === 'and'} onChange={handleMethodChange} value="and" />
+                      <Radio
+                        className="dark:text-white"
+                        checked={method === 'and'}
+                        onChange={handleMethodChange}
+                        value="and"
+                      />
                     }
                     label="and"
                   />
                   <FormControlLabel
-                    className='dark:text-white'
+                    className="dark:text-white"
                     control={
-                      <Radio className='dark:text-white' checked={method === 'or'} onChange={handleMethodChange} value="or" />
+                      <Radio
+                        className="dark:text-white"
+                        checked={method === 'or'}
+                        onChange={handleMethodChange}
+                        value="or"
+                      />
                     }
                     label="or"
                   />
@@ -128,32 +137,41 @@ const PasswordSearchDialog = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-            <ControlTextField id="standard-basic" label={t('component.form.title')} value={title} onChange={handleTitleChange} />
+              <ControlTextField
+                id="standard-basic"
+                label={t('component.form.title')}
+                value={title}
+                onChange={handleTitleChange}
+              />
             </Grid>
             <Grid item xs={12}>
-              <Box mb={1}><CustomTypography variant="h6">{t('component.form.group')}</CustomTypography></Box>
+              <Box mb={1}>
+                <CustomTypography variant="h6">{t('component.form.group')}</CustomTypography>
+              </Box>
               {groups.map((group, index) => (
-                <CustomCheckBox 
+                <CustomCheckBox
                   key={index}
                   label={group.group_name}
-                  checked={selectedGroups.includes(group.id)} 
+                  checked={selectedGroups.includes(group.id)}
                   onChange={(event) => handleGroupSelect(event, group.id)}
                 />
               ))}
               <CustomCheckBox
                 key={groups.length}
                 label={'other'}
-                checked={selectedGroups.includes(-1)} 
+                checked={selectedGroups.includes(-1)}
                 onChange={(event) => handleGroupSelect(event, -1)}
               />
             </Grid>
             <Grid item xs={12}>
-              <Box mb={1}><CustomTypography variant="h6">{t('component.form.tag')}</CustomTypography></Box>
+              <Box mb={1}>
+                <CustomTypography variant="h6">{t('component.form.tag')}</CustomTypography>
+              </Box>
               {tags.map((tag, index) => (
-                <CustomCheckBox 
+                <CustomCheckBox
                   key={index}
                   label={tag.tag_name}
-                  checked={selectedTags.includes(tag.id)} 
+                  checked={selectedTags.includes(tag.id)}
                   onChange={(event) => handleTagSelect(event, tag.id)}
                 />
               ))}
@@ -163,11 +181,11 @@ const PasswordSearchDialog = () => {
       </CustomDialogContent>
       <CustomDialogActions>
         <Button color="primary" onClick={handleSearch}>
-          {t("component.button.search")}
+          {t('component.button.search')}
         </Button>
       </CustomDialogActions>
     </CustomDialog>
   );
-}
+};
 
 export default PasswordSearchDialog;

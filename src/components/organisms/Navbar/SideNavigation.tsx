@@ -20,11 +20,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export function SideNavigation(props:SideNavigationProps) {
+export function SideNavigation(props: SideNavigationProps) {
   const drawerWidth = 240;
   const theme = useTheme();
 
-  return(
+  return (
     <>
       <Drawer
         sx={{
@@ -37,7 +37,8 @@ export function SideNavigation(props:SideNavigationProps) {
         }}
         variant="persistent"
         anchor="left"
-        open={props.open}>
+        open={props.open}
+      >
         <DrawerHeader>
           <IconButton onClick={props.handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
@@ -46,5 +47,5 @@ export function SideNavigation(props:SideNavigationProps) {
         <SideMenu></SideMenu>
       </Drawer>
     </>
-  )
+  );
 }

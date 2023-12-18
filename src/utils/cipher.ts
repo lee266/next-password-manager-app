@@ -7,7 +7,7 @@ const ALGORITHM = 'aes-256-cbc';
 const OUTPUT_ENCODING = 'hex';
 const INPUT_ENCODING = 'utf8';
 
-export function encrypt(text:string) {
+export function encrypt(text: string) {
   // IV should be random and unique for each encryption
   const iv = crypto.randomBytes(16);
   const cipher = crypto.createCipheriv(ALGORITHM, ENCRYPTION_KEY, iv);
@@ -16,12 +16,14 @@ export function encrypt(text:string) {
   return iv.toString(OUTPUT_ENCODING) + ':' + encrypted;
 }
 
-export function decrypt(text:string) {
+export function decrypt(text: string) {
   const parts = text.split(':');
   const ivHex = parts.shift();
-  
-  if (!ivHex) { throw new Error('Invalid encrypted text. No IV found.'); }
-  
+
+  if (!ivHex) {
+    throw new Error('Invalid encrypted text. No IV found.');
+  }
+
   const iv = Buffer.from(ivHex, OUTPUT_ENCODING);
   const encryptedText = parts.join(':');
   const decipher = crypto.createDecipheriv(ALGORITHM, ENCRYPTION_KEY, iv);

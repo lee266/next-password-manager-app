@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction} from "@reduxjs/toolkit";
-import { Alert } from "./types";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Alert } from './types';
 
 interface AlertState {
   alerts: Alert[];
@@ -9,7 +9,7 @@ interface AlertState {
 const initialState: AlertState = {
   alerts: [],
   open: false,
-}
+};
 
 const alertSlice = createSlice({
   name: 'alert',
@@ -24,7 +24,7 @@ const alertSlice = createSlice({
     },
     removeAlert: (state, action: PayloadAction<string>) => {
       // console.log("Active removeAlert function");
-      const index = state.alerts.findIndex(alert => alert.message === action.payload);
+      const index = state.alerts.findIndex((alert) => alert.message === action.payload);
       if (index !== -1) {
         state.alerts.splice(index, 1);
       }
@@ -33,8 +33,8 @@ const alertSlice = createSlice({
       // console.log("Active closeSnackbar function");
       state.open = false;
     },
-  }
-})
+  },
+});
 
 export const { addAlert, removeAlert, closeSnackbar } = alertSlice.actions;
 export default alertSlice.reducer;

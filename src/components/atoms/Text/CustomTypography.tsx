@@ -9,7 +9,7 @@ type CustomTypographyProps = TypographyProps & {
   marginTop?: number; // 追加
 };
 
-const CustomTypography: React.FC<CustomTypographyProps> = ({ children, marginTop=4, ...props }) => {
+const CustomTypography: React.FC<CustomTypographyProps> = ({ children, marginTop = 4, ...props }) => {
   const marginTopClass = marginTop ? `mt-${marginTop}` : '';
 
   return (
@@ -17,6 +17,6 @@ const CustomTypography: React.FC<CustomTypographyProps> = ({ children, marginTop
       {children}
     </Typography>
   );
-}
+};
 
 export default CustomTypography;
