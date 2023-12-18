@@ -72,11 +72,6 @@
     "universal-cookie": "^4.0.4",
     "zod": "^3.21.4"
   },
-  "main": "index.js",
-  "repository": "https://github.com/Lee266/next-password-manager-app.git",
-  "author": "Lee <lee20010905@gmail.com>",
-  "license": "MIT",
-  "packageManager": "yarn@3.4.1",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
@@ -84,5 +79,10 @@
     "husky": "^8.0.0",
     "lint-staged": "^15.2.0",
     "prettier": "^2.8.4"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/Lee266/next-password-manager-app.git",
+  "author": "Lee <lee20010905@gmail.com>",
+  "license": "MIT",
+  "packageManager": "yarn@3.4.1"
 }
