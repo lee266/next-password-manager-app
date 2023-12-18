@@ -5,13 +5,13 @@ type SymbolButtonType = {
   value: SymbolValue;
   ariaLabel?: string;
   ButtonClick: (value: SymbolValue) => void;
-}
+};
 
-const SymbolButton = (props:SymbolButtonType) => {
-  return(
+const SymbolButton = (props: SymbolButtonType) => {
+  return (
     <button
       aria-label={props.ariaLabel}
-      onClick={() => props.ButtonClick(props.value)} 
+      onClick={() => props.ButtonClick(props.value)}
       className="
       text-black dark:text-white
         col-span-1
@@ -20,10 +20,10 @@ const SymbolButton = (props:SymbolButtonType) => {
         rounded-lg p-2 text-xl font-bold
         dark:bg-gray-600 dark:hover:bg-gray-800
       "
-      >
+    >
       {props.children}
     </button>
-  )
-}
+  );
+};
 
 export default SymbolButton;

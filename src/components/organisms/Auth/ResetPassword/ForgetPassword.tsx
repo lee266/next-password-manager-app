@@ -1,12 +1,12 @@
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'next-i18next';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import CustomLink from "components/atoms/CustomLink";
-import ForgetPasswordForm from "components/molecules/Form/ForgetPasswordForm";
+import CustomLink from 'components/atoms/CustomLink';
+import ForgetPasswordForm from 'components/molecules/Form/ForgetPasswordForm';
 
 const ForgetPassword = () => {
   const { t } = useTranslation();
-  return(
+  return (
     <div>
       <Box
         sx={{
@@ -14,17 +14,16 @@ const ForgetPassword = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-      }}>
+        }}
+      >
         <Typography component="h1" variant="h5">
-          {t("general.auth.resetPassword")}
+          {t('general.auth.resetPassword')}
         </Typography>
-        <ForgetPasswordForm/>
-        <CustomLink href="/login2">
-          {t('component.button.back')}
-        </CustomLink>
+        <ForgetPasswordForm />
+        <CustomLink href="/login2">{t('component.button.back')}</CustomLink>
       </Box>
     </div>
-  )
-}
+  );
+};
 
 export default ForgetPassword;

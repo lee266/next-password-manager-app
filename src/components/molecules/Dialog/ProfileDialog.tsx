@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "next-i18next";
-import { useDispatch } from "react-redux";
-import { closeProfileDialog } from "redux/Common/reducer";
-import { useSelector } from "react-redux";
-import { RootState } from "redux/rootReducer";
-import CustomDialog from "components/atoms/CustomDialog";
-import CustomDialogTitle from "components/atoms/CustomDialogTitle";
-import { getUser } from "api/users/crud";
-import { getToken } from "utils/auth";
-import { User } from "types/models/User";
-import CustomDialogContent from "components/atoms/Dialog/CustomDialogContent";
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'next-i18next';
+import { useDispatch } from 'react-redux';
+import { closeProfileDialog } from 'redux/Common/reducer';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/rootReducer';
+import CustomDialog from 'components/atoms/CustomDialog';
+import CustomDialogTitle from 'components/atoms/CustomDialogTitle';
+import { getUser } from 'api/users/crud';
+import { getToken } from 'utils/auth';
+import { User } from 'types/models/User';
+import CustomDialogContent from 'components/atoms/Dialog/CustomDialogContent';
 
 const ProfileDialog = () => {
   const { t } = useTranslation();
@@ -22,25 +22,24 @@ const ProfileDialog = () => {
     const fetchData = async () => {
       try {
         const user = await getUser(token);
-        setUser(user)
+        setUser(user);
       } catch (err) {
         console.error(err);
       }
-    }
-    fetchData();    
-  }, [])
+    };
+    fetchData();
+  }, []);
 
-  return(
+  return (
     <div className="profile-dialog">
-      <CustomDialog params={{
-        open: open, 
-        ariaLabelledBy: "profile-dialog", 
-        close: () => dispatch(closeProfileDialog())
-      }}>
-        <CustomDialogTitle
-          title={t('component.dialog.title.profile')}
-          close={() => dispatch(closeProfileDialog())}
-        />
+      <CustomDialog
+        params={{
+          open: open,
+          ariaLabelledBy: 'profile-dialog',
+          close: () => dispatch(closeProfileDialog()),
+        }}
+      >
+        <CustomDialogTitle title={t('component.dialog.title.profile')} close={() => dispatch(closeProfileDialog())} />
         <CustomDialogContent>
           <div>
             <p className="text-black dark:text-white">Username</p>
@@ -53,7 +52,7 @@ const ProfileDialog = () => {
         </CustomDialogContent>
       </CustomDialog>
     </div>
-  )
-}
+  );
+};
 
 export default ProfileDialog;

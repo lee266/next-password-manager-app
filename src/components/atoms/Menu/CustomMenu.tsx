@@ -1,8 +1,8 @@
 import Menu from '@mui/material/Menu';
 import { PaperProps as MuiPaperProps } from '@mui/material/Paper';
 import { useEffect, useState } from 'react';
-import { useSelector } from "react-redux";
-import { RootState } from "redux/rootReducer";
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/rootReducer';
 
 type CustomMenuProps = {
   anchorEl: null | HTMLElement;
@@ -13,17 +13,26 @@ type CustomMenuProps = {
   paperProps?: MuiPaperProps;
   arrowPositionRight?: number;
   showArrow?: boolean;
-}
+};
 
-const CustomMenu: React.FC<CustomMenuProps> = ({ anchorEl, open, onClose, onClick, children, paperProps, arrowPositionRight = 30, showArrow = true }) => {
+const CustomMenu: React.FC<CustomMenuProps> = ({
+  anchorEl,
+  open,
+  onClose,
+  onClick,
+  children,
+  paperProps,
+  arrowPositionRight = 30,
+  showArrow = true,
+}) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const changeTheme = useSelector((state: RootState) => state.common.changeTheme);
 
   useEffect(() => {
     const storedTheme = window.localStorage.getItem('theme');
     const isSystemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initialTheme = storedTheme && storedTheme !== 'system' ? storedTheme : (isSystemDarkMode ? 'dark' : 'light');
-    setIsDarkMode(initialTheme === 'dark')
+    const initialTheme = storedTheme && storedTheme !== 'system' ? storedTheme : isSystemDarkMode ? 'dark' : 'light';
+    setIsDarkMode(initialTheme === 'dark');
   }, [changeTheme]);
 
   return (
@@ -47,18 +56,20 @@ const CustomMenu: React.FC<CustomMenuProps> = ({ anchorEl, open, onClose, onClic
             ml: -0.5,
             mr: 5,
           },
-          '&:before': showArrow ? {
-            content: '""',
-            display: 'block',
-            position: 'absolute',
-            top: 0,
-            right: arrowPositionRight,
-            width: 10,
-            height: 10,
-            bgcolor: isDarkMode ? '#1A2229' : '#fff',
-            transform: 'translateY(-50%) rotate(45deg)',
-            zIndex: 0,
-          }: {},
+          '&:before': showArrow
+            ? {
+                content: '""',
+                display: 'block',
+                position: 'absolute',
+                top: 0,
+                right: arrowPositionRight,
+                width: 10,
+                height: 10,
+                bgcolor: isDarkMode ? '#1A2229' : '#fff',
+                transform: 'translateY(-50%) rotate(45deg)',
+                zIndex: 0,
+              }
+            : {},
         },
         '.MuiMenuItem-root': {
           backgroundColor: isDarkMode ? '#1A2229' : '#fff',
@@ -68,6 +79,6 @@ const CustomMenu: React.FC<CustomMenuProps> = ({ anchorEl, open, onClose, onClic
       {children}
     </Menu>
   );
-}
+};
 
 export default CustomMenu;

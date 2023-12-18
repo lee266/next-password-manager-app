@@ -35,16 +35,16 @@ const AppBar = styled(MuiAppBar, {
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-export function Header(props:AppBarProps) {
+export function Header(props: AppBarProps) {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
-  
+
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  
+
   return (
     <>
       <AppBar position="fixed" open={props.open}>
@@ -54,14 +54,15 @@ export function Header(props:AppBarProps) {
             aria-label="open drawer"
             onClick={props.handleDrawerOpen}
             edge="start"
-            sx={{ mr: 2, ...(props.open && { display: 'none' }) }}>
+            sx={{ mr: 2, ...(props.open && { display: 'none' }) }}
+          >
             <MenuIcon className="text-black dark:text-white" />
           </IconButton>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             {props.title}
           </Typography>
           <Typography sx={{ mr: 2 }}>
-            <LanguageSwitcher/>
+            <LanguageSwitcher />
           </Typography>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

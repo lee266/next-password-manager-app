@@ -1,11 +1,11 @@
 type TextInputPropsType = {
-  id: string,
-  label: string,
-  showEmailErrorMessage: boolean,
-}
+  id: string;
+  label: string;
+  showEmailErrorMessage: boolean;
+};
 
-const TextInput = (props:TextInputPropsType) => {
-  return(
+const TextInput = (props: TextInputPropsType) => {
+  return (
     <div className="relative">
       <input
         type="text"
@@ -17,7 +17,7 @@ const TextInput = (props:TextInputPropsType) => {
           ${showEmailErrorMessage ? peer-focus:text-primary : peer-focus:text-red-500}
           dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
         id={props.id}
-        placeholder="Example label" 
+        placeholder="Example label"
       />
       <label
         htmlFor={props.id}
@@ -37,7 +37,7 @@ const TextInput = (props:TextInputPropsType) => {
         Text helper
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default TextInput;

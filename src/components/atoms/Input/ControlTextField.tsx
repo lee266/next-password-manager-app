@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
-import { useSelector } from "react-redux";
-import { RootState } from "redux/rootReducer";
-
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/rootReducer';
 
 type ControlTextFieldType = {
   value: any;
@@ -16,16 +15,16 @@ const ControlTextField: React.FC<ControlTextFieldType> = ({ value, onChange, lab
   useEffect(() => {
     const storedTheme = window.localStorage.getItem('theme');
     const isSystemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initialTheme = storedTheme && storedTheme !== 'system' ? storedTheme : (isSystemDarkMode ? 'dark' : 'light');
-    setIsDarkMode(initialTheme === 'dark')
+    const initialTheme = storedTheme && storedTheme !== 'system' ? storedTheme : isSystemDarkMode ? 'dark' : 'light';
+    setIsDarkMode(initialTheme === 'dark');
   }, [changeTheme]);
 
-  return(
+  return (
     <TextField
-      variant="standard" 
-      value={value} 
-      onChange={onChange} 
-      fullWidth 
+      variant="standard"
+      value={value}
+      onChange={onChange}
+      fullWidth
       {...props}
       label={label}
       InputProps={{
@@ -50,7 +49,7 @@ const ControlTextField: React.FC<ControlTextFieldType> = ({ value, onChange, lab
         },
       }}
     />
-  )
-}
+  );
+};
 
 export default ControlTextField;

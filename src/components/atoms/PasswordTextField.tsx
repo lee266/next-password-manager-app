@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import Input from '@mui/material/Input';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -9,41 +9,37 @@ type PasswordTextFieldProps = {
   password: string;
 };
 
-const PasswordTextFiled = ({ password }: PasswordTextFieldProps)  => {
+const PasswordTextFiled = ({ password }: PasswordTextFieldProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [value, setValue] = useState<string>("]:^2:/");
+  const [value, setValue] = useState<string>(']:^2:/');
 
   function handleClickShowPassword() {
-    setShowPassword(!(showPassword));
-    if (value == "]:^2:/") {
+    setShowPassword(!showPassword);
+    if (value == ']:^2:/') {
       setValue(password);
     } else {
-      setValue("]:^2:/")
+      setValue(']:^2:/');
     }
-    
   }
 
-  return(
+  return (
     <>
       <Input
         id="showPasswordButton"
         readOnly
         value={value}
-        type={showPassword ? "text" : "password"}
+        type={showPassword ? 'text' : 'password'}
         disableUnderline
         endAdornment={
           <InputAdornment position="end">
-            <IconButton
-              edge="end"
-              onClick={handleClickShowPassword}
-            >
-              {showPassword ? <VisibilityOff/> : <Visibility/>}
+            <IconButton edge="end" onClick={handleClickShowPassword}>
+              {showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </InputAdornment>
         }
       />
     </>
-  )
-}
+  );
+};
 
 export default PasswordTextFiled;

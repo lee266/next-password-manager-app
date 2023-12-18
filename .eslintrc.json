@@ -4,11 +4,6 @@
     "es6": true,
     "node": true
   },
-  "extends": [
-    "next", 
-    "next/core-web-vitals", 
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ],
+  "extends": ["next", "next/core-web-vitals", "plugin:@typescript-eslint/recommended", "prettier"],
   "root": true
 }

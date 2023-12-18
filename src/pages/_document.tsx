@@ -22,7 +22,7 @@ export default class MyDocument extends Document {
           {(this.props as any).emotionStyleTags}
           <Script src="/js/tailwindDarkMode.js" strategy="afterInteractive" />
         </Head>
-        <body className='dark:bg-back-rightDark'>
+        <body className="dark:bg-back-rightDark">
           <Main />
           <NextScript />
         </body>
@@ -66,8 +66,7 @@ MyDocument.getInitialProps = async (ctx) => {
   ctx.renderPage = () =>
     originalRenderPage({
       // eslint-disable-next-line react/display-name
-      enhanceApp: (App: any) => props =>
-        <App emotionCache={cache} {...props} />,
+      enhanceApp: (App: any) => (props) => <App emotionCache={cache} {...props} />,
     });
 
   const initialProps = await Document.getInitialProps(ctx);
@@ -86,7 +85,6 @@ MyDocument.getInitialProps = async (ctx) => {
   return {
     ...initialProps,
     emotionStyleTags,
-    locale: ctx?.locale || "en",
+    locale: ctx?.locale || 'en',
   };
 };
-

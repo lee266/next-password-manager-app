@@ -17,10 +17,10 @@ const Calculator = () => {
   const [useDot, setUseDot] = useState<boolean>(false);
 
   // Arithmetic functions
-  const sum = (x:number, y:number) => x + y;
-  const subtraction = (x:number, y:number) => x - y;
-  const division = (x:number, y:number) => x / y;
-  const multiplication = (x:number, y:number) => x * y;
+  const sum = (x: number, y: number) => x + y;
+  const subtraction = (x: number, y: number) => x - y;
+  const division = (x: number, y: number) => x / y;
+  const multiplication = (x: number, y: number) => x * y;
 
   const performOperation = (operation: string, x: number, y: number) => {
     switch (operation) {
@@ -35,20 +35,19 @@ const Calculator = () => {
       default:
         throw new Error(`Unknown operation: ${operation}`);
     }
-  }
+  };
 
-
-  const handleNumberButtonClick = (value:string) => {
-    if (calculateInput =='0') {
-      setCalculateInput(value)
-    } else if(calculateInputSymbol) {
+  const handleNumberButtonClick = (value: string) => {
+    if (calculateInput == '0') {
+      setCalculateInput(value);
+    } else if (calculateInputSymbol) {
       setCalculateInputNumber(true);
       setCalculateInputSymbol(false);
       setCalculateInput((prevExpression) => prevExpression + ' ' + value);
-    }else{
+    } else {
       setCalculateInput((prevExpression) => prevExpression + value);
     }
-  }
+  };
 
   const handleSymbolButtonClick = (value: SymbolValue) => {
     if (calculateInputNumber) {
@@ -57,67 +56,64 @@ const Calculator = () => {
       setUseDot(false);
       setCalculateInput((prevExpression) => prevExpression + ' ' + value);
     } else if (calculateInputSymbol) {
-      setCalculateInput((prevExpression) => prevExpression.slice(0, -1) + value)
-    }else {
+      setCalculateInput((prevExpression) => prevExpression.slice(0, -1) + value);
+    } else {
       setCalculateInput((prevExpression) => prevExpression + ' ' + value);
     }
-  }
+  };
 
-  const handleDotButtonClick = (value:string) => {
+  const handleDotButtonClick = (value: string) => {
     if (calculateInputSymbol) {
-      setCalculateInput(calculateInput)
+      setCalculateInput(calculateInput);
     } else if (useDot) {
-      setCalculateInput(calculateInput)
-    }
-    else {
+      setCalculateInput(calculateInput);
+    } else {
       setCalculateInput(calculateInput + value);
       setUseDot(true);
     }
-  }
+  };
 
   const handleBackButtonClick = () => {
-    if (calculateInput.length == 1){
+    if (calculateInput.length == 1) {
       setCalculateInput('0');
       setCalculateInputNumber(true);
       setCalculateInputSymbol(false);
-    }else{
+    } else {
       if (['+', '/', '*', '-'].includes(calculateInput.slice(-3, -2))) {
         setCalculateInputNumber(false);
         setCalculateInputSymbol(true);
         setCalculateInput((prevExpression) => prevExpression.slice(0, -2));
-      }else if(calculateInputSymbol) {
+      } else if (calculateInputSymbol) {
         setCalculateInput((prevExpression) => prevExpression.slice(0, -2));
         setCalculateInputNumber(true);
         setCalculateInputSymbol(false);
-      }
-      else {
+      } else {
         setCalculateInputNumber(true);
         setCalculateInputSymbol(false);
-        setCalculateInput((prevExpression) => prevExpression.slice(0, -1))
+        setCalculateInput((prevExpression) => prevExpression.slice(0, -1));
       }
-      
     }
-  }
+  };
 
   const processOperators = (operators: string[], values: string[]) => {
     let index = 1;
     while (values.length > index) {
       let result = 0;
       if (operators.includes(values[index])) {
-        const x:number = parseFloat(values[index - 1]);
-        const y:number = parseFloat(values[index + 1]);
+        const x: number = parseFloat(values[index - 1]);
+        const y: number = parseFloat(values[index + 1]);
         result = performOperation(values[index], x, y);
         values[index + 1] = String(result);
-        values.splice(index-1, 2)
+        values.splice(index - 1, 2);
         index = 1;
       } else {
         index += 2;
       }
     }
     return values;
-  }
+  };
 
-  const handleEqualClick = (value:string)  => {
+  const handleEqualClick = (value: string) => {
     try {
       let values: string[];
       if (calculateInputSymbol) {
@@ -127,10 +123,10 @@ const Calculator = () => {
         values = calculateInput.split(' ');
         setCalculateResult(calculateInput + value);
       }
-  
+
       values = processOperators(['*', '/'], values);
       values = processOperators(['+', '-'], values);
-  
+
       setCalculateInput(values[0]);
       setCalculateInputNumber(true);
       setCalculateInputSymbol(false);
@@ -141,7 +137,7 @@ const Calculator = () => {
       setCalculateInputSymbol(false);
       setUseDot(false);
     }
-  }
+  };
 
   const handleClearClick = (value: ClearValue) => {
     if (value == 'input') {
@@ -152,12 +148,12 @@ const Calculator = () => {
     }
     setCalculateInputNumber(true);
     setCalculateInputSymbol(false);
-  }
+  };
 
-
-  return(
-    <div className='calculator min-w-[300px] max-w-[600px] dark:bg-back-rightDark'>
-      <div className="flex flex-col items-center
+  return (
+    <div className="calculator min-w-[300px] max-w-[600px] dark:bg-back-rightDark">
+      <div
+        className="flex flex-col items-center
         bg-gray-100 border border-gray-200 rounded-lg dark:bg-back-subDark"
       >
         <h2 className="text-black dark:text-white text-3xl font-bold">{t('general.common.calculator')}</h2>
@@ -170,78 +166,79 @@ const Calculator = () => {
             <StaticNumberButton>
               <br />
             </StaticNumberButton>
-            {calculateInput == '0'
-              ?
-                <button 
-                  onClick={() => handleClearClick('input')} 
-                  className="
+            {calculateInput == '0' ? (
+              <button
+                onClick={() => handleClearClick('input')}
+                className="
                   text-black dark:text-white
                     col-span-2 bg-red-400 hover:bg-red-500 
                     rounded-lg p-2 text-xl font-bold
                     min-w-[56px]
                   dark:bg-red-600 dark:hover:bg-red-800
-                  ">
-                  C
-                </button>
-              : 
-                <button 
-                  onClick={() => handleClearClick('result')} 
-                  className="
+                  "
+              >
+                C
+              </button>
+            ) : (
+              <button
+                onClick={() => handleClearClick('result')}
+                className="
                   text-black dark:text-white
                     col-span-2 bg-red-400 hover:bg-red-500 
                     rounded-lg p-2 text-xl font-bold
                     min-w-[56px]
                   dark:bg-red-600 dark:hover:bg-red-800
-                  ">
-                  CE
-                </button>
-            }
-            <NumberButton value='back' ButtonClick={handleBackButtonClick} ariaLabel="back">
-              <BackspaceIcon/>
+                  "
+              >
+                CE
+              </button>
+            )}
+            <NumberButton value="back" ButtonClick={handleBackButtonClick} ariaLabel="back">
+              <BackspaceIcon />
             </NumberButton>
-            <SymbolButton value='/' ButtonClick={handleSymbolButtonClick}>
+            <SymbolButton value="/" ButtonClick={handleSymbolButtonClick}>
               ÷
             </SymbolButton>
           </div>
-          <div className='w-full'>
-            <NumberButton value='7' ButtonClick={handleNumberButtonClick}>
+          <div className="w-full">
+            <NumberButton value="7" ButtonClick={handleNumberButtonClick}>
               7
             </NumberButton>
-            <NumberButton value='8' ButtonClick={handleNumberButtonClick}>
+            <NumberButton value="8" ButtonClick={handleNumberButtonClick}>
               8
             </NumberButton>
-            <NumberButton value='9' ButtonClick={handleNumberButtonClick}>
+            <NumberButton value="9" ButtonClick={handleNumberButtonClick}>
               9
             </NumberButton>
-            <SymbolButton value='*' ButtonClick={handleSymbolButtonClick}>
+            <SymbolButton value="*" ButtonClick={handleSymbolButtonClick}>
               x
             </SymbolButton>
           </div>
           <div>
-            <NumberButton value='4' ButtonClick={handleNumberButtonClick}>
+            <NumberButton value="4" ButtonClick={handleNumberButtonClick}>
               4
             </NumberButton>
-            <NumberButton value='5' ButtonClick={handleNumberButtonClick}>
+            <NumberButton value="5" ButtonClick={handleNumberButtonClick}>
               5
             </NumberButton>
-            <NumberButton value='6' ButtonClick={handleNumberButtonClick}>
+            <NumberButton value="6" ButtonClick={handleNumberButtonClick}>
               6
             </NumberButton>
-            <SymbolButton value='-' ButtonClick={handleSymbolButtonClick}>
+            <SymbolButton value="-" ButtonClick={handleSymbolButtonClick}>
               -
             </SymbolButton>
           </div>
           <div>
-            <NumberButton value='1' ButtonClick={handleNumberButtonClick}>
+            <NumberButton value="1" ButtonClick={handleNumberButtonClick}>
               1
             </NumberButton>
-            <NumberButton value='2' ButtonClick={handleNumberButtonClick}>
+            <NumberButton value="2" ButtonClick={handleNumberButtonClick}>
               2
             </NumberButton>
-            <NumberButton value='3' ButtonClick={handleNumberButtonClick}>
+            <NumberButton value="3" ButtonClick={handleNumberButtonClick}>
               3
             </NumberButton>
-            <SymbolButton value='+' ButtonClick={handleSymbolButtonClick}>
+            <SymbolButton value="+" ButtonClick={handleSymbolButtonClick}>
               +
             </SymbolButton>
           </div>
@@ -249,20 +246,20 @@ const Calculator = () => {
             <StaticNumberButton>
               <br />
             </StaticNumberButton>
-            <NumberButton value='0' ButtonClick={handleNumberButtonClick}>
+            <NumberButton value="0" ButtonClick={handleNumberButtonClick}>
               0
             </NumberButton>
-            <NumberButton value='.' ButtonClick={handleDotButtonClick}>
+            <NumberButton value="." ButtonClick={handleDotButtonClick}>
               .
             </NumberButton>
-            <NumberButton value='=' ButtonClick={handleEqualClick}>
+            <NumberButton value="=" ButtonClick={handleEqualClick}>
               =
             </NumberButton>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Calculator;

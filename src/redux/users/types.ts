@@ -1,4 +1,3 @@
-
 export interface User {
   id: number;
   username: string;
@@ -12,5 +11,5 @@ export interface UserRequest {
 export interface UsersState {
   user: User | null | undefined;
   error: string;
-  isLoading: boolean
+  isLoading: boolean;
 }

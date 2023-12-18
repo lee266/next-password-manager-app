@@ -8,11 +8,10 @@ import CustomLink from 'components/atoms/CustomLink';
 import LoginForm from 'components/molecules/Form/LoginForm';
 import Copyright from 'components/molecules/Copyright';
 
-
 const Login = () => {
   const { t } = useTranslation();
 
-  return(
+  return (
     <div>
       <Box
         sx={{
@@ -26,25 +25,23 @@ const Login = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {t("general.auth.login")}
+          {t('general.auth.login')}
         </Typography>
-        <LoginForm/>
+        <LoginForm />
         <Grid container>
           <Grid item xs>
-            <CustomLink href="/forget-password">
-              {t("general.auth.forgotPassword") + "?"}
-            </CustomLink>
+            <CustomLink href="/forget-password">{t('general.auth.forgotPassword') + '?'}</CustomLink>
           </Grid>
           <Grid item>
             <CustomLink href="/sign-up">
-              {t("general.auth.noAccount") + "?" + t("general.auth.pleaseSignUp")}
+              {t('general.auth.noAccount') + '?' + t('general.auth.pleaseSignUp')}
             </CustomLink>
           </Grid>
         </Grid>
-        <Copyright sx={{ mt: 3 }}/>
+        <Copyright sx={{ mt: 3 }} />
       </Box>
     </div>
-  )
-}
+  );
+};
 
 export default Login;

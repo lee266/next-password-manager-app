@@ -1,17 +1,16 @@
 import { verifyJwt } from 'api/auth/jwt';
 import { MainLayout } from 'components/layouts/MainLayout2';
 import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect } from 'react';
 import { getToken } from 'utils/auth';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import { GetStaticProps } from 'next';
 import Calculator from 'components/molecules/Calculator';
 import { Alert } from 'redux/Feedback/types';
 import { useDispatch } from 'react-redux';
 import { addAlert } from 'redux/Feedback/reducer';
 import Alerts2 from 'components/molecules/Feedback/Alerts2';
-
 
 const HomePage = () => {
   const router = useRouter();
@@ -22,7 +21,7 @@ const HomePage = () => {
     const verifyAndRedirect = async () => {
       const token = getToken();
       if (!token) return false;
-      
+
       try {
         await verifyJwt(token);
         return true;
@@ -30,12 +29,12 @@ const HomePage = () => {
         return false;
       }
     };
-  
-    verifyAndRedirect().then(isValid => {
+
+    verifyAndRedirect().then((isValid) => {
       if (!isValid) {
-        const alert: Alert = {message: t('general.error.token'), severity: 'error',}
+        const alert: Alert = { message: t('general.error.token'), severity: 'error' };
         dispatch(addAlert(alert));
-        router.push("/login2");
+        router.push('/login2');
       }
     });
   }, [router]);
@@ -43,23 +42,25 @@ const HomePage = () => {
   return (
     <>
       <MainLayout>
-        <Alerts2/>
-        <div className='flex flex-col items-center min-h-screen'>
-          <h1 className='text-6xl text-blue-700'>Hello world</h1>
-          <Calculator/>
+        <Alerts2 />
+        <div className="flex flex-col items-center min-h-screen">
+          <h1 className="text-6xl text-blue-700">Hello world</h1>
+          <Calculator />
         </div>
       </MainLayout>
     </>
   );
-}
+};
 
-export const getStaticProps: GetStaticProps = async ({locale}) => {
-  if (!locale) { locale = 'ja' }
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  if (!locale) {
+    locale = 'ja';
+  }
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-    }
-  }
-}
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
+};
 
 export default HomePage;
