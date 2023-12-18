@@ -4,6 +4,7 @@ import createEmotionServer from '@emotion/server/create-instance';
 import theme from '../theme';
 import createEmotionCache from '../createEmotionCache';
 import Script from 'next/script';
+import { Analytics } from '@vercel/analytics/react';
 
 export default class MyDocument extends Document {
   render() {
@@ -25,6 +26,7 @@ export default class MyDocument extends Document {
         <body className="dark:bg-back-rightDark">
           <Main />
           <NextScript />
+          <Analytics />
         </body>
       </Html>
     );
