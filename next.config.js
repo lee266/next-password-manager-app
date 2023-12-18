@@ -16,7 +16,7 @@ const nextConfig = {
     require('./webpack.config')(config, options);
     return config;
   },
-  devtool: 'source-map',
+  productionBrowserSourceMaps: true,
 };
 
 module.exports = withBundleAnalyzer(nextConfig);
