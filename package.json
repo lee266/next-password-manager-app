@@ -83,6 +83,5 @@
   "main": "index.js",
   "repository": "https://github.com/Lee266/next-password-manager-app.git",
   "author": "Lee <lee20010905@gmail.com>",
-  "license": "MIT",
-  "packageManager": "yarn@3.4.1"
+  "license": "MIT"
 }
