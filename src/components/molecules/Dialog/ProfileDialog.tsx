@@ -45,10 +45,6 @@ const ProfileDialog = () => {
             <p className="text-black dark:text-white">Username</p>
             <span className="text-black dark:text-white">{user?.username}</span>
           </div>
-          <div>
-            <p className="text-black dark:text-white">Email</p>
-            <span className="text-black dark:text-white">{user?.email}</span>
-          </div>
         </CustomDialogContent>
       </CustomDialog>
     </div>
